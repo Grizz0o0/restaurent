@@ -1,8 +1,7 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
 import { PermissionRepo } from './permission.repo'
 import { CreatePermissionBodyType, UpdatePermissionBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError } from 'src/shared/helpers'
-import { getPagination } from 'src/shared/helper/pagination.helper'
+import { isUniqueConstraintPrismaError, getPagination } from '@/shared/utils'
 
 @Injectable()
 export class PermissionService {

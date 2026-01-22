@@ -1,6 +1,6 @@
 import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
 import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from 'src/shared/guards/authentication.guard'
+import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
 import { PermissionService } from './permission.service'
 import {
   GetPermissionsQuerySchema,
@@ -14,9 +14,7 @@ import {
   CreatePermissionBodyType,
   UpdatePermissionBodyType,
 } from '@repo/schema'
-import { Context } from 'src/trpc/context'
-import { AccessTokenPayload } from 'src/shared/types/jwt.type'
-import { REQUEST_USER_KEY } from '@repo/constants'
+import { Context } from '@/trpc/context'
 import z from 'zod'
 
 @Router({ alias: 'permission' })
@@ -48,8 +46,7 @@ export class PermissionRouter {
     output: GetPermissionDetailResSchema,
   })
   async create(@Input() input: CreatePermissionBodyType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.permissionService.create({ data: input, createdById: user.userId })
+    return this.permissionService.create({ data: input, createdById: ctx.user!.userId })
   }
 
   @Mutation({
@@ -63,11 +60,10 @@ export class PermissionRouter {
     @Input() input: { params: GetPermissionParamsType; body: UpdatePermissionBodyType },
     @Ctx() ctx: Context,
   ) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
     return this.permissionService.update({
       id: input.params.permissionId,
       data: input.body,
-      updatedById: user.userId,
+      updatedById: ctx.user!.userId,
     })
   }
 
@@ -76,7 +72,6 @@ export class PermissionRouter {
     output: z.object({ message: z.string() }),
   })
   async delete(@Input() input: GetPermissionParamsType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.permissionService.delete({ id: input.permissionId, deletedById: user.userId })
+    return this.permissionService.delete({ id: input.permissionId, deletedById: ctx.user!.userId })
   }
 }

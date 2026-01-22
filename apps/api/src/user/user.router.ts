@@ -1,6 +1,9 @@
 import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
 import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from 'src/shared/guards/authentication.guard'
+import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
+import { RolesGuard } from '@/shared/guards/roles.guard'
+import { Roles } from '@/shared/decorators/roles.decorator'
+import { RoleName } from '@repo/constants'
 import { UserService } from './user.service'
 import {
   GetUsersQuerySchema,
@@ -14,13 +17,12 @@ import {
   CreateUserBodyType,
   UpdateUserBodyType,
 } from '@repo/schema'
-import { Context } from 'src/trpc/context'
-import { AccessTokenPayload } from 'src/shared/types/jwt.type'
-import { REQUEST_USER_KEY } from '@repo/constants'
+import { Context } from '@/trpc/context'
 import z from 'zod'
 
 @Router({ alias: 'user' })
-@UseGuards(AuthenticationGuard)
+@UseGuards(AuthenticationGuard, RolesGuard)
+@Roles(RoleName.Admin)
 export class UserRouter {
   constructor(private readonly userService: UserService) {}
 
@@ -50,8 +52,7 @@ export class UserRouter {
     output: UserDetailResSchema,
   })
   async create(@Input() input: CreateUserBodyType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.userService.create({ data: input, createdById: user.userId })
+    return this.userService.create({ data: input, createdById: ctx.user!.userId })
   }
 
   @Mutation({
@@ -65,11 +66,10 @@ export class UserRouter {
     @Input() input: { params: GetUserDetailParamsType; body: UpdateUserBodyType },
     @Ctx() ctx: Context,
   ) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
     return this.userService.update({
       id: input.params.userId,
       data: input.body,
-      updatedById: user.userId,
+      updatedById: ctx.user!.userId,
     })
   }
 
@@ -78,7 +78,6 @@ export class UserRouter {
     output: z.object({ message: z.string() }),
   })
   async delete(@Input() input: GetUserDetailParamsType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.userService.delete({ id: input.userId, deletedById: user.userId })
+    return this.userService.delete({ id: input.userId, deletedById: ctx.user!.userId })
   }
 }

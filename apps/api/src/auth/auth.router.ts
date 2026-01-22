@@ -1,9 +1,9 @@
 import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
 import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from 'src/shared/guards/authentication.guard'
-import { IsPublic } from 'src/shared/decorators/auth.decorator'
-import { AuthService } from 'src/auth/auth.service'
-import { GoogleService } from 'src/auth/google.service'
+import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
+import { IsPublic } from '@/shared/decorators/auth.decorator'
+import { AuthService } from './auth.service'
+import { GoogleService } from './google.service'
 import {
   RegisterBodySchema,
   LoginBodySchema,
@@ -30,10 +30,7 @@ import {
   ChangePasswordBodySchema,
   ChangePasswordBodyType,
 } from '@repo/schema'
-import { AccessTokenPayload } from 'src/shared/types/jwt.type'
-import { REQUEST_USER_KEY } from '@repo/constants'
-
-import { Context } from 'src/trpc/context'
+import { Context } from '@/trpc/context'
 
 @Router({ alias: 'auth' })
 @UseGuards(AuthenticationGuard)
@@ -113,25 +110,21 @@ export class AuthRouter {
 
   @Query({ output: GetSessionsResSchema })
   async getActiveSessions(@Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.authService.getActiveSessions(user.userId)
+    return this.authService.getActiveSessions(ctx.user!.userId)
   }
 
   @Mutation({ input: RevokeSessionBodySchema })
   async revokeSession(@Input() input: RevokeSessionBodyType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.authService.revokeSession(user.userId, input.id)
+    return this.authService.revokeSession(ctx.user!.userId, input.id)
   }
 
   @Mutation({ output: RevokeAllSessionsResSchema })
   async revokeAllSessions(@Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.authService.revokeAllSessions(user.userId)
+    return this.authService.revokeAllSessions(ctx.user!.userId)
   }
 
   @Mutation({ input: ChangePasswordBodySchema })
   async changePassword(@Input() input: ChangePasswordBodyType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.authService.changePassword(user.userId, input)
+    return this.authService.changePassword(ctx.user!.userId, input)
   }
 }

@@ -3,7 +3,7 @@ export const getPagination = ({
   page,
   limit,
 }: {
-  totalItems: any
+  totalItems: number
   page: number
   limit: number
 }) => {

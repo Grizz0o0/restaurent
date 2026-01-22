@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
 import { ProfileRepo } from './profile.repo'
 import { UpdateProfileBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError } from 'src/shared/helpers'
+import { isUniqueConstraintPrismaError } from '@/shared/utils'
 
 @Injectable()
 export class ProfileService {

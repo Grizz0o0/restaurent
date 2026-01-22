@@ -1,6 +1,6 @@
 import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
 import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from 'src/shared/guards/authentication.guard'
+import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
 import { RoleService } from './role.service'
 import {
   GetRolesQuerySchema,
@@ -14,9 +14,7 @@ import {
   CreateRoleBodyType,
   UpdateRoleBodyType,
 } from '@repo/schema'
-import { Context } from 'src/trpc/context'
-import { AccessTokenPayload } from 'src/shared/types/jwt.type'
-import { REQUEST_USER_KEY } from '@repo/constants'
+import { Context } from '@/trpc/context'
 import z from 'zod'
 
 @Router({ alias: 'role' })
@@ -48,8 +46,7 @@ export class RoleRouter {
     output: GetRoleDetailResSchema,
   })
   async create(@Input() input: CreateRoleBodyType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.roleService.create({ data: input, createdById: user.userId })
+    return this.roleService.create({ data: input, createdById: ctx.user!.userId })
   }
 
   @Mutation({
@@ -63,11 +60,10 @@ export class RoleRouter {
     @Input() input: { params: GetRoleDetailParamsType; body: UpdateRoleBodyType },
     @Ctx() ctx: Context,
   ) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
     return this.roleService.update({
       id: input.params.roleId,
       data: input.body,
-      updatedById: user.userId,
+      updatedById: ctx.user!.userId,
     })
   }
 
@@ -76,7 +72,6 @@ export class RoleRouter {
     output: z.object({ message: z.string() }),
   })
   async delete(@Input() input: GetRoleDetailParamsType, @Ctx() ctx: Context) {
-    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
-    return this.roleService.delete({ id: input.roleId, deletedById: user.userId })
+    return this.roleService.delete({ id: input.roleId, deletedById: ctx.user!.userId })
   }
 }

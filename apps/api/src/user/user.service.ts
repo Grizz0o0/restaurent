@@ -1,9 +1,8 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
 import { UserRepo } from './user.repo'
 import { CreateUserBodyType, UpdateUserBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError } from 'src/shared/helpers'
-import { getPagination } from 'src/shared/helper/pagination.helper'
-import { HashingService } from 'src/shared/services/hashing.service'
+import { isUniqueConstraintPrismaError, getPagination } from '@/shared/utils'
+import { HashingService } from '@/shared/services/hashing.service'
 
 @Injectable()
 export class UserService {

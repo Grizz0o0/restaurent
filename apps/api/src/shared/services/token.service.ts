@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { v4 as uuidv4 } from 'uuid'
-import envConfig from 'src/shared/config'
+import envConfig from '@/shared/config'
 import {
   AccessTokenPayload,
   AccessTokenPayloadCreate,
   RefreshTokenPayload,
   RefreshTokenPayloadCreate,
-} from 'src/shared/types/jwt.type'
+} from '@/shared/types/jwt.type'
 
 @Injectable()
 export class TokenService {

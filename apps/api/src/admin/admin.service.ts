@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { UserStatus } from '@repo/constants'
-import { AuthRepository } from 'src/auth/auth.repo'
-import { SharedUserRepository } from 'src/shared/repositories/shared-user.repo'
+import { AuthRepository } from '@/auth/auth.repo'
+import { SharedUserRepository } from '@/shared/repositories/shared-user.repo'
 
 @Injectable()
 export class AdminService {

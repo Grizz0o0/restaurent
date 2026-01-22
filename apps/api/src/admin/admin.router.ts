@@ -1,6 +1,6 @@
 import { Input, Mutation, Router } from 'nestjs-trpc'
 import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from 'src/shared/guards/authentication.guard'
+import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
 import { AdminService } from './admin.service'
 import {
   BanUserBodySchema,
@@ -11,8 +11,8 @@ import {
   ForceLogoutBodyType,
 } from '@repo/schema'
 import { RoleName } from '@repo/constants'
-import { RolesGuard } from 'src/shared/guards/roles.guard'
-import { Roles } from 'src/shared/decorators/roles.decorator'
+import { RolesGuard } from '@/shared/guards/roles.guard'
+import { Roles } from '@/shared/decorators/roles.decorator'
 
 @Router({ alias: 'admin' })
 @UseGuards(AuthenticationGuard, RolesGuard)

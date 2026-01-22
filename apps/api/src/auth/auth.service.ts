@@ -11,16 +11,16 @@ import {
   DisableTwoFactorAuthBodyType,
   ChangePasswordBodyType,
 } from '@repo/schema'
-import { generateOTP, isUniqueConstraintPrismaError } from 'src/shared/helpers'
+import { generateOTP, isUniqueConstraintPrismaError } from '@/shared/utils'
 import { TypeOfValidationCode, TypeOfValidationCodeType, UserStatus } from '@repo/constants'
-import { PrismaService } from 'src/shared/services/prisma.service'
-import { HashingService } from 'src/shared/services/hashing.service'
-import { TokenService } from 'src/shared/services/token.service'
-import { SharedRoleRepository } from 'src/shared/repositories/shared-role.repo'
-import { SharedUserRepository } from 'src/shared/repositories/shared-user.repo'
-import { EmailService } from 'src/shared/services/email.service'
-import { TwoFactorAuthService } from 'src/shared/services/2fa.service'
-import { AuthRepository } from 'src/auth/auth.repo'
+import { PrismaService } from '@/shared/services/prisma.service'
+import { HashingService } from '@/shared/services/hashing.service'
+import { TokenService } from '@/shared/services/token.service'
+import { SharedRoleRepository } from '@/shared/repositories/shared-role.repo'
+import { SharedUserRepository } from '@/shared/repositories/shared-user.repo'
+import { EmailService } from '@/shared/services/email.service'
+import { TwoFactorAuthService } from '@/shared/services/2fa.service'
+import { AuthRepository } from './auth.repo'
 import {
   EmailAlreadyExistsException,
   EmailNotFoundException,
@@ -38,9 +38,9 @@ import {
   UnauthorizedAccessException,
   AccountLockedException,
   OldPasswordIncorrectException,
-} from 'src/auth/auth.error'
-import envConfig from 'src/shared/config'
-import { AccessTokenPayloadCreate } from 'src/shared/types/jwt.type'
+} from './auth.error'
+import envConfig from '@/shared/config'
+import { AccessTokenPayloadCreate } from '@/shared/types/jwt.type'
 
 @Injectable()
 export class AuthService {

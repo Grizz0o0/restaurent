@@ -6,8 +6,7 @@ import {
 } from '@nestjs/common'
 import { RoleRepo } from './role.repo'
 import { CreateRoleBodyType, UpdateRoleBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError } from 'src/shared/helpers'
-import { getPagination } from 'src/shared/helper/pagination.helper'
+import { isUniqueConstraintPrismaError, getPagination } from '@/shared/utils'
 
 // Define constants locally if not available globally, or import from constants package
 // Assuming standard role names for protection
