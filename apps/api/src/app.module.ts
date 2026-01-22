@@ -11,6 +11,7 @@ import { RoleModule } from '@/role/role.module'
 import { AdminModule } from '@/admin/admin.module'
 import { UserModule } from '@/user/user.module'
 import { ProfileModule } from '@/profile/profile.module'
+import { SocketModule } from './socket/socket.module'
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ProfileModule } from '@/profile/profile.module'
     UserModule,
     ProfileModule,
     TrpcModule,
+    SocketModule,
     ThrottlerModule.forRoot([
       {
         ttl: 60000,

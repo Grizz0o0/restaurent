@@ -28,6 +28,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/components/theme-provider';
+import { SocketProvider } from '@/providers/socket-provider';
 
 export default function RootLayout({
     children,
@@ -46,11 +47,13 @@ export default function RootLayout({
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <TooltipProvider>
-                            {children}
-                            <Toaster />
-                            <Sonner />
-                        </TooltipProvider>
+                        <SocketProvider>
+                            <TooltipProvider>
+                                {children}
+                                <Toaster />
+                                <Sonner />
+                            </TooltipProvider>
+                        </SocketProvider>
                     </ThemeProvider>
                 </TRPCProvider>
             </body>
