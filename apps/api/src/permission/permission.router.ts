@@ -1,0 +1,82 @@
+import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
+import { UseGuards } from '@nestjs/common'
+import { AuthenticationGuard } from 'src/shared/guards/authentication.guard'
+import { PermissionService } from './permission.service'
+import {
+  GetPermissionsQuerySchema,
+  GetPermissionsResSchema,
+  GetPermissionParamsSchema,
+  GetPermissionDetailResSchema,
+  CreatePermissionBodySchema,
+  UpdatePermissionBodySchema,
+  GetPermissionsQueryType,
+  GetPermissionParamsType,
+  CreatePermissionBodyType,
+  UpdatePermissionBodyType,
+} from '@repo/schema'
+import { Context } from 'src/trpc/context'
+import { AccessTokenPayload } from 'src/shared/types/jwt.type'
+import { REQUEST_USER_KEY } from '@repo/constants'
+import z from 'zod'
+
+@Router({ alias: 'permission' })
+@UseGuards(AuthenticationGuard)
+export class PermissionRouter {
+  constructor(private readonly permissionService: PermissionService) {}
+
+  @Query({
+    input: GetPermissionsQuerySchema,
+    output: GetPermissionsResSchema,
+  })
+  async list(@Input() input: GetPermissionsQueryType) {
+    return this.permissionService.list({
+      limit: input.limit,
+      page: input.page,
+    })
+  }
+
+  @Query({
+    input: GetPermissionParamsSchema,
+    output: GetPermissionDetailResSchema,
+  })
+  async detail(@Input() input: GetPermissionParamsType) {
+    return this.permissionService.findById(input.permissionId)
+  }
+
+  @Mutation({
+    input: CreatePermissionBodySchema,
+    output: GetPermissionDetailResSchema,
+  })
+  async create(@Input() input: CreatePermissionBodyType, @Ctx() ctx: Context) {
+    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
+    return this.permissionService.create({ data: input, createdById: user.userId })
+  }
+
+  @Mutation({
+    input: z.object({
+      params: GetPermissionParamsSchema,
+      body: UpdatePermissionBodySchema,
+    }),
+    output: GetPermissionDetailResSchema,
+  })
+  async update(
+    @Input() input: { params: GetPermissionParamsType; body: UpdatePermissionBodyType },
+    @Ctx() ctx: Context,
+  ) {
+    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
+    return this.permissionService.update({
+      id: input.params.permissionId,
+      data: input.body,
+      updatedById: user.userId,
+    })
+  }
+
+  @Mutation({
+    input: GetPermissionParamsSchema,
+    output: z.object({ message: z.string() }),
+  })
+  async delete(@Input() input: GetPermissionParamsType, @Ctx() ctx: Context) {
+    const user = (ctx.req as any)[REQUEST_USER_KEY] as AccessTokenPayload
+    return this.permissionService.delete({ id: input.permissionId, deletedById: user.userId })
+  }
+}

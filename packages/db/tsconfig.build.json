@@ -1,0 +1,14 @@
+{
+    "extends": "../../packages/typescript-config/base.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist",
+        "declaration": true,
+        "emitDeclarationOnly": false,
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "noEmit": false,
+        "allowImportingTsExtensions": false
+    },
+    "include": ["src"]
+}

@@ -1,0 +1,32 @@
+
+> api@0.0.1 build D:\Workspace\nextjs+nestjs\restaurant-app\apps\api
+> nest build
+
+[96msrc/auth/auth.router.ts[0m:[93m112[0m:[93m51[0m - [91merror[0m[90m TS2339: [0mProperty 'user' does not exist on type '{ req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>; res: Response<any, Record<string, any>>; }'.
+
+[7m112[0m     return this.authService.getActiveSessions(ctx.user.id)
+[7m   [0m [91m                                                  ~~~~[0m
+[96msrc/auth/auth.router.ts[0m:[93m117[0m:[93m47[0m - [91merror[0m[90m TS2339: [0mProperty 'user' does not exist on type '{ req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>; res: Response<any, Record<string, any>>; }'.
+
+[7m117[0m     return this.authService.revokeSession(ctx.user.id, input.id)
+[7m   [0m [91m                                              ~~~~[0m
+[96msrc/auth/auth.router.ts[0m:[93m122[0m:[93m51[0m - [91merror[0m[90m TS2339: [0mProperty 'user' does not exist on type '{ req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>; res: Response<any, Record<string, any>>; }'.
+
+[7m122[0m     return this.authService.revokeAllSessions(ctx.user.id)
+[7m   [0m [91m                                                  ~~~~[0m
+[96msrc/auth/auth.service.ts[0m:[93m370[0m:[93m48[0m - [91merror[0m[90m TS2339: [0mProperty 'findSessionsByUserId' does not exist on type 'AuthRepository'.
+
+[7m370[0m     const sessions = await this.authRepository.findSessionsByUserId(userId)
+[7m   [0m [91m                                               ~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/auth/auth.service.ts[0m:[93m371[0m:[93m26[0m - [91merror[0m[90m TS7006: [0mParameter 'session' implicitly has an 'any' type.
+
+[7m371[0m     return sessions.map((session) => ({
+[7m   [0m [91m                         ~~~~~~~[0m
+[96msrc/auth/auth.service.ts[0m:[93m392[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'id' does not exist in type 'RefreshTokenWhereInput'.
+
+[7m392[0m         id: sessionId,
+[7m   [0m [91m        ~~[0m
+
+Found 6 error(s).
+
+ ELIFECYCLE  Command failed with exit code 1.
