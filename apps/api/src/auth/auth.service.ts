@@ -40,7 +40,7 @@ import {
   OldPasswordIncorrectException,
 } from './auth.error'
 import envConfig from '@/shared/config'
-import { AccessTokenPayloadCreate } from '@/shared/types/jwt.type'
+import { AccessTokenPayloadCreate } from '@/shared/types/jwt.payload'
 
 @Injectable()
 export class AuthService {

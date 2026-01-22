@@ -10,7 +10,7 @@ import { Request } from 'express'
 import { REQUEST_USER_KEY } from '@repo/constants'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
-import { AccessTokenPayload } from '@/shared/types/jwt.type'
+import { AccessTokenPayload } from '@/shared/types/jwt.payload'
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {

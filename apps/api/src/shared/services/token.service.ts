@@ -7,7 +7,7 @@ import {
   AccessTokenPayloadCreate,
   RefreshTokenPayload,
   RefreshTokenPayloadCreate,
-} from '@/shared/types/jwt.type'
+} from '@/shared/types/jwt.payload'
 
 @Injectable()
 export class TokenService {
