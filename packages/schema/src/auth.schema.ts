@@ -23,6 +23,12 @@ export const UserSchema = z.object({
 });
 export type UserType = z.infer<typeof UserSchema>;
 
+export const GuestLoginBodySchema = z.object({
+    tableId: z.string(),
+    token: z.string(),
+});
+export type GuestLoginBodyType = z.infer<typeof GuestLoginBodySchema>;
+
 export const RegisterBodySchema = UserSchema.pick({
     email: true,
     password: true,

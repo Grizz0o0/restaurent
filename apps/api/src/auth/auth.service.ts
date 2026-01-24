@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common'
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common'
 import { addMilliseconds } from 'date-fns'
 import ms, { StringValue } from 'ms'
 import { JwtService } from '@nestjs/jwt'
@@ -432,5 +432,28 @@ export class AuthService {
     })
 
     return { message: 'Đổi mật khẩu thành công' }
+  }
+  async guestLogin(body: { tableId: string; token: string }) {
+    // 1. Check if table exists and token matches
+    const table = await this.prisma.restaurantTable.findUnique({
+      where: { id: body.tableId },
+    })
+
+    if (!table) throw new NotFoundException('Table not found')
+    if (table.qrCode !== body.token) throw new UnauthorizedAccessException()
+
+    // 2. Generate Access Token (No Refresh Token for Guest)
+    const accessToken = this.tokenService.signAccessToken({
+      userId: `guest-${table.id}`, // Placeholder ID
+      deviceId: 'guest-device',
+      roleId: '', // No Role ID for guest? Or should we create a virtual Guest Role?
+      roleName: 'GUEST',
+      tableId: table.id,
+    })
+
+    return {
+      accessToken,
+      refreshToken: '', // Guest doesn't use refresh token
+    }
   }
 }

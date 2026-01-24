@@ -29,6 +29,11 @@ import {
   RevokeAllSessionsResSchema,
   ChangePasswordBodySchema,
   ChangePasswordBodyType,
+  GuestLoginBodySchema,
+  GuestLoginBodyType,
+  TwoFactorSetupResSchema,
+  DisableTwoFactorAuthBodySchema,
+  DisableTwoFactorAuthBodyType,
 } from '@repo/schema'
 import { Context } from '@/trpc/context'
 
@@ -126,5 +131,23 @@ export class AuthRouter {
   @Mutation({ input: ChangePasswordBodySchema })
   async changePassword(@Input() input: ChangePasswordBodyType, @Ctx() ctx: Context) {
     return this.authService.changePassword(ctx.user!.userId, input)
+  }
+  @IsPublic()
+  @Mutation({
+    input: GuestLoginBodySchema,
+    output: LoginResSchema,
+  })
+  async guestLogin(@Input() input: GuestLoginBodyType) {
+    return this.authService.guestLogin(input)
+  }
+
+  @Mutation({ output: TwoFactorSetupResSchema })
+  async setup2FA(@Ctx() ctx: Context) {
+    return this.authService.setupTwoFactorAuth(ctx.user!.userId)
+  }
+
+  @Mutation({ input: DisableTwoFactorAuthBodySchema })
+  async disable2FA(@Input() input: DisableTwoFactorAuthBodyType, @Ctx() ctx: Context) {
+    return this.authService.disableTwoFactorAuth({ ...input, userId: ctx.user!.userId })
   }
 }

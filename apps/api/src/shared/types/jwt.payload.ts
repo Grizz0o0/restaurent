@@ -3,6 +3,7 @@ export type AccessTokenPayloadCreate = {
   deviceId: string
   roleId: string
   roleName: string
+  tableId?: string
 }
 
 export type AccessTokenPayload = AccessTokenPayloadCreate & {

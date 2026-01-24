@@ -3378,6 +3378,7 @@ export type DishSKUSnapshotScalarFieldEnum = (typeof DishSKUSnapshotScalarFieldE
 export const OrderScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  guestId: 'guestId',
   guestInfo: 'guestInfo',
   status: 'status',
   tableId: 'tableId',

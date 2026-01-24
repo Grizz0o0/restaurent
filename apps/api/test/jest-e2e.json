@@ -1,9 +1,16 @@
 {
-  "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleFileExtensions": ["js", "json", "ts", "tsx"],
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
-  }
+    "^.+\\.(t|j)sx?$": ["ts-jest", { "tsconfig": { "allowJs": true } }]
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/../src/$1",
+    "^src/(.*)$": "<rootDir>/../src/$1",
+    "^uuid$": "uuid",
+    "^emails/(.*)$": "<rootDir>/../emails/$1"
+  },
+  "transformIgnorePatterns": ["node_modules/(?!uuid)"]
 }

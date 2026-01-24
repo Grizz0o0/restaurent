@@ -8,3 +8,5 @@ export * from './response.schema';
 export * from './request.schema';
 export * from './dish.schema';
 export * from './category.schema';
+export * from './table.schema';
+export * from './order.schema';

@@ -16,6 +16,8 @@ import { SocketModule } from './socket/socket.module'
 import { DishModule } from './dish/dish.module'
 import { CategoryModule } from './category/category.module'
 import { UploadModule } from './upload/upload.module'
+import { TableModule } from './table/table.module'
+import { OrderModule } from './order/order.module'
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { UploadModule } from './upload/upload.module'
     DishModule,
     CategoryModule,
     UploadModule,
+    TableModule,
+    OrderModule,
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
