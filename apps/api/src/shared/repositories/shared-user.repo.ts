@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { PermissionType, RoleType, UserType } from '@repo/schema'
-import { PrismaService } from '@/shared/services/prisma.service'
+import { PrismaService } from '@/shared/prisma'
+import { Prisma } from 'src/generated/prisma/client'
 
 type UserIncludeRolePermissionsType = UserType & {
   role: RoleType & { permissions: PermissionType[] }
 }
-
-import { Prisma } from '@repo/db'
 
 export type WhereUniqueUserType = Prisma.UserWhereUniqueInput
 

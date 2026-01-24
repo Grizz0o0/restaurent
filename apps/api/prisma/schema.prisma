@@ -1,0 +1,835 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Language {
+  id                     String                  @id @db.VarChar(10)
+  name                   String                  @db.VarChar(500)
+  userTranslations       UserTranslation[]
+  dishTranslations       DishTranslation[]
+  dishCategoryTranslations DishCategoryTranslation[]
+  supplierTranslations   SupplierTranslation[]
+  createdById            String?
+  createdBy              User?                   @relation("LanguageCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById            String?
+  updatedBy              User?                   @relation("LanguageUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById            String?
+  deletedBy              User?                   @relation("LanguageDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt              DateTime?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+
+  @@index([deletedAt])
+}
+
+model User {
+  id                     String                 @id @default(uuid())
+  email                  String                  @unique
+  name                   String                  @db.VarChar(500)
+  password               String                  @db.VarChar(255)
+  phoneNumber            String                  @unique @db.VarChar(50)
+  avatar                 String?                 @db.VarChar(1000)
+  totpSecret             String?                 @unique @db.VarChar(1000)
+  failedLoginAttempts    Int                     @default(0)
+  lockedAt               DateTime?
+  status                 UserStatus              @default(INACTIVE)
+  roleId                 String
+  role                   Role                    @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  interactions           UserInteraction[]
+  notifications          Notification[]
+  devices                Device[]  
+  refreshTokens          RefreshToken[]
+  cartItems              CartItem[]
+  orders                 Order[]
+  reviews                Review[]
+  reservations           Reservation[]
+  preferences            UserPreference[]
+  createdPermissions     Permission[]            @relation("PermissionCreatedBy")
+  updatedPermissions     Permission[]            @relation("PermissionUpdatedBy")
+  deletedPermissions     Permission[]            @relation("PermissionDeletedBy")
+  createdRoles           Role[]                  @relation("RoleCreatedBy")
+  updatedRoles           Role[]                  @relation("RoleUpdatedBy")
+  deletedRoles           Role[]                  @relation("RoleDeletedBy")
+  createdDishes          Dish[]                  @relation("DishCreatedBy")
+  updatedDishes          Dish[]                  @relation("DishUpdatedBy")
+  deletedDishes          Dish[]                  @relation("DishDeletedBy")
+  createdDishCategories  DishCategory[]          @relation("DishCategoryCreatedBy")
+  updatedDishCategories  DishCategory[]          @relation("DishCategoryUpdatedBy")
+  deletedDishCategories  DishCategory[]          @relation("DishCategoryDeletedBy")
+  createdVariants        Variant[]               @relation("VariantCreatedBy")
+  updatedVariants        Variant[]               @relation("VariantUpdatedBy")
+  deletedVariants        Variant[]               @relation("VariantDeletedBy")
+  createdVariantOptions  VariantOption[]         @relation("VariantOptionCreatedBy")
+  updatedVariantOptions  VariantOption[]         @relation("VariantOptionUpdatedBy")
+  deletedVariantOptions  VariantOption[]         @relation("VariantOptionDeletedBy")
+  createdSKUs            SKU[]                   @relation("SKUCreatedBy")
+  updatedSKUs            SKU[]                   @relation("SKUUpdatedBy")
+  deletedSKUs            SKU[]                   @relation("SKUDeletedBy")
+  createdLanguages       Language[]              @relation("LanguageCreatedBy")
+  updatedLanguages       Language[]              @relation("LanguageUpdatedBy")
+  deletedLanguages       Language[]              @relation("LanguageDeletedBy")
+  createdSuppliers       Supplier[]              @relation("SupplierCreatedBy")
+  updatedSuppliers       Supplier[]              @relation("SupplierUpdatedBy")
+  deletedSuppliers       Supplier[]              @relation("SupplierDeletedBy")
+  createdDishTranslations DishTranslation[]      @relation("DishTranslationCreatedBy")
+  updatedDishTranslations DishTranslation[]      @relation("DishTranslationUpdatedBy")
+  deletedDishTranslations DishTranslation[]      @relation("DishTranslationDeletedBy")
+  createdDishCategoryTranslations DishCategoryTranslation[] @relation("DishCategoryTranslationCreatedBy")
+  updatedDishCategoryTranslations DishCategoryTranslation[] @relation("DishCategoryTranslationUpdatedBy")
+  deletedDishCategoryTranslations DishCategoryTranslation[] @relation("DishCategoryTranslationDeletedBy")
+  createdSupplierTranslations SupplierTranslation[] @relation("SupplierTranslationCreatedBy")
+  updatedSupplierTranslations SupplierTranslation[] @relation("SupplierTranslationUpdatedBy")
+  deletedSupplierTranslations SupplierTranslation[] @relation("SupplierTranslationDeletedBy")
+  createdOrders          Order[]                 @relation("OrderCreatedBy")
+  updatedOrders          Order[]                 @relation("OrderUpdatedBy")
+  deletedOrders          Order[]                 @relation("OrderDeletedBy")
+  createdUserTranslations UserTranslation[]      @relation("UserTranslationCreatedBy")
+  updatedUserTranslations UserTranslation[]      @relation("UserTranslationUpdatedBy")
+  deletedUserTranslations UserTranslation[]      @relation("UserTranslationDeletedBy")
+  userTranslations       UserTranslation[]       @relation("User")
+  sentMessages           Message[]               @relation("FromUser")
+  receivedMessages       Message[]               @relation("ToUser")
+  createdRestaurants     Restaurant[]            @relation("RestaurantCreatedBy")
+  updatedRestaurants     Restaurant[]            @relation("RestaurantUpdatedBy")
+  deletedRestaurants     Restaurant[]            @relation("RestaurantDeletedBy")
+  assignedRestaurants    RestaurantStaff[]
+  createdTables          RestaurantTable[]       @relation("TableCreatedBy")
+  updatedTables          RestaurantTable[]       @relation("TableUpdatedBy")
+  deletedTables          RestaurantTable[]       @relation("TableDeletedBy")
+  createdReservations    Reservation[]           @relation("ReservationCreatedBy")
+  updatedReservations    Reservation[]           @relation("ReservationUpdatedBy")
+  deletedReservations    Reservation[]           @relation("ReservationDeletedBy")
+  createdInventories     Inventory[]             @relation("InventoryCreatedBy")
+  updatedInventories     Inventory[]             @relation("InventoryUpdatedBy")
+  deletedInventories     Inventory[]             @relation("InventoryDeletedBy")
+  recommendations        Recommendation[]
+  createdRecommendations Recommendation[]        @relation("RecommendationCreatedBy")
+  updatedRecommendations Recommendation[]        @relation("RecommendationUpdatedBy")
+  deletedRecommendations Recommendation[]        @relation("RecommendationDeletedBy")
+  createdById            String?
+  createdBy              User?                   @relation("CreatorUsers", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  createdUsers           User[]                  @relation("CreatorUsers")
+  updatedById            String?
+  updatedBy              User?                   @relation("UpdatorUsers", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedUsers           User[]                  @relation("UpdatorUsers")
+  deletedById            String?
+  deletedBy              User?                   @relation("DeletorUsers", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedUsers           User[]                  @relation("DeletorUsers")
+  deletedAt              DateTime?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+
+  @@index([deletedAt, email, phoneNumber])
+}
+
+model UserTranslation {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation("User", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  languageId   String
+  language     Language @relation(fields: [languageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  address      String?  @db.VarChar(500)
+  description  String?
+  createdById  String?
+  createdBy    User?    @relation("UserTranslationCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?    @relation("UserTranslationUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?    @relation("UserTranslationDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([deletedAt])
+}
+
+model UserInteraction {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dishId    String?
+  dish      Dish?    @relation(fields: [dishId], references: [id], onDelete: SetNull)
+  action    InteractionType
+  timestamp DateTime @default(now())
+}
+
+enum InteractionType {
+  VIEW
+  ADD_CART
+  ORDER
+  REVIEW
+}
+
+model VerificationCode {
+  id        String                @id @default(uuid())
+  email     String                @db.VarChar(500)
+  code      String                @db.VarChar(50)
+  type      VerificationCodeType
+  expiresAt DateTime
+  createdAt DateTime              @default(now())
+
+  @@unique([email, code, type])
+  @@index([expiresAt])
+}
+
+model Device {
+  id          String    @id @default(uuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userAgent   String
+  ip          String
+  lastActive  DateTime  @updatedAt
+  createdAt   DateTime  @default(now())
+  isActive    Boolean   @default(true)
+  refreshTokens RefreshToken[]
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique @db.VarChar(1000)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  deviceId  String
+  device    Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([expiresAt])
+}
+
+model Permission {
+  id          String    @id @default(uuid())
+  name        String    @db.VarChar(500)
+  description String    @default("")
+  path        String    @db.VarChar(1000)
+  module      String    @db.VarChar(500) @default("")
+  method      HTTPMethod
+  roles       Role[]
+  createdById String?
+  createdBy   User?     @relation("PermissionCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById String?
+  updatedBy   User?     @relation("PermissionUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById String?
+  deletedBy   User?     @relation("PermissionDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([deletedAt])  
+  @@unique([path, method])
+}
+
+model Role {
+  id          String    @id @default(uuid())
+  name        String     @unique @db.VarChar(500)
+  description String     @default("")
+  isActive    Boolean    @default(true)
+  permissions Permission[]
+  users       User[]
+  createdById String?
+  createdBy   User?      @relation("RoleCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById String?
+  updatedBy   User?      @relation("RoleUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById String?
+  deletedBy   User?      @relation("RoleDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt   DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([deletedAt])
+}
+
+model Dish {
+  id                     String                  @id @default(uuid())
+  basePrice              Decimal                 @db.Decimal(10, 2)
+  virtualPrice           Decimal                 @db.Decimal(10, 2) @default(0)
+  supplierId             String
+  supplier               Supplier                @relation(fields: [supplierId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  images                 String[]                @default([])
+  categories             DishCategory[]
+  interactions           UserInteraction[]
+  variants               Variant[]
+  skus                   SKU[]
+  reviews                Review[]
+  dishTranslations       DishTranslation[]
+  inventories            InventoryDish[]
+  recommendations        Recommendation[]
+  createdById            String?
+  createdBy              User?                   @relation("DishCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById            String?
+  updatedBy              User?                   @relation("DishUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById            String?
+  deletedBy              User?                   @relation("DishDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt              DateTime?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+
+  @@index([deletedAt, basePrice])
+}
+
+model DishTranslation {
+  id          String    @id @default(uuid())
+  dishId       String
+  dish         Dish     @relation(fields: [dishId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  languageId   String
+  language     Language @relation(fields: [languageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name         String   @db.VarChar(500)
+  description  String
+  createdById  String?
+  createdBy    User?    @relation("DishTranslationCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?    @relation("DishTranslationUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?    @relation("DishTranslationDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([deletedAt])
+}
+
+model DishCategory {
+  id                     String                  @id @default(uuid())
+  dishes                 Dish[]
+  parentCategoryId       String?
+  parentCategory         DishCategory?           @relation("ParentCategoryCategories", fields: [parentCategoryId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  childrenCategories     DishCategory[]          @relation("ParentCategoryCategories")
+  dishCategoryTranslations DishCategoryTranslation[]
+  createdById            String?
+  createdBy              User?                   @relation("DishCategoryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById            String?
+  updatedBy              User?                   @relation("DishCategoryUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById            String?
+  deletedBy              User?                   @relation("DishCategoryDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt              DateTime?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+
+  @@index([deletedAt])
+}
+
+model DishCategoryTranslation {
+  id           String        @id @default(uuid())
+  categoryId   String
+  category     DishCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  languageId   String
+  language     Language     @relation(fields: [languageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name         String       @db.VarChar(500)
+  description  String
+  createdById  String?
+  createdBy    User?        @relation("DishCategoryTranslationCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?        @relation("DishCategoryTranslationUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?        @relation("DishCategoryTranslationDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([deletedAt])
+}
+
+model Variant {
+  id           String        @id @default(uuid())
+  name         String        @db.VarChar(500)
+  dishId       String
+  dish         Dish          @relation(fields: [dishId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  variantOptions VariantOption[]
+  createdById  String?
+  createdBy    User?         @relation("VariantCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?         @relation("VariantUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?         @relation("VariantDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([deletedAt])
+  @@unique([dishId, name])
+}
+
+model VariantOption {
+  id           String   @id @default(uuid())
+  value        String   @db.VarChar(500)
+  variantId    String
+  variant      Variant  @relation(fields: [variantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  skus         SKU[]
+  createdById  String?
+  createdBy    User?    @relation("VariantOptionCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?    @relation("VariantOptionUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?    @relation("VariantOptionDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([deletedAt])
+}
+
+model SKU {
+  id           String        @id @default(uuid())
+  value        String        @db.VarChar(500)
+  price        Decimal       @db.Decimal(10, 2)
+  stock        Int
+  images       String[]      @default([])
+  dishId       String
+  dish         Dish          @relation(fields: [dishId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  variantOptions VariantOption[]
+  cartItems    CartItem[]
+  dishSKUSnapshots DishSKUSnapshot[]
+  createdById  String?
+  createdBy    User?         @relation("SKUCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?         @relation("SKUUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?         @relation("SKUDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([deletedAt, stock])
+}
+
+model Supplier {
+  id                     String                  @id @default(uuid())
+  logo                   String                  @db.VarChar(1000)
+  dishes                 Dish[]
+  supplierTranslations   SupplierTranslation[]
+  inventories            Inventory[]
+  createdById            String?
+  createdBy              User?                   @relation("SupplierCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById            String?
+  updatedBy              User?                   @relation("SupplierUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById            String?
+  deletedBy              User?                   @relation("SupplierDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt              DateTime?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+
+  @@index([deletedAt])
+}
+
+model SupplierTranslation {
+  id           String   @id @default(uuid())
+  supplierId   String
+  supplier     Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  languageId   String
+  language     Language @relation(fields: [languageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name         String   @db.VarChar(500)
+  description  String
+  createdById  String?
+  createdBy    User?    @relation("SupplierTranslationCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?    @relation("SupplierTranslationUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?    @relation("SupplierTranslationDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([deletedAt])
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  quantity  Int
+  skuId     String
+  sku       SKU      @relation(fields: [skuId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  channel   Channel? @default(WEB)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model DishSKUSnapshot {
+  id           String   @id @default(uuid())
+  dishName     String   @db.VarChar(500)
+  price        Decimal  @db.Decimal(10, 2)
+  quantity     Int      @default(1)
+  images       String[] @default([])
+  skuValue     String   @db.VarChar(500)
+  skuId        String?
+  sku          SKU?     @relation(fields: [skuId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  orderId      String?
+  order        Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  createdAt    DateTime @default(now())
+}
+
+model Order {
+  id           String           @id @default(uuid())
+  userId       String
+  user         User             @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  guestInfo    Json?
+  status       OrderStatus
+  items        DishSKUSnapshot[]
+  tableId      String?
+  table        RestaurantTable? @relation(fields: [tableId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  restaurantId String?
+  restaurant   Restaurant?      @relation(fields: [restaurantId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  paymentTransactions PaymentTransaction[]
+  promotionId  String?
+  promotions   Promotion[]      @relation("OrderPromotions")
+  channel      Channel
+  totalAmount  Decimal            @db.Decimal(10, 2) @default(0)
+  discount     Decimal            @db.Decimal(10, 2) @default(0)
+  paymentMethod PaymentMethod?
+  createdById  String?
+  createdBy    User?            @relation("OrderCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?            @relation("OrderUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?            @relation("OrderDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@index([deletedAt, status, createdAt])
+  @@index([userId])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  content   String
+  rating    Int
+  dishId    String
+  dish      Dish     @relation(fields: [dishId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model PaymentTransaction {
+  id                 String   @id @default(uuid())
+  gateway            String   @db.VarChar(100)
+  transactionDate    DateTime @default(now())
+  accountNumber      String   @db.VarChar(100)
+  subAccount         String?  @db.VarChar(250)
+  amountIn           Decimal  @db.Decimal(10, 2) @default(0)
+  amountOut          Decimal  @db.Decimal(10, 2) @default(0)
+  accumulated        Decimal  @db.Decimal(10, 2) @default(0)
+  code               String?  @db.VarChar(250)
+  transactionContent String?  @db.Text
+  referenceNumber    String?  @db.VarChar(255)
+  body               String?  @db.Text
+  orderId            String?     // Thêm liên kết với Order để theo dõi thanh toán
+  order              Order?   @relation(fields: [orderId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  createdAt          DateTime @default(now())
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  fromUserId String
+  fromUser   User     @relation("FromUser", fields: [fromUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  toUserId   String
+  toUser     User     @relation("ToUser", fields: [toUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  content    String   @db.Text
+  readAt     DateTime?
+  createdAt  DateTime @default(now())
+}
+
+// Các model mới cho hệ thống nhà hàng
+
+model Restaurant {
+  id           String            @id @default(uuid())
+  name         String            @db.VarChar(500)
+  address      String            @db.VarChar(500)
+  phone        String?           @db.VarChar(50)
+  logo         String?           @db.VarChar(1000)
+  tables       RestaurantTable[]
+  staff        RestaurantStaff[]
+  inventories  Inventory[]
+  orders       Order[]           // Có thể liên kết nếu cần
+  createdById  String?
+  createdBy    User?             @relation("RestaurantCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?             @relation("RestaurantUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?             @relation("RestaurantDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([deletedAt])
+}
+
+model RestaurantTable {
+  id           String      @id @default(uuid())
+  restaurantId String
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tableNumber  String      @db.VarChar(50)
+  capacity     Int
+  qrCode       String      @unique @db.VarChar(1000) // Mã QR cho bàn
+  status       TableStatus @default(AVAILABLE)
+  orders       Order[]
+  reservations Reservation[]
+  createdById  String?
+  createdBy    User?       @relation("TableCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?       @relation("TableUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?       @relation("TableDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([deletedAt, qrCode])
+}
+
+model Reservation {
+  id           String           @id @default(uuid())
+  userId       String
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  guestInfo    Json?
+  tableId      String
+  table        RestaurantTable  @relation(fields: [tableId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  reservationTime DateTime
+  guests       Int
+  status       ReservationStatus @default(PENDING)
+  notes        String?
+  channel      Channel
+  createdById  String?
+  createdBy    User?            @relation("ReservationCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?            @relation("ReservationUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?            @relation("ReservationDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@index([deletedAt, reservationTime])
+  @@index([userId])
+}
+
+model Inventory {
+  id           String          @id @default(uuid())
+  restaurantId String
+  restaurant   Restaurant      @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  supplierId   String?
+  supplier     Supplier?       @relation(fields: [supplierId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  itemName     String          @db.VarChar(500)
+  quantity     Int
+  unit         String          @db.VarChar(50)
+  dishes       InventoryDish[]
+  transactions InventoryTransaction[]
+  createdById  String?
+  createdBy    User?           @relation("InventoryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById  String?
+  updatedBy    User?           @relation("InventoryUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById  String?
+  deletedBy    User?           @relation("InventoryDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt    DateTime?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@index([deletedAt, quantity])
+}
+
+model InventoryDish {
+  inventoryId  String
+  dishId       String
+  quantityUsed Decimal         @db.Decimal(10, 2)           // Số lượng nguyên liệu dùng cho món
+
+  inventory    Inventory       @relation(fields: [inventoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  dish         Dish            @relation(fields: [dishId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([inventoryId, dishId])
+}
+
+model RestaurantStaff {
+  restaurantId String
+  userId       String
+  position     StaffPosition   // Manager, Waiter, Chef
+
+  restaurant   Restaurant      @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([restaurantId, userId])
+}
+
+model UserPreference {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  preferences Json     // Lưu sở thích dưới dạng JSON: allergies, favorite dishes, etc.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Recommendation {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  dishId    String
+  dish      Dish     @relation(fields: [dishId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  score     Decimal  @db.Decimal(10, 2)    // Điểm gợi ý từ AI
+  reason    String?  
+  model     String   @db.VarChar(500) // Tên model AI sử dụng
+  createdById String?
+  createdBy User?    @relation("RecommendationCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  updatedById String?
+  updatedBy User?    @relation("RecommendationUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedById String?
+  deletedBy User?    @relation("RecommendationDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  deletedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([deletedAt, score])
+  @@index([userId])
+}
+
+model Promotion {
+  id           String   @id @default(uuid())
+  code         String   @unique @db.VarChar(50)
+  type         PromotionType
+  usedCount    Int @default(0)
+  amount       Decimal  @db.Decimal(10, 2)
+  percentage   Decimal? @db.Decimal(5, 2)
+  minOrderValue Decimal? @db.Decimal(10, 2)
+  validFrom    DateTime
+  validTo      DateTime
+  usageLimit   Int?
+  applicableTo String? 
+  orders       Order[]  @relation("OrderPromotions")
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+  @@index([code, validFrom, validTo])
+}
+
+model InventoryTransaction {
+  id           String   @id @default(uuid())
+  inventoryId  String
+  inventory    Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  changeQuantity Int
+  reason       TransactionReason
+  timestamp    DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  content   String   @db.Text
+  readAt    DateTime?
+  channel   Channel
+  createdAt DateTime @default(now())
+}
+
+enum NotificationType {
+  ORDER_UPDATE
+  RECOMMENDATION
+  LOW_STOCK
+  PROMOTION
+}
+
+enum TransactionReason {
+  RESTOCK
+  ORDER
+  ADJUST
+  WASTE
+}
+
+enum PromotionType {
+  FIXED
+  PERCENTAGE
+}
+
+enum OrderStatus {
+  PENDING_CONFIRMATION
+  PREPARING
+  READY_FOR_PICKUP
+  DELIVERING
+  DELIVERED
+  COMPLETED
+  RETURNED
+  CANCELLED
+}
+
+enum VerificationCodeType {
+  REGISTER
+  FORGOT_PASSWORD
+  LOGIN
+  DISABLE_2FA
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum HTTPMethod {
+  GET
+  POST
+  PUT
+  DELETE
+  PATCH
+  OPTIONS
+  HEAD
+}
+
+enum Channel {
+  WEB
+  APP
+  QR
+  POS // Point of Sale
+  OTHER
+}
+
+enum TableStatus {
+  AVAILABLE
+  OCCUPIED
+  RESERVED
+  MAINTENANCE
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum StaffPosition {
+  MANAGER
+  WAITER
+  CHEF
+  CASHIER
+  OTHER
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  QR_PAY
+  BANK_TRANSFER
+  OTHER
+}

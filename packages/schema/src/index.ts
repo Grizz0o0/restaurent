@@ -6,3 +6,5 @@ export * from './user.schema';
 export * from './profile.schema';
 export * from './response.schema';
 export * from './request.schema';
+export * from './dish.schema';
+export * from './category.schema';

@@ -2,9 +2,13 @@ import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { LoggingInterceptor } from '@/shared/interceptors/logging.interceptor'
+import { ValidationPipe } from '@nestjs/common'
+import { PrismaClientExceptionFilter } from '@/shared/filters/prisma-client-exception.filter'
+import { HttpAdapterHost } from '@nestjs/core'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.enableShutdownHooks()
   const port = process.env.APP_PORT || 3052
   app.setGlobalPrefix('v1/api')
   app.enableCors({
@@ -15,6 +19,10 @@ async function bootstrap() {
     new LoggingInterceptor(),
     // new TransformInterceptor(),
   )
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
+
+  const { httpAdapter } = app.get(HttpAdapterHost)
+  app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter))
   await app.listen(port)
 }
 bootstrap()

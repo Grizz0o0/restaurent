@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
 import { UserRepo } from './user.repo'
 import { CreateUserBodyType, UpdateUserBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError, getPagination } from '@/shared/utils'
+import { isUniqueConstraintPrismaError, createPaginationResult } from '@/shared/utils'
 import { HashingService } from '@/shared/services/hashing.service'
 
 @Injectable()
@@ -22,17 +22,14 @@ export class UserService {
     roleId?: string
     status?: string
   }) {
-    const skip = (page - 1) * limit
-    const [users, totalItems] = await Promise.all([
-      this.userRepo.list({ skip, limit, roleId, status }),
-      this.userRepo.count({ roleId, status }),
-    ])
+    const { data: users, total: totalItems } = await this.userRepo.list({
+      page,
+      limit,
+      roleId,
+      status,
+    })
 
-    const pagination = getPagination({ totalItems, page, limit })
-    return {
-      data: users,
-      pagination,
-    }
+    return createPaginationResult(users, totalItems, { page, limit })
   }
 
   async findById(id: string) {

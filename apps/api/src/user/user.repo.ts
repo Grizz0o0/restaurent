@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '@/shared/services/prisma.service'
+import { PrismaService } from '@/shared/prisma'
 import { CreateUserBodyType, UpdateUserBodyType } from '@repo/schema'
 import { UserStatus } from '@repo/constants'
+import { paginate } from '@/shared/utils/prisma.util'
 
 @Injectable()
 export class UserRepo {
@@ -17,38 +18,42 @@ export class UserRepo {
     })
   }
 
-  list({
-    skip,
+  async list({
+    page,
     limit,
     roleId,
     status,
   }: {
-    skip: number
+    page: number
     limit: number
     roleId?: string
     status?: string
   }) {
-    return this.prismaService.user.findMany({
-      where: {
-        deletedAt: null,
-        ...(roleId && { roleId }),
-        ...(status && { status: status as UserStatus }),
-      },
-      skip,
-      take: limit,
-      include: {
-        role: {
-          select: {
-            id: true,
-            name: true,
-            description: true,
+    const where = {
+      deletedAt: null,
+      ...(roleId && { roleId }),
+      ...(status && { status: status as UserStatus }),
+    }
+
+    return paginate(
+      this.prismaService.user,
+      {
+        where,
+        include: {
+          role: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+            },
           },
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
+      { page, limit },
+    )
   }
 
   findById(id: string) {

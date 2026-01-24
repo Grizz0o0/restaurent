@@ -98,6 +98,12 @@ const Header = () => {
                             </Button>
                         </Link>
 
+                        <Link href="/admin" className="hidden sm:block">
+                            <Button variant="ghost" size="sm">
+                                Admin
+                            </Button>
+                        </Link>
+
                         {/* Mobile menu button */}
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -146,6 +152,17 @@ const Header = () => {
                                 >
                                     <Button variant="hero" className="w-full">
                                         Đặt hàng ngay
+                                    </Button>
+                                </Link>
+                                <Link
+                                    href="/admin"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    <Button
+                                        variant="outline"
+                                        className="w-full"
+                                    >
+                                        Admin Dashboard
                                     </Button>
                                 </Link>
                                 <div className="flex gap-2">

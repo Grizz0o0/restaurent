@@ -1,24 +1,16 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
 import { PermissionRepo } from './permission.repo'
 import { CreatePermissionBodyType, UpdatePermissionBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError, getPagination } from '@/shared/utils'
+import { isUniqueConstraintPrismaError, createPaginationResult } from '@/shared/utils'
 
 @Injectable()
 export class PermissionService {
   constructor(private readonly permissionRepo: PermissionRepo) {}
 
   async list({ limit, page }: { limit: number; page: number }) {
-    const skip = (page - 1) * limit
-    const [permissions, totalItems] = await Promise.all([
-      this.permissionRepo.list({ skip, limit }),
-      this.permissionRepo.count(),
-    ])
+    const { data: permissions, total: totalItems } = await this.permissionRepo.list({ page, limit })
 
-    const pagination = getPagination({ totalItems, page, limit })
-    return {
-      data: permissions,
-      pagination,
-    }
+    return createPaginationResult(permissions, totalItems, { page, limit })
   }
 
   async findById(id: string) {

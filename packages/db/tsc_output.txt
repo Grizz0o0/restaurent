@@ -1,1 +1,0 @@
-tsconfig.build.json(3,5): error TS5096: Option 'allowImportingTsExtensions' can only be used when either 'noEmit' or 'emitDeclarationOnly' is set.

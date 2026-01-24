@@ -13,7 +13,7 @@ import {
 } from '@repo/schema'
 import { generateOTP, isUniqueConstraintPrismaError } from '@/shared/utils'
 import { TypeOfValidationCode, TypeOfValidationCodeType, UserStatus } from '@repo/constants'
-import { PrismaService } from '@/shared/services/prisma.service'
+import { PrismaService } from '@/shared/prisma'
 import { HashingService } from '@/shared/services/hashing.service'
 import { TokenService } from '@/shared/services/token.service'
 import { SharedRoleRepository } from '@/shared/repositories/shared-role.repo'

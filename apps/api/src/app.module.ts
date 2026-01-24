@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { envSchema, Env } from './env.validation'
 import { TRPCModule } from 'nestjs-trpc'
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler'
 import { APP_GUARD } from '@nestjs/core'
@@ -12,11 +13,17 @@ import { AdminModule } from '@/admin/admin.module'
 import { UserModule } from '@/user/user.module'
 import { ProfileModule } from '@/profile/profile.module'
 import { SocketModule } from './socket/socket.module'
+import { DishModule } from './dish/dish.module'
+import { CategoryModule } from './category/category.module'
+import { UploadModule } from './upload/upload.module'
 
 @Module({
   imports: [
     SharedModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      validate: (config) => envSchema.parse(config),
+      isGlobal: true,
+    }),
     TRPCModule.forRoot({
       autoSchemaFile: '../../packages/trpc/src/server',
     }),
@@ -28,12 +35,19 @@ import { SocketModule } from './socket/socket.module'
     ProfileModule,
     TrpcModule,
     SocketModule,
-    ThrottlerModule.forRoot([
-      {
-        ttl: 60000,
-        limit: 10,
-      },
-    ]),
+    DishModule,
+    CategoryModule,
+    UploadModule,
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService<Env, true>) => [
+        {
+          ttl: config.get('THROTTLE_TTL'),
+          limit: config.get('THROTTLE_LIMIT'),
+        },
+      ],
+    }),
   ],
   providers: [
     {

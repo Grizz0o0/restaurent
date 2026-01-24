@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CreatePermissionBodyType, UpdatePermissionBodyType } from '@repo/schema'
-import { PrismaService } from '@/shared/services/prisma.service'
+import { PrismaService } from '@/shared/prisma'
+import { paginate } from '@/shared/utils/prisma.util'
 
 @Injectable()
 export class PermissionRepo {
@@ -10,12 +11,14 @@ export class PermissionRepo {
     return this.prismaService.permission.count({ where: { deletedAt: null } })
   }
 
-  list({ skip, limit }: { skip: number; limit: number }) {
-    return this.prismaService.permission.findMany({
-      where: { deletedAt: null },
-      skip,
-      take: limit,
-    })
+  async list({ page, limit }: { page: number; limit: number }) {
+    return paginate(
+      this.prismaService.permission,
+      {
+        where: { deletedAt: null },
+      },
+      { page, limit },
+    )
   }
 
   findById(id: string) {
@@ -42,7 +45,6 @@ export class PermissionRepo {
     updatedById: string
     data: UpdatePermissionBodyType
   }) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { ...rest } = data
     return this.prismaService.permission.update({
       where: { id, deletedAt: null },

@@ -1,19 +1,37 @@
-export const getPagination = ({
-  totalItems,
-  page,
-  limit,
-}: {
-  totalItems: number
+export interface PaginationResult<T> {
+  data: T[]
+  pagination: {
+    totalItems: number
+    totalPages: number
+    page: number
+    limit: number
+    hasNext: boolean
+    hasPrev: boolean
+  }
+}
+
+export interface PaginationOptions {
   page: number
   limit: number
-}) => {
-  const totalPages = Math.ceil(totalItems / limit)
+}
+
+export function createPaginationResult<T>(
+  data: T[],
+  total: number,
+  options: PaginationOptions,
+): PaginationResult<T> {
+  const { page, limit } = options
+  const totalPages = Math.ceil(total / limit)
+
   return {
-    totalItems,
-    totalPages,
-    page,
-    limit,
-    hasNext: page < totalPages,
-    hasPrev: page > 1,
+    data,
+    pagination: {
+      totalItems: total,
+      totalPages,
+      page,
+      limit,
+      hasNext: page < totalPages,
+      hasPrev: page > 1,
+    },
   }
 }

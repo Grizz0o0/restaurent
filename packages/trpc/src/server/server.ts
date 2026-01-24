@@ -57,6 +57,26 @@ const appRouter = t.router({
   profile: t.router({
     getProfile: publicProcedure.output(ProfileDetailResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     updateProfile: publicProcedure.input(UpdateProfileBodySchema).output(ProfileDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
+  }),
+  dish: t.router({
+    list: publicProcedure.input(GetDishesQuerySchema).output(GetDishesResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    detail: publicProcedure.input(z.object({ id: z.string() })).output(DishDetailResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    create: publicProcedure.input(CreateDishBodySchema).output(DishDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    update: publicProcedure.input(z.object({
+      id: z.string(),
+      data: UpdateDishBodySchema,
+    })).output(DishDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    delete: publicProcedure.input(z.object({ id: z.string() })).output(z.any()).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
+  }),
+  category: t.router({
+    list: publicProcedure.input(GetCategoriesQuerySchema).output(GetCategoriesResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    detail: publicProcedure.input(z.object({ id: z.string() })).output(CategoryDetailResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    create: publicProcedure.input(CreateCategoryBodySchema).output(CategoryDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    update: publicProcedure.input(z.object({
+      id: z.string(),
+      data: UpdateCategoryBodySchema,
+    })).output(CategoryDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    delete: publicProcedure.input(z.object({ id: z.string() })).output(z.any()).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   })
 });
 export type AppRouter = typeof appRouter;

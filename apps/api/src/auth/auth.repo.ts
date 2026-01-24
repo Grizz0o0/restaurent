@@ -3,8 +3,8 @@ import { DeviceType, RefreshTokenType, ValidationCodeType, UserType } from '@rep
 import { TypeOfValidationCodeType } from '@repo/constants'
 import { RoleType } from '@repo/schema/src'
 import { WhereUniqueUserType } from '@/shared/repositories/shared-user.repo'
-import { PrismaService } from '@/shared/services/prisma.service'
-import { Prisma } from '@repo/db'
+import { PrismaService } from '@/shared/prisma'
+import { Prisma } from 'src/generated/prisma/client'
 
 @Injectable()
 export class AuthRepository {

@@ -5,10 +5,10 @@ import {
   UnauthorizedException,
   ForbiddenException,
 } from '@nestjs/common'
-import { HTTPMethod } from '@repo/db'
+import { HTTPMethod, Permission } from 'src/generated/prisma/client'
 import { Request } from 'express'
 import { REQUEST_USER_KEY } from '@repo/constants'
-import { PrismaService } from '@/shared/services/prisma.service'
+import { PrismaService } from '@/shared/prisma'
 import { TokenService } from '@/shared/services/token.service'
 import { AccessTokenPayload } from '@/shared/types/jwt.payload'
 
@@ -62,7 +62,7 @@ export class AccessTokenGuard implements CanActivate {
         throw new ForbiddenException('Error:PermissionDenied')
       })
     const canAccess = role.permissions.some(
-      (permission) => permission.path === path && permission.method === method,
+      (permission: Permission) => permission.path === path && permission.method === method,
     )
     if (!canAccess) {
       throw new ForbiddenException('Error:PermissionDenied')

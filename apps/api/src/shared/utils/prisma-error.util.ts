@@ -1,4 +1,4 @@
-import { Prisma } from '@repo/db'
+import { Prisma } from 'src/generated/prisma/client'
 
 export const isUniqueConstraintPrismaError = (
   error: any,

@@ -1,6 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
-import { PrismaService } from '@/shared/services/prisma.service'
+import { PrismaService } from '@/shared/prisma'
 import { CreateRoleBodyType, UpdateRoleBodyType } from '@repo/schema'
+import { paginate } from '@/shared/utils/prisma.util'
 
 @Injectable()
 export class RoleRepo {
@@ -10,12 +11,14 @@ export class RoleRepo {
     return this.prismaService.role.count({ where: { deletedAt: null } })
   }
 
-  list({ skip, limit }: { skip: number; limit: number }) {
-    return this.prismaService.role.findMany({
-      where: { deletedAt: null },
-      skip,
-      take: limit,
-    })
+  async list({ page, limit }: { page: number; limit: number }) {
+    return paginate(
+      this.prismaService.role,
+      {
+        where: { deletedAt: null },
+      },
+      { page, limit },
+    )
   }
 
   findById(id: string) {
