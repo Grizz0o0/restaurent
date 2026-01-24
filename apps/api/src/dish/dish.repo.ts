@@ -15,11 +15,13 @@ export class DishRepo {
     return client.dish.create({
       data: {
         ...dishData,
+        basePrice: new Prisma.Decimal(dishData.basePrice),
+        virtualPrice: new Prisma.Decimal(dishData.virtualPrice),
         createdById,
         ...(categoryIds &&
           categoryIds.length > 0 && {
             categories: {
-              connect: categoryIds.map((id) => ({ id })),
+              connect: categoryIds.map((id: string) => ({ id })),
             },
           }),
         dishTranslations: {
@@ -49,10 +51,12 @@ export class DishRepo {
       where: { id },
       data: {
         ...dishData,
+        ...(dishData.basePrice && { basePrice: new Prisma.Decimal(dishData.basePrice) }),
+        ...(dishData.virtualPrice && { virtualPrice: new Prisma.Decimal(dishData.virtualPrice) }),
         updatedById,
         ...(categoryIds && {
           categories: {
-            set: categoryIds.map((id) => ({ id })),
+            set: categoryIds.map((id: string) => ({ id })),
           },
         }),
       },

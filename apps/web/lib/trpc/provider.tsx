@@ -20,8 +20,12 @@ export default function TRPCProvider({
                     url: 'http://localhost:3000/trpc',
                     // You can pass any HTTP headers you wish here
                     async headers() {
+                        const token =
+                            typeof window !== 'undefined'
+                                ? localStorage.getItem('accessToken')
+                                : null;
                         return {
-                            // authorization: getAuthCookie(),
+                            authorization: token ? `Bearer ${token}` : '',
                         };
                     },
                 }),

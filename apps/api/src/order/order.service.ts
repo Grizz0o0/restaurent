@@ -33,7 +33,6 @@ export class OrderService {
     }
 
     // Fetch dishes to calculate price
-    const dishIds = data.items.map((i) => i.dishId)
     // Assuming findByIds or list with filter
     // For simplicity, fetching generic list or using Promise.all (not ideal for N items but okay for small orders)
     // Better: add findByIds to DishRepo. Or just iterate.

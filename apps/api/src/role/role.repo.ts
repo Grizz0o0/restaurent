@@ -47,7 +47,7 @@ export class RoleRepo {
     data: UpdateRoleBodyType
     updatedById: string
   }) {
-    if (data.permissionIds.length > 0) {
+    if (data.permissionIds && data.permissionIds.length > 0) {
       const permissions = await this.prismaService.permission.findMany({
         where: { id: { in: data.permissionIds } },
       })
@@ -65,9 +65,12 @@ export class RoleRepo {
         name: data.name,
         description: data.description,
         isActive: data.isActive,
-        permissions: {
-          set: data.permissionIds.map((p) => ({ id: p })),
-        },
+        permissions:
+          data.permissionIds && data.permissionIds.length > 0
+            ? {
+                set: data.permissionIds.map((p: string) => ({ id: p })),
+              }
+            : undefined,
         updatedById,
       },
       include: { permissions: true },

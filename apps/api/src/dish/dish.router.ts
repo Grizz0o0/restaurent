@@ -3,6 +3,7 @@ import { UseGuards } from '@nestjs/common'
 import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
 import { RolesGuard } from '@/shared/guards/roles.guard'
 import { Roles } from '@/shared/decorators/roles.decorator'
+import { IsPublic } from '@/shared/decorators/auth.decorator'
 import { RoleName } from '@repo/constants'
 import {
   GetDishesQuerySchema,
@@ -23,6 +24,7 @@ import { z } from 'zod'
 export class DishRouter {
   constructor(private readonly dishService: DishService) {}
 
+  @IsPublic()
   @Query({
     input: GetDishesQuerySchema,
     output: GetDishesResSchema,
@@ -31,6 +33,7 @@ export class DishRouter {
     return this.dishService.list(input)
   }
 
+  @IsPublic()
   @Query({
     input: z.object({ id: z.string() }),
     output: DishDetailResSchema,

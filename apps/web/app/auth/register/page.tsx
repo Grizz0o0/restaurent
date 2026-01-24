@@ -82,16 +82,6 @@ export default function RegisterPage() {
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-4 animate-fade-in">
             <div className="w-full max-w-md space-y-8">
-                <div className="text-center">
-                    <Link
-                        href="/"
-                        className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
-                    >
-                        <ArrowLeft className="w-4 h-4" />
-                        <span>Về trang chủ</span>
-                    </Link>
-                </div>
-
                 <Card className="rounded-2xl shadow-card border-border">
                     <CardHeader>
                         <CardTitle className="font-display text-2xl">

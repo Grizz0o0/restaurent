@@ -30,6 +30,9 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SocketProvider } from '@/providers/socket-provider';
 
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -49,7 +52,11 @@ export default function RootLayout({
                     >
                         <SocketProvider>
                             <TooltipProvider>
-                                {children}
+                                <Header />
+                                <main className="min-h-screen pt-20">
+                                    {children}
+                                </main>
+                                <Footer />
                                 <Toaster />
                                 <Sonner />
                             </TooltipProvider>

@@ -19,6 +19,8 @@ import { UploadModule } from './upload/upload.module'
 import { TableModule } from './table/table.module'
 import { OrderModule } from './order/order.module'
 
+import superjson from 'superjson'
+
 @Module({
   imports: [
     SharedModule,
@@ -28,6 +30,7 @@ import { OrderModule } from './order/order.module'
     }),
     TRPCModule.forRoot({
       autoSchemaFile: '../../packages/trpc/src/server',
+      transformer: superjson,
     }),
     AuthModule,
     AdminModule,

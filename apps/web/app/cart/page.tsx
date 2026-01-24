@@ -72,14 +72,7 @@ const Cart = () => {
         return (
             <div className="min-h-screen bg-background">
                 <header className="bg-secondary/50 border-b border-border">
-                    <div className="container mx-auto px-4 py-6">
-                        <Link
-                            href="/"
-                            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-4"
-                        >
-                            <ArrowLeft className="w-4 h-4" />
-                            <span>Về trang chủ</span>
-                        </Link>
+                    <div className="container mx-auto px-4 py-16">
                         <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground">
                             Giỏ Hàng
                         </h1>
@@ -106,14 +99,7 @@ const Cart = () => {
         <div className="min-h-screen bg-background">
             {/* Header */}
             <header className="bg-secondary/50 border-b border-border">
-                <div className="container mx-auto px-4 py-6">
-                    <Link
-                        href="/"
-                        className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-4"
-                    >
-                        <ArrowLeft className="w-4 h-4" />
-                        <span>Về trang chủ</span>
-                    </Link>
+                <div className="container mx-auto px-4 py-16">
                     <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground">
                         Giỏ Hàng
                     </h1>

@@ -1,14 +1,27 @@
-import { useState } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ShoppingCart, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
+import { cn } from '@/lib/utils';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [cartCount] = useState(2);
+    const [cartCount] = useState(2); // TODO: Integrate with real cart state
+    const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
+
+    // Handle scroll effect
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const navLinks = [
         { name: 'Trang chủ', href: '/' },
@@ -23,21 +36,26 @@ const Header = () => {
     };
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
-            <div className="container mx-auto px-4">
-                <div className="flex items-center justify-between h-16 md:h-20">
+        <header
+            className={cn(
+                'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out border-b border-transparent',
+                scrolled
+                    ? 'bg-background/80 backdrop-blur-md shadow-sm py-2 border-border/40'
+                    : 'bg-transparent py-4',
+            )}
+        >
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="flex items-center justify-between h-14 md:h-16">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center">
-                            <span className="text-xl font-bold text-primary-foreground">
-                                🥖
-                            </span>
+                    <Link href="/" className="flex items-center gap-2 group">
+                        <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200">
+                            <span className="text-xl">🥖</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="font-display text-xl font-bold text-foreground">
+                            <span className="font-display font-bold text-xl leading-tight text-foreground">
                                 Bánh Mì Sài Gòn
                             </span>
-                            <span className="text-xs text-muted-foreground font-medium hidden sm:block">
+                            <span className="text-[10px] text-muted-foreground font-medium tracking-wider uppercase">
                                 Hương vị truyền thống
                             </span>
                         </div>
@@ -49,13 +67,17 @@ const Header = () => {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className={`text-sm font-medium transition-colors duration-200 ${
+                                className={cn(
+                                    'text-sm font-medium transition-colors hover:text-primary relative py-1',
                                     isActive(link.href)
-                                        ? 'text-primary'
-                                        : 'text-muted-foreground hover:text-primary'
-                                }`}
+                                        ? 'text-foreground font-semibold'
+                                        : 'text-muted-foreground',
+                                )}
                             >
                                 {link.name}
+                                {isActive(link.href) && (
+                                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary rounded-full animate-in zoom-in-50 duration-300" />
+                                )}
                             </Link>
                         ))}
                     </nav>
@@ -63,51 +85,45 @@ const Header = () => {
                     {/* Actions */}
                     <div className="flex items-center gap-3">
                         <div className="hidden sm:block">
-                            <ModeToggle />
+                            <Link href="/cart">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="relative flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                                >
+                                    <ShoppingCart className="w-5 h-5" />
+                                    {cartCount > 0 && (
+                                        <span className="bg-chili text-white text-[10px] font-bold px-1.5 h-4 flex items-center justify-center rounded-full animate-in zoom-in">
+                                            {cartCount}
+                                        </span>
+                                    )}
+                                </Button>
+                            </Link>
                         </div>
-                        <Link href="/cart">
-                            <Button
-                                variant="warm"
-                                size="sm"
-                                className="hidden sm:flex"
-                            >
-                                <ShoppingCart className="w-4 h-4" />
-                                <span>Giỏ hàng</span>
-                                {cartCount > 0 && (
-                                    <span className="bg-chili text-primary-foreground rounded-full px-2 py-0.5 text-xs font-bold">
-                                        {cartCount}
-                                    </span>
-                                )}
-                            </Button>
-                        </Link>
-
-                        <Link href="/auth/login" className="hidden sm:block">
-                            <Button variant="ghost" size="sm">
-                                <User className="w-4 h-4 mr-2" />
-                                Đăng nhập
-                            </Button>
-                        </Link>
-
+                        <div className="hidden sm:block">
+                            <Link href="/auth/login">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                                >
+                                    Đăng nhập
+                                </Button>
+                            </Link>
+                        </div>
                         <Link href="/menu">
                             <Button
-                                variant="hero"
                                 size="sm"
-                                className="hidden sm:flex"
+                                className="rounded-full font-bold bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transition-all px-6"
                             >
                                 Đặt hàng ngay
-                            </Button>
-                        </Link>
-
-                        <Link href="/admin" className="hidden sm:block">
-                            <Button variant="ghost" size="sm">
-                                Admin
                             </Button>
                         </Link>
 
                         {/* Mobile menu button */}
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+                            className="md:hidden p-2 rounded-full hover:bg-secondary transition-colors text-foreground"
                         >
                             {isMenuOpen ? (
                                 <X className="w-6 h-6" />
@@ -120,67 +136,42 @@ const Header = () => {
 
                 {/* Mobile Navigation */}
                 {isMenuOpen && (
-                    <div className="md:hidden py-4 border-t border-border animate-fade-in">
-                        <nav className="flex flex-col gap-2">
+                    <div className="md:hidden py-4 px-2 border-t border-border/50 animate-in slide-in-from-top-2 bg-background/95 backdrop-blur-md absolute top-full left-0 right-0 shadow-lg border-b">
+                        <nav className="flex flex-col gap-2 container mx-auto">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
                                     onClick={() => setIsMenuOpen(false)}
-                                    className={`px-4 py-3 text-base font-medium rounded-lg transition-all ${
+                                    className={cn(
+                                        'px-4 py-3 text-sm font-medium rounded-xl transition-all',
                                         isActive(link.href)
-                                            ? 'text-primary bg-secondary'
-                                            : 'text-foreground hover:text-primary hover:bg-secondary'
-                                    }`}
+                                            ? 'bg-secondary text-primary'
+                                            : 'text-muted-foreground hover:bg-secondary/50 hover:text-foreground',
+                                    )}
                                 >
                                     {link.name}
                                 </Link>
                             ))}
-                            <div className="flex flex-col gap-2 pt-4 px-4">
+                            <div className="h-px bg-border/50 my-2" />
+                            <div className="flex flex-col gap-2 px-2">
                                 <Link
-                                    href="/cart"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    <Button variant="warm" className="w-full">
-                                        <ShoppingCart className="w-4 h-4" />
-                                        Giỏ hàng ({cartCount})
-                                    </Button>
-                                </Link>
-                                <Link
-                                    href="/menu"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    <Button variant="hero" className="w-full">
-                                        Đặt hàng ngay
-                                    </Button>
-                                </Link>
-                                <Link
-                                    href="/admin"
+                                    href="/auth/login"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     <Button
                                         variant="outline"
-                                        className="w-full"
+                                        className="w-full rounded-xl"
+                                        size="lg"
                                     >
-                                        Admin Dashboard
+                                        Đăng nhập
                                     </Button>
                                 </Link>
-                                <div className="flex gap-2">
-                                    <Link
-                                        href="/auth/login"
-                                        onClick={() => setIsMenuOpen(false)}
-                                        className="flex-1"
-                                    >
-                                        <Button
-                                            variant="outline"
-                                            className="w-full"
-                                        >
-                                            Đăng nhập
-                                        </Button>
-                                    </Link>
-                                    <div className="flex items-center justify-center border rounded-md px-3">
-                                        <ModeToggle />
-                                    </div>
+                                <div className="flex items-center justify-between px-2 py-2">
+                                    <span className="text-sm font-medium text-muted-foreground">
+                                        Chế độ
+                                    </span>
+                                    <ModeToggle />
                                 </div>
                             </div>
                         </nav>
