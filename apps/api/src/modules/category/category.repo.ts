@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/prisma'
 import { Prisma } from 'src/generated/prisma/client'
 import {
@@ -12,26 +12,38 @@ import { paginate } from '@/shared/utils/prisma.util'
 export class CategoryRepo {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(data: CreateCategoryBodyType & { createdById: string }) {
-    const { name, description, languageId, parentCategoryId, createdById } = data
+  async create(data: CreateCategoryBodyType & { createdById: string }) {
+    const { name, description, languageId, parentCategoryId, createdById, translations } = data
 
-    return this.prisma.dishCategory.create({
-      data: {
-        parentCategoryId,
-        createdById,
-        dishCategoryTranslations: {
-          create: {
-            name,
-            description,
-            languageId,
-            createdById,
-          },
+    return this.prisma.$transaction(async (tx) => {
+      const category = await tx.dishCategory.create({
+        data: {
+          parentCategoryId,
+          createdById,
         },
-      },
-      include: {
-        dishCategoryTranslations: true,
-        childrenCategories: true,
-      },
+      })
+
+      const allTranslations = [{ languageId, name, description }, ...(translations || [])]
+
+      if (allTranslations.length > 0) {
+        await tx.dishCategoryTranslation.createMany({
+          data: allTranslations.map((t) => ({
+            categoryId: category.id,
+            languageId: t.languageId,
+            name: t.name,
+            description: t.description,
+            createdById,
+          })),
+        })
+      }
+
+      return tx.dishCategory.findUniqueOrThrow({
+        where: { id: category.id },
+        include: {
+          dishCategoryTranslations: true,
+          childrenCategories: true,
+        },
+      })
     })
   }
 
@@ -55,6 +67,9 @@ export class CategoryRepo {
         },
         include: { dishCategoryTranslations: true },
       })
+      if (!category) {
+        throw new BadRequestException('Category not found')
+      }
 
       if (name || description) {
         const existingTranslation = await tx.dishCategoryTranslation.findFirst({
@@ -136,6 +151,9 @@ export class CategoryRepo {
   }
 
   async delete(id: string, deletedById: string) {
+    const category = await this.findById(id)
+    if (!category) throw new BadRequestException('Category not found')
+
     return this.prisma.extended.dishCategory.softDelete({ id })
   }
 }

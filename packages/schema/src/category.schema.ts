@@ -25,6 +25,15 @@ export const CreateCategoryBodySchema = z.object({
     name: z.string(),
     description: z.string(),
     languageId: z.string(),
+    translations: z
+        .array(
+            z.object({
+                languageId: z.string(),
+                name: z.string(),
+                description: z.string(),
+            }),
+        )
+        .optional(),
 });
 
 export type CreateCategoryBodyType = z.infer<typeof CreateCategoryBodySchema>;

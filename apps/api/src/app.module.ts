@@ -18,6 +18,7 @@ import { CategoryModule } from './modules/category/category.module'
 import { UploadModule } from './modules/upload/upload.module'
 import { TableModule } from './modules/table/table.module'
 import { OrderModule } from './modules/order/order.module'
+import { ReviewModule } from './modules/review/review.module'
 
 import superjson from 'superjson'
 
@@ -48,6 +49,7 @@ import { AppContext } from './trpc/context'
     UploadModule,
     TableModule,
     OrderModule,
+    ReviewModule,
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

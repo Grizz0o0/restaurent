@@ -9,4 +9,5 @@ export * from './request.schema';
 export * from './dish.schema';
 export * from './category.schema';
 export * from './table.schema';
+export * from './review.schema';
 export * from './order.schema';

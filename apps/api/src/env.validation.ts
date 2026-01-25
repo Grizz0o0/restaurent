@@ -27,6 +27,11 @@ export const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string().optional(),
   GOOGLE_REDIRECT_URI: z.string().url().optional(),
 
+  CLOUD_NAME: z.string().optional(),
+  CLOUD_API_KEY: z.string().optional(),
+  CLOUD_API_SECRET: z.string().optional(),
+  CLOUDINARY_URL: z.string().optional(),
+
   SECRET_API_KEY: z.string().optional(),
   JWT_SECRET: z.string().optional(),
 

@@ -94,6 +94,11 @@ const appRouter = t.router({
   order: t.router({
     create: publicProcedure.input(CreateOrderBodySchema).output(OrderSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     list: publicProcedure.input(GetOrdersQuerySchema).output(GetOrdersResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
+  }),
+  review: t.router({
+    create: publicProcedure.input(CreateReviewBodySchema).output(ReviewDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    list: publicProcedure.input(GetReviewsQuerySchema).output(GetReviewsResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    delete: publicProcedure.input(z.object({ id: z.string() })).output(z.any()).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   })
 });
 export type AppRouter = typeof appRouter;

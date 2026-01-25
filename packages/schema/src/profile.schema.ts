@@ -2,6 +2,13 @@ import z from 'zod';
 import { UserSchema } from './auth.schema';
 import { PermissionSchema } from './permission.schema';
 
+// User Translation Schema
+const UserTranslationSchema = z.object({
+    languageId: z.string(),
+    address: z.string().nullable().optional(),
+    description: z.string().nullable().optional(),
+});
+
 // Profile detail response with role and permissions
 export const ProfileDetailResSchema = UserSchema.omit({
     password: true,
@@ -25,6 +32,7 @@ export const ProfileDetailResSchema = UserSchema.omit({
                 .optional(),
         })
         .optional(),
+    translations: z.array(UserTranslationSchema).optional(),
 });
 
 // Update profile body schema
@@ -34,6 +42,7 @@ export const UpdateProfileBodySchema = UserSchema.pick({
 })
     .extend({
         avatar: z.string().optional(),
+        translations: z.array(UserTranslationSchema).optional(),
     })
     .partial()
     .strict();
@@ -41,3 +50,4 @@ export const UpdateProfileBodySchema = UserSchema.pick({
 // Types
 export type ProfileDetailResType = z.infer<typeof ProfileDetailResSchema>;
 export type UpdateProfileBodyType = z.infer<typeof UpdateProfileBodySchema>;
+export type UserTranslationType = z.infer<typeof UserTranslationSchema>;

@@ -1,37 +1,28 @@
-import { Controller, Post, UseInterceptors, UploadedFile, Get, Param, Res } from '@nestjs/common'
+import {
+  Controller,
+  Post,
+  UseInterceptors,
+  UploadedFile,
+  Query,
+  BadRequestException,
+} from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { extname, join } from 'path'
-import { Response } from 'express'
-
-import * as multer from 'multer'
-const diskStorage = multer.diskStorage
+import { CloudinaryService } from './cloudinary.service'
 
 @Controller('uploads')
 export class UploadController {
-  @Post()
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req: any, file: any, cb: any) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('')
-          cb(null, `${randomName}${extname(file.originalname)}`)
-        },
-      }),
-    }),
-  )
-  uploadFile(@UploadedFile() file: any) {
-    return {
-      url: `${process.env.API_URL || 'http://localhost:3001'}/uploads/${file.filename}`,
-    }
-  }
+  constructor(private readonly cloudinaryService: CloudinaryService) {}
 
-  @Get(':filename')
-  serveFile(@Param('filename') filename: string, @Res() res: Response) {
-    const filePath = join(process.cwd(), 'uploads', filename)
-    return res.sendFile(filePath)
+  @Post()
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(@UploadedFile() file: Express.Multer.File, @Query('folder') folder?: string) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded')
+    }
+    const result = await this.cloudinaryService.uploadFile(file, folder)
+    return {
+      url: result.secure_url,
+      public_id: result.public_id,
+    }
   }
 }

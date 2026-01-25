@@ -33,6 +33,34 @@ export const CreateDishBodySchema = z.object({
     name: z.string(),
     description: z.string(),
     languageId: z.string(),
+    translations: z
+        .array(
+            z.object({
+                languageId: z.string(),
+                name: z.string(),
+                description: z.string(),
+            }),
+        )
+        .optional(),
+    variants: z
+        .array(
+            z.object({
+                name: z.string(),
+                options: z.array(z.string()), // e.g., ["M", "L"]
+            }),
+        )
+        .optional(),
+    skus: z
+        .array(
+            z.object({
+                value: z.string(), // SKU code e.g. "DISH-01-M"
+                price: z.number(),
+                stock: z.number(),
+                images: z.array(z.string()).default([]),
+                optionValues: z.array(z.string()), // ["M", "No Ice"] - logic to match options
+            }),
+        )
+        .optional(),
 });
 
 export type CreateDishBodyType = z.infer<typeof CreateDishBodySchema>;
