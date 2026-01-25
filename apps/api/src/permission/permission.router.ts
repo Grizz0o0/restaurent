@@ -1,6 +1,6 @@
-import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
-import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
+import { Ctx, Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
+import { AdminRoleMiddleware } from '@/trpc/middlewares/admin-role.middleware'
 import { PermissionService } from './permission.service'
 import {
   GetPermissionsQuerySchema,
@@ -18,7 +18,7 @@ import { Context } from '@/trpc/context'
 import z from 'zod'
 
 @Router({ alias: 'permission' })
-@UseGuards(AuthenticationGuard)
+@UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
 export class PermissionRouter {
   constructor(private readonly permissionService: PermissionService) {}
 

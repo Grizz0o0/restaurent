@@ -5,7 +5,6 @@ import { TokenService } from './services/token.service'
 import { JwtModule } from '@nestjs/jwt'
 import { AccessTokenGuard } from './guards/access-token.guard'
 import { APIKeyGuard } from './guards/api-key.guard'
-import { AuthenticationGuard } from './guards/authentication.guard'
 import { SharedUserRepository } from '@/shared/repositories/shared-user.repo'
 import { SharedRoleRepository } from '@/shared/repositories/shared-role.repo'
 import { EmailService } from '@/shared/services/email.service'
@@ -22,17 +21,8 @@ const shareServices = [
 
 @Global()
 @Module({
-  providers: [
-    ...shareServices,
-    AccessTokenGuard,
-    APIKeyGuard,
-    AuthenticationGuard,
-    {
-      provide: 'APP_GUARD',
-      useClass: AuthenticationGuard,
-    },
-  ],
-  exports: [...shareServices, AccessTokenGuard, APIKeyGuard, AuthenticationGuard, PrismaModule],
+  providers: [...shareServices, AccessTokenGuard, APIKeyGuard],
+  exports: [...shareServices, AccessTokenGuard, APIKeyGuard, PrismaModule],
   imports: [JwtModule, PrismaModule],
 })
 export class SharedModule {}

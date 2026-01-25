@@ -21,6 +21,8 @@ import { OrderModule } from './order/order.module'
 
 import superjson from 'superjson'
 
+import { AppContext } from './trpc/context'
+
 @Module({
   imports: [
     SharedModule,
@@ -31,6 +33,7 @@ import superjson from 'superjson'
     TRPCModule.forRoot({
       autoSchemaFile: '../../packages/trpc/src/server',
       transformer: superjson,
+      context: AppContext,
     }),
     AuthModule,
     AdminModule,
@@ -61,6 +64,7 @@ import superjson from 'superjson'
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
+    AppContext,
   ],
 })
 export class AppModule {}

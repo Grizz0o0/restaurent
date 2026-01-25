@@ -1,9 +1,6 @@
-import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
-import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
-import { RolesGuard } from '@/shared/guards/roles.guard'
-import { Roles } from '@/shared/decorators/roles.decorator'
-import { IsPublic } from '@/shared/decorators/auth.decorator'
+import { Ctx, Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
+import { AdminRoleMiddleware } from '@/trpc/middlewares/admin-role.middleware'
 import { RoleName } from '@repo/constants'
 import {
   GetDishesQuerySchema,
@@ -20,11 +17,9 @@ import { DishService } from './dish.service'
 import { z } from 'zod'
 
 @Router({ alias: 'dish' })
-@UseGuards(AuthenticationGuard)
 export class DishRouter {
   constructor(private readonly dishService: DishService) {}
 
-  @IsPublic()
   @Query({
     input: GetDishesQuerySchema,
     output: GetDishesResSchema,
@@ -33,7 +28,6 @@ export class DishRouter {
     return this.dishService.list(input)
   }
 
-  @IsPublic()
   @Query({
     input: z.object({ id: z.string() }),
     output: DishDetailResSchema,
@@ -46,8 +40,7 @@ export class DishRouter {
     input: CreateDishBodySchema,
     output: DishDetailResSchema,
   })
-  @UseGuards(RolesGuard)
-  @Roles(RoleName.Admin, RoleName.Seller) // Admin or Seller can create dishes
+  @UseMiddlewares(AuthMiddleware, AdminRoleMiddleware) // Admin or Seller can create dishes
   async create(@Input() input: CreateDishBodyType, @Ctx() ctx: Context) {
     return this.dishService.create({ ...input, createdById: ctx.user!.userId })
   }
@@ -59,8 +52,7 @@ export class DishRouter {
     }),
     output: DishDetailResSchema,
   })
-  @UseGuards(RolesGuard)
-  @Roles(RoleName.Admin, RoleName.Seller)
+  @UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
   async update(@Input() input: { id: string; data: UpdateDishBodyType }, @Ctx() ctx: Context) {
     return this.dishService.update({
       id: input.id,
@@ -72,8 +64,7 @@ export class DishRouter {
     input: z.object({ id: z.string() }),
     output: z.any(),
   })
-  @UseGuards(RolesGuard)
-  @Roles(RoleName.Admin, RoleName.Seller)
+  @UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
   async delete(@Input('id') id: string, @Ctx() ctx: Context) {
     return this.dishService.delete(id, ctx.user!.userId)
   }

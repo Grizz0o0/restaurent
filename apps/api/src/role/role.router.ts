@@ -1,6 +1,6 @@
-import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
-import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
+import { Ctx, Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
+import { AdminRoleMiddleware } from '@/trpc/middlewares/admin-role.middleware'
 import { RoleService } from './role.service'
 import {
   GetRolesQuerySchema,
@@ -18,7 +18,7 @@ import { Context } from '@/trpc/context'
 import z from 'zod'
 
 @Router({ alias: 'role' })
-@UseGuards(AuthenticationGuard)
+@UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
 export class RoleRouter {
   constructor(private readonly roleService: RoleService) {}
 

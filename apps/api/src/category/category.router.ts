@@ -1,8 +1,6 @@
-import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
-import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
-import { RolesGuard } from '@/shared/guards/roles.guard'
-import { Roles } from '@/shared/decorators/roles.decorator'
+import { Ctx, Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
+import { AdminRoleMiddleware } from '@/trpc/middlewares/admin-role.middleware'
 import { RoleName } from '@repo/constants'
 import {
   GetCategoriesQuerySchema,
@@ -19,7 +17,6 @@ import { CategoryService } from './category.service'
 import { z } from 'zod'
 
 @Router({ alias: 'category' })
-@UseGuards(AuthenticationGuard)
 export class CategoryRouter {
   constructor(private readonly categoryService: CategoryService) {}
 
@@ -27,6 +24,7 @@ export class CategoryRouter {
     input: GetCategoriesQuerySchema,
     output: GetCategoriesResSchema,
   })
+  @UseMiddlewares(AuthMiddleware)
   async list(@Input() input: GetCategoriesQueryType) {
     return this.categoryService.list(input)
   }
@@ -35,6 +33,7 @@ export class CategoryRouter {
     input: z.object({ id: z.string() }),
     output: CategoryDetailResSchema,
   })
+  @UseMiddlewares(AuthMiddleware)
   async detail(@Input('id') id: string) {
     return this.categoryService.findById(id)
   }
@@ -43,8 +42,7 @@ export class CategoryRouter {
     input: CreateCategoryBodySchema,
     output: CategoryDetailResSchema,
   })
-  @UseGuards(RolesGuard)
-  @Roles(RoleName.Admin, RoleName.Seller)
+  @UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
   async create(@Input() input: CreateCategoryBodyType, @Ctx() ctx: Context) {
     return this.categoryService.create({ ...input, createdById: ctx.user!.userId })
   }
@@ -56,8 +54,7 @@ export class CategoryRouter {
     }),
     output: CategoryDetailResSchema,
   })
-  @UseGuards(RolesGuard)
-  @Roles(RoleName.Admin, RoleName.Seller)
+  @UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
   async update(@Input() input: { id: string; data: UpdateCategoryBodyType }, @Ctx() ctx: Context) {
     return this.categoryService.update({
       id: input.id,
@@ -65,12 +62,12 @@ export class CategoryRouter {
       updatedById: ctx.user!.userId,
     })
   }
+
   @Mutation({
     input: z.object({ id: z.string() }),
     output: z.any(),
   })
-  @UseGuards(RolesGuard)
-  @Roles(RoleName.Admin, RoleName.Seller)
+  @UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
   async delete(@Input('id') id: string, @Ctx() ctx: Context) {
     return this.categoryService.delete(id, ctx.user!.userId)
   }

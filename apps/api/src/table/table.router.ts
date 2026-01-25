@@ -1,9 +1,6 @@
-import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
-import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
-import { RolesGuard } from '@/shared/guards/roles.guard'
-import { Roles } from '@/shared/decorators/roles.decorator'
-import { RoleName } from '@repo/constants'
+import { Ctx, Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
+import { AdminRoleMiddleware } from '@/trpc/middlewares/admin-role.middleware'
 import {
   GetTablesQuerySchema,
   GetTablesResSchema,
@@ -19,8 +16,7 @@ import { TableService } from './table.service'
 import { z } from 'zod'
 
 @Router({ alias: 'table' })
-@UseGuards(AuthenticationGuard)
-@Roles(RoleName.Admin) // Only Admin can manage tables
+@UseMiddlewares(AuthMiddleware, AdminRoleMiddleware) // Only Admin can manage tables
 export class TableRouter {
   constructor(private readonly tableService: TableService) {}
 
@@ -44,7 +40,6 @@ export class TableRouter {
     input: CreateTableBodySchema,
     output: RestaurantTableSchema,
   })
-  @UseGuards(RolesGuard)
   async create(@Input() input: CreateTableBodyType, @Ctx() ctx: Context) {
     return this.tableService.create({ ...input, createdById: ctx.user!.userId })
   }
@@ -56,7 +51,6 @@ export class TableRouter {
     }),
     output: RestaurantTableSchema,
   })
-  @UseGuards(RolesGuard)
   async update(@Input() input: { id: string; data: UpdateTableBodyType }, @Ctx() ctx: Context) {
     return this.tableService.update(input.id, {
       ...input.data,
@@ -68,7 +62,6 @@ export class TableRouter {
     input: z.object({ id: z.string() }),
     output: z.any(),
   })
-  @UseGuards(RolesGuard)
   async delete(@Input('id') id: string, @Ctx() ctx: Context) {
     return this.tableService.delete(id, ctx.user!.userId)
   }

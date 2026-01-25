@@ -1,6 +1,5 @@
-import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
-import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
+import { Ctx, Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
 import { ProfileService } from './profile.service'
 import {
   ProfileDetailResSchema,
@@ -10,7 +9,7 @@ import {
 import { Context } from '@/trpc/context'
 
 @Router({ alias: 'profile' })
-@UseGuards(AuthenticationGuard)
+@UseMiddlewares(AuthMiddleware)
 export class ProfileRouter {
   constructor(private readonly profileService: ProfileService) {}
 

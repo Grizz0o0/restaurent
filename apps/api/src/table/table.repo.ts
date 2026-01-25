@@ -3,6 +3,8 @@ import { PrismaService } from '@/shared/prisma'
 import { CreateTableBodyType, UpdateTableBodyType, GetTablesQueryType } from '@repo/schema'
 import { paginate } from '@/shared/utils/prisma.util'
 
+import { TableStatus } from 'src/generated/prisma/client'
+
 @Injectable()
 export class TableRepo {
   constructor(private readonly prisma: PrismaService) {}
@@ -13,14 +15,19 @@ export class TableRepo {
     return this.prisma.restaurantTable.create({
       data: {
         ...data,
+        status: (data.status?.toUpperCase() as TableStatus) || TableStatus.AVAILABLE,
       },
     })
   }
 
   async update(id: string, data: UpdateTableBodyType & { updatedById: string }) {
+    const { status, ...rest } = data
     return this.prisma.restaurantTable.update({
       where: { id },
-      data,
+      data: {
+        ...rest,
+        ...(status && { status: status.toUpperCase() as TableStatus }),
+      },
     })
   }
 

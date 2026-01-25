@@ -1,7 +1,5 @@
-import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc'
-import { UseGuards } from '@nestjs/common'
-import { AuthenticationGuard } from '@/shared/guards/authentication.guard'
-import { IsPublic } from '@/shared/decorators/auth.decorator'
+import { Ctx, Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
 import { AuthService } from './auth.service'
 import { GoogleService } from './google.service'
 import {
@@ -38,20 +36,17 @@ import {
 import { Context } from '@/trpc/context'
 
 @Router({ alias: 'auth' })
-@UseGuards(AuthenticationGuard)
 export class AuthRouter {
   constructor(
     private readonly authService: AuthService,
     private readonly googleService: GoogleService,
   ) {}
 
-  @IsPublic()
   @Mutation({ input: RegisterBodySchema, output: RegisterResSchema })
   async register(@Input() input: RegisterBodyType) {
     return this.authService.register(input)
   }
 
-  @IsPublic()
   @Mutation({ input: LoginBodySchema, output: LoginResSchema })
   async login(@Input() input: LoginBodyType, @Ctx() ctx: Context) {
     const userAgent = ctx.req.headers['user-agent'] || ''
@@ -64,7 +59,6 @@ export class AuthRouter {
     })
   }
 
-  @IsPublic()
   @Mutation({ input: RefreshTokenBodySchema, output: RefreshTokenResSchema })
   async refreshToken(@Input() input: RefreshTokenBodyType, @Ctx() ctx: Context) {
     const userAgent = ctx.req.headers['user-agent'] || ''
@@ -77,25 +71,21 @@ export class AuthRouter {
     })
   }
 
-  @IsPublic()
   @Mutation({ input: SendOTPBodySchema })
   async sendOTP(@Input() input: SendOTPBodyType) {
     return this.authService.sendOTP(input)
   }
 
-  @IsPublic()
   @Mutation({ input: LogoutBodySchema })
   async logout(@Input() input: LogoutBodyType) {
     return this.authService.logout(input.refreshToken)
   }
 
-  @IsPublic()
   @Mutation({ input: ForgotPasswordBodySchema })
   async forgotPassword(@Input() input: ForgotPasswordBodyType) {
     return this.authService.forgotPassword(input)
   }
 
-  @IsPublic()
   @Query({ output: GetAuthorizationUrlResSchema })
   googleUrl(@Ctx() ctx: Context) {
     const userAgent = ctx.req.headers['user-agent'] || ''
@@ -104,7 +94,6 @@ export class AuthRouter {
     return this.googleService.getAuthorizationUrl({ ip, userAgent })
   }
 
-  @IsPublic()
   @Mutation({
     input: GoogleCallbackBodySchema,
     output: LoginResSchema,
@@ -114,25 +103,29 @@ export class AuthRouter {
   }
 
   @Query({ output: GetSessionsResSchema })
+  @UseMiddlewares(AuthMiddleware)
   async getActiveSessions(@Ctx() ctx: Context) {
     return this.authService.getActiveSessions(ctx.user!.userId)
   }
 
   @Mutation({ input: RevokeSessionBodySchema })
+  @UseMiddlewares(AuthMiddleware)
   async revokeSession(@Input() input: RevokeSessionBodyType, @Ctx() ctx: Context) {
     return this.authService.revokeSession(ctx.user!.userId, input.id)
   }
 
   @Mutation({ output: RevokeAllSessionsResSchema })
+  @UseMiddlewares(AuthMiddleware)
   async revokeAllSessions(@Ctx() ctx: Context) {
     return this.authService.revokeAllSessions(ctx.user!.userId)
   }
 
   @Mutation({ input: ChangePasswordBodySchema })
+  @UseMiddlewares(AuthMiddleware)
   async changePassword(@Input() input: ChangePasswordBodyType, @Ctx() ctx: Context) {
     return this.authService.changePassword(ctx.user!.userId, input)
   }
-  @IsPublic()
+
   @Mutation({
     input: GuestLoginBodySchema,
     output: LoginResSchema,
@@ -142,11 +135,13 @@ export class AuthRouter {
   }
 
   @Mutation({ output: TwoFactorSetupResSchema })
+  @UseMiddlewares(AuthMiddleware)
   async setup2FA(@Ctx() ctx: Context) {
     return this.authService.setupTwoFactorAuth(ctx.user!.userId)
   }
 
   @Mutation({ input: DisableTwoFactorAuthBodySchema })
+  @UseMiddlewares(AuthMiddleware)
   async disable2FA(@Input() input: DisableTwoFactorAuthBodyType, @Ctx() ctx: Context) {
     return this.authService.disableTwoFactorAuth({ ...input, userId: ctx.user!.userId })
   }

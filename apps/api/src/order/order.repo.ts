@@ -50,7 +50,7 @@ export class OrderRepo {
     const { page, limit, status, tableId, fromDate, toDate } = query
     const where: Prisma.OrderWhereInput = {
       deletedAt: null,
-      ...(status && { status }),
+      ...(status && { status: status as OrderStatus }),
       ...(tableId && { tableId }),
       ...(fromDate &&
         toDate && {
