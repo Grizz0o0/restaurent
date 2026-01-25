@@ -3,11 +3,11 @@ import { OAuth2Client } from 'google-auth-library'
 import { google } from 'googleapis'
 import { v4 as uuidv4 } from 'uuid'
 import { GoogleAuthStateType } from '@repo/schema'
-import { AuthRepository } from '@/auth/auth.repo'
+import { AuthRepository } from '@/modules/auth/auth.repo'
 import { SharedRoleRepository } from '@/shared/repositories/shared-role.repo'
 import envConfig from '@/shared/config'
 import { HashingService } from '@/shared/services/hashing.service'
-import { AuthService } from '@/auth/auth.service'
+import { AuthService } from '@/modules/auth/auth.service'
 import { GoogleUserInfoError } from './auth.error'
 
 @Injectable()

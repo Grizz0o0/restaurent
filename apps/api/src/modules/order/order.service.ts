@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
 import { OrderRepo } from './order.repo'
 import { CreateOrderBodyType, GetOrdersQueryType } from '@repo/schema'
-import { DishRepo } from '@/dish/dish.repo'
+import { DishRepo } from '@/modules/dish/dish.repo'
 import { createPaginationResult } from '@/shared/utils/pagination.util'
 
 @Injectable()

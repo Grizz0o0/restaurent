@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { UserStatus } from '@repo/constants'
-import { AuthRepository } from '@/auth/auth.repo'
+import { AuthRepository } from '@/modules/auth/auth.repo'
 import { SharedUserRepository } from '@/shared/repositories/shared-user.repo'
 
 @Injectable()

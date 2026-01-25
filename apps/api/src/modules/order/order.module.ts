@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { OrderService } from './order.service'
 import { OrderRouter } from './order.router'
 import { OrderRepo } from './order.repo'
-import { DishModule } from '@/dish/dish.module'
+import { DishModule } from '@/modules/dish/dish.module'
 
 @Module({
   imports: [DishModule],
