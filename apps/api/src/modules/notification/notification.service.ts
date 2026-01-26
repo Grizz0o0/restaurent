@@ -4,7 +4,7 @@ import { SocketGateway } from '../socket/socket.gateway'
 import { EmailService } from '@/shared/services/email.service'
 import { PrismaService } from '@/shared/prisma/prisma.service'
 import { OnEvent } from '@nestjs/event-emitter'
-
+import envConfig from '@/shared/config'
 @Injectable()
 export class NotificationService implements OnModuleInit {
   private readonly logger = new Logger(NotificationService.name)
@@ -18,9 +18,9 @@ export class NotificationService implements OnModuleInit {
   onModuleInit() {
     // Initialize Firebase Admin if not already initialized
     if (!admin.apps.length) {
-      const projectId = process.env.FIREBASE_PROJECT_ID
-      const privateKey = process.env.FIREBASE_PRIVATE_KEY
-      const clientEmail = process.env.FIREBASE_CLIENT_EMAIL
+      const projectId = envConfig.FIREBASE_PROJECT_ID
+      const privateKey = envConfig.FIREBASE_PRIVATE_KEY
+      const clientEmail = envConfig.FIREBASE_CLIENT_EMAIL
 
       if (!projectId || !privateKey || !clientEmail) {
         this.logger.warn(
@@ -79,7 +79,7 @@ export class NotificationService implements OnModuleInit {
       where: { userId, isActive: true, fcmToken: { not: null } },
     })
 
-    const tokens = devices.map((d) => d.fcmToken).filter((t) => t !== null) as string[]
+    const tokens = devices.map((d) => d.fcmToken).filter((t) => t !== null)
     if (tokens.length > 0) {
       try {
         await admin.messaging().sendEachForMulticast({

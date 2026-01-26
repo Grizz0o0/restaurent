@@ -44,13 +44,30 @@ const configSchema = z.object({
   GOOGLE_REDIRECT_URI: z.string().url(),
   GOOGLE_CLIENT_REDIRECT_URI: z.string().url(),
 
+  // ===== Cloudinary =====
+  CLOUD_NAME: z.string(),
+  CLOUD_API_KEY: z.string(),
+  CLOUD_API_SECRET: z.string(),
+  CLOUD_URL: z.string().url(),
+
+  // ===== Firebase =====
+  FIREBASE_PROJECT_ID: z.string(),
+  FIREBASE_PRIVATE_KEY: z.string(),
+  FIREBASE_CLIENT_EMAIL: z.string(),
+
+  // ===== Throttle =====
+  THROTTLE_TTL: z.coerce.number().positive(),
+  THROTTLE_LIMIT: z.coerce.number().positive(),
+
   // ===== Other =====
   SECRET_API_KEY: z.string(),
+  JWT_SECRET: z.string(),
 })
 
 const configServer = configSchema.safeParse(process.env)
 
 if (!configServer.success) {
+  console.error('Lỗi validate .env:', JSON.stringify(configServer.error.format(), null, 2))
   console.log('Các giá trị khai báo trong file .env không hợp lệ')
   process.exit(1)
 }
