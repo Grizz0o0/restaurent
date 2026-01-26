@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ShoppingCart, User } from 'lucide-react';
@@ -47,20 +48,24 @@ const Header = () => {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex items-center justify-between h-14 md:h-16">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200">
-                            <span className="text-xl">🥖</span>
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="relative w-12 h-12 group-hover:scale-105 transition-transform duration-200 rounded-full">
+                            <Image
+                                src="/images/logo-trans.png"
+                                alt="BAMIXO Logo"
+                                fill
+                                className="object-contain"
+                            />
                         </div>
                         <div className="flex flex-col">
-                            <span className="font-display font-bold text-xl leading-tight text-foreground">
-                                Bánh Mì Sài Gòn
+                            <span className="font-display font-bold text-2xl leading-tight text-foreground tracking-tight">
+                                BAMIXO
                             </span>
                             <span className="text-[10px] text-muted-foreground font-medium tracking-wider uppercase">
-                                Hương vị truyền thống
+                                Bánh Mì & Xôi
                             </span>
                         </div>
                     </Link>
-
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex items-center gap-8">
                         {navLinks.map((link) => (
@@ -81,7 +86,6 @@ const Header = () => {
                             </Link>
                         ))}
                     </nav>
-
                     {/* Actions */}
                     <div className="flex items-center gap-3">
                         <div className="hidden sm:block">

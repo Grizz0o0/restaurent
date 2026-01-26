@@ -16,7 +16,7 @@ const HeroSection = () => {
             <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-herb/5 rounded-full blur-3xl" />
 
-            <div className="container relative mx-auto px-4 py-12 md:py-20">
+            <div className="container relative mx-auto px-4 pb-12 md:pb-20">
                 <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-8rem)]">
                     {/* Content */}
                     <div className="space-y-8 animate-fade-in-up">

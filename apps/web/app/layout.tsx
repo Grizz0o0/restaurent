@@ -17,10 +17,15 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
     title: {
-        template: '%s | Restaurant App',
-        default: 'Restaurant App',
+        template: '%s | BAMIXO',
+        default: 'BAMIXO - Bánh Mì & Xôi',
     },
     description: 'Authentic Vietnamese Bánh Mì & Street Food',
+    icons: {
+        icon: '/images/logo-trans.png',
+        shortcut: '/images/logo-trans.png',
+        apple: '/images/logo-trans.png',
+    },
 };
 
 import TRPCProvider from '../lib/trpc/provider';

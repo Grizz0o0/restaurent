@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import Image from 'next/image';
 import { Facebook, Instagram, MessageCircle } from 'lucide-react';
 
 const Footer = () => {
@@ -9,19 +11,25 @@ const Footer = () => {
                 <div className="grid md:grid-cols-4 gap-8 mb-8">
                     {/* Brand */}
                     <div className="space-y-4">
-                        <div className="flex items-center gap-2">
-                            <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center">
-                                <span className="text-xl">🥖</span>
+                        <div className="flex items-center gap-3">
+                            <div className="relative w-12 h-12 overflow-hidden flex items-center justify-center">
+                                <Image
+                                    src="/images/logo-trans.png"
+                                    alt="BAMIXO Logo"
+                                    width={48}
+                                    height={48}
+                                    className="object-contain"
+                                />
                             </div>
                             <div>
-                                <span className="font-display text-xl font-bold">
-                                    Bánh Mì Sài Gòn
+                                <span className="font-display text-2xl font-bold tracking-tight">
+                                    BAMIXO
                                 </span>
                             </div>
                         </div>
                         <p className="text-background/70 text-sm leading-relaxed">
-                            Hơn 40 năm gìn giữ hương vị truyền thống bánh mì
-                            Việt Nam.
+                            Hương vị truyền thống Bánh Mì & Xôi Việt Nam, nâng
+                            tầm phong cách hiện đại.
                         </p>
                         <div className="flex gap-3">
                             <a
@@ -137,10 +145,7 @@ const Footer = () => {
 
                 {/* Bottom */}
                 <div className="border-t border-background/10 pt-8 text-center text-background/50 text-sm">
-                    <p>
-                        © {currentYear} Bánh Mì Sài Gòn. Tất cả quyền được bảo
-                        lưu.
-                    </p>
+                    <p>© {currentYear} BAMIXO. Tất cả quyền được bảo lưu.</p>
                 </div>
             </div>
         </footer>
