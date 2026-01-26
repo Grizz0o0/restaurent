@@ -197,6 +197,7 @@ model Device {
   lastActive  DateTime  @updatedAt
   createdAt   DateTime  @default(now())
   isActive    Boolean   @default(true)
+  fcmToken    String?   @db.Text
   refreshTokens RefreshToken[]
 }
 

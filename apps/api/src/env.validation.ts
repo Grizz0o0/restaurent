@@ -23,6 +23,10 @@ export const envSchema = z.object({
   OTP_EXPIRES_IN: z.string().default('5m'),
   RESEND_API_KEY: z.string().optional(),
 
+  FIREBASE_PROJECT_ID: z.string().optional(),
+  FIREBASE_PRIVATE_KEY: z.string().optional(),
+  FIREBASE_CLIENT_EMAIL: z.string().optional(),
+
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
   GOOGLE_REDIRECT_URI: z.string().url().optional(),

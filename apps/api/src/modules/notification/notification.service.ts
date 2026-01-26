@@ -1,0 +1,127 @@
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
+import * as admin from 'firebase-admin'
+import { SocketGateway } from '../socket/socket.gateway'
+import { EmailService } from '@/shared/services/email.service'
+import { PrismaService } from '@/shared/prisma/prisma.service'
+import { OnEvent } from '@nestjs/event-emitter'
+
+@Injectable()
+export class NotificationService implements OnModuleInit {
+  private readonly logger = new Logger(NotificationService.name)
+
+  constructor(
+    private readonly socketGateway: SocketGateway,
+    private readonly emailService: EmailService,
+    private readonly prisma: PrismaService,
+  ) {}
+
+  onModuleInit() {
+    // Initialize Firebase Admin if not already initialized
+    if (!admin.apps.length) {
+      const projectId = process.env.FIREBASE_PROJECT_ID
+      const privateKey = process.env.FIREBASE_PRIVATE_KEY
+      const clientEmail = process.env.FIREBASE_CLIENT_EMAIL
+
+      if (!projectId || !privateKey || !clientEmail) {
+        this.logger.warn(
+          'Missing Firebase credentials (FIREBASE_PROJECT_ID, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL). Skipping Firebase initialization.',
+        )
+        return
+      }
+
+      try {
+        admin.initializeApp({
+          credential: admin.credential.cert({
+            projectId,
+            privateKey: privateKey.replace(/\\n/g, '\n'),
+            clientEmail,
+          }),
+        })
+        this.logger.log('Firebase Admin initialized successfully')
+      } catch (error) {
+        this.logger.warn(
+          'Failed to initialize Firebase Admin. Push notifications will not work.',
+          error,
+        )
+      }
+    }
+  }
+
+  async send(
+    userId: string,
+    title: string,
+    body: string,
+    type: 'ORDER_UPDATE' | 'PROMOTION',
+    data?: any,
+  ) {
+    // 1. Save to Database
+    const notification = await this.prisma.notification.create({
+      data: {
+        userId,
+        type: type, // Ensure type matches enum
+        content: body,
+        channel: 'APP', // Default channel for DB log
+      },
+    })
+
+    // 2. Real-time (Socket.io)
+    this.socketGateway.sendToUser(userId, 'notification', {
+      id: notification.id,
+      title,
+      body,
+      type,
+      data,
+      createdAt: notification.createdAt,
+    })
+
+    // 3. Push Notification (FCM)
+    const devices = await this.prisma.device.findMany({
+      where: { userId, isActive: true, fcmToken: { not: null } },
+    })
+
+    const tokens = devices.map((d) => d.fcmToken).filter((t) => t !== null) as string[]
+    if (tokens.length > 0) {
+      try {
+        await admin.messaging().sendEachForMulticast({
+          tokens,
+          notification: { title, body },
+          data: data ? { ...data, type } : { type },
+        })
+      } catch (error) {
+        this.logger.error(`Failed to send FCM to user ${userId}`, error)
+      }
+    }
+
+    // 4. Email (Optional logic based on priority)
+    // Fetch user email if not passed
+    const user = await this.prisma.user.findUnique({ where: { id: userId } })
+    if (user && user.email) {
+      await this.emailService.sendNotification(user.email, title, body)
+    }
+  }
+
+  @OnEvent('order.updated')
+  async handleOrderUpdate(payload: { userId: string; orderId: string; status: string }) {
+    await this.send(
+      payload.userId,
+      'Cập nhật đơn hàng',
+      `Đơn hàng #${payload.orderId} của bạn đã chuyển sang trạng thái: ${payload.status}`,
+      'ORDER_UPDATE',
+      { orderId: payload.orderId },
+    )
+  }
+
+  @OnEvent('promotion.created') // Example event
+  async handlePromotionCreated(payload: { code: string; description: string; userIds?: string[] }) {
+    if (payload.userIds) {
+      for (const userId of payload.userIds) {
+        await this.send(
+          userId,
+          'Mã khuyến mãi mới!',
+          `Nhập mã ${payload.code} để nhận ưu đãi: ${payload.description}`,
+          'PROMOTION',
+        )
+      }
+    }
+  }
+}

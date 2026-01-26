@@ -40,6 +40,9 @@ export class SocketGateway implements OnGatewayInit, OnGatewayConnection, OnGate
       const payload = await this.tokenService.verifyAccessToken(token)
       client.data[REQUEST_USER_KEY] = payload
 
+      // Join user specific room
+      await client.join(`user:${payload.userId}`)
+
       this.logger.log(`Client connected: ${client.id} - User: ${payload.userId}`)
     } catch (error) {
       this.logger.error(`Connection error for client ${client.id}: ${error.message}`)

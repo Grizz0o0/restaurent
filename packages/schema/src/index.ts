@@ -11,3 +11,5 @@ export * from './category.schema';
 export * from './table.schema';
 export * from './review.schema';
 export * from './order.schema';
+export * from './promotion.schema';
+export * from './notification.schema';

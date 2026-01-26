@@ -26,4 +26,13 @@ export class EmailService {
       react: <OTPEmail otpCode={payload.code} title={subject} />,
     })
   }
+
+  sendNotification(to: string, subject: string, content: string) {
+    return this.resend.emails.send({
+      from: 'Grizz <no-reply@vuonghongky.id.vn>', // Config sender
+      to: [to],
+      subject,
+      html: `<p>${content}</p>`, // Simple HTML for now
+    })
+  }
 }

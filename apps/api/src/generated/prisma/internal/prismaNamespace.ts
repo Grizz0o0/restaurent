@@ -3151,7 +3151,8 @@ export const DeviceScalarFieldEnum = {
   ip: 'ip',
   lastActive: 'lastActive',
   createdAt: 'createdAt',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  fcmToken: 'fcmToken'
 } as const
 
 export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
