@@ -1,17 +1,11 @@
 import type { Metadata } from 'next';
-import { Be_Vietnam_Pro, Playfair_Display } from 'next/font/google';
+import { Be_Vietnam_Pro } from 'next/font/google';
 import './globals.css';
 
 const beVietnamPro = Be_Vietnam_Pro({
     subsets: ['latin', 'vietnamese'],
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
     variable: '--font-be-vietnam-pro',
-    display: 'swap',
-});
-
-const playfair = Playfair_Display({
-    subsets: ['latin'],
-    variable: '--font-playfair',
     display: 'swap',
 });
 
@@ -45,9 +39,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body
-                className={`${beVietnamPro.variable} ${playfair.variable} font-sans antialiased`}
-            >
+            <body className={`${beVietnamPro.variable} font-sans antialiased`}>
                 <TRPCProvider>
                     <ThemeProvider
                         attribute="class"

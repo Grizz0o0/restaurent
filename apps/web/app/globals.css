@@ -147,7 +147,7 @@
 
 @layer utilities {
     .font-display {
-        font-family: 'Playfair Display', serif;
+        font-family: var(--font-be-vietnam-pro), sans-serif;
     }
 
     .font-body {

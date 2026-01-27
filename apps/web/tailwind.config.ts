@@ -21,7 +21,7 @@ const config = {
         extend: {
             fontFamily: {
                 sans: ['var(--font-be-vietnam-pro)', 'sans-serif'],
-                display: ['var(--font-playfair)', 'serif'],
+                display: ['var(--font-be-vietnam-pro)', 'sans-serif'],
             },
             colors: {
                 border: 'hsl(var(--border))',
