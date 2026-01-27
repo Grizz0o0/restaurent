@@ -26,6 +26,8 @@ import { LanguageModule } from './modules/language/language.module'
 import { SupplierModule } from './modules/supplier/supplier.module'
 import { InventoryModule } from './modules/inventory/inventory.module'
 import { InventoryTransactionModule } from './modules/inventory-transaction/inventory-transaction.module'
+import { RestaurantModule } from './modules/restaurant/restaurant.module'
+import { ReservationModule } from './modules/reservation/reservation.module'
 
 import { EventEmitterModule } from '@nestjs/event-emitter'
 
@@ -42,7 +44,7 @@ import { AppContext } from './trpc/context'
       isGlobal: true,
     }),
     TRPCModule.forRoot({
-      autoSchemaFile: '../../packages/trpc/src/server',
+      autoSchemaFile: '../../packages/trpc/src/server/trpc-schema.ts',
       transformer: superjson,
       context: AppContext,
     }),
@@ -68,6 +70,8 @@ import { AppContext } from './trpc/context'
     SupplierModule,
     InventoryModule,
     InventoryTransactionModule,
+    RestaurantModule,
+    ReservationModule,
 
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],

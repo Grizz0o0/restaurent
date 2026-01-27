@@ -49,7 +49,7 @@ export class TableRepo {
     const where = {
       deletedAt: null,
       ...(search && {
-        name: { contains: search, mode: 'insensitive' as const },
+        tableNumber: { contains: search, mode: 'insensitive' as const },
       }),
     }
 
