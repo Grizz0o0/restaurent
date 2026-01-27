@@ -21,48 +21,129 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
+    // Bánh Mì
     {
-        id: '1',
-        name: 'Bánh Mì Thịt Nướng',
-        description:
-            'Thịt heo nướng than hoa, rau tươi, đồ chua, nước sốt đặc biệt',
-        price: 35000,
+        id: 'bm1',
+        name: 'Bánh Mì Pate Chả Nóng',
+        description: 'Pate gan nhà làm, chả lụa, dưa góp, rau thơm',
+        price: 25000,
+        image: banhMiChaLua,
+        category: 'Bánh Mì',
+        rating: 4.8,
+    },
+    {
+        id: 'bm2',
+        name: 'Bánh Mì Xá Xíu',
+        description: 'Thịt xá xíu đậm đà, nước sốt gia truyền',
+        price: 25000,
         image: banhMiThitNuong,
         category: 'Bánh Mì',
         rating: 4.9,
         isPopular: true,
     },
     {
-        id: '2',
-        name: 'Bánh Mì Chả Lụa',
-        description: 'Chả lụa thượng hạng, pate, bơ, dưa leo, rau mùi',
+        id: 'bm3',
+        name: 'Bánh Mì Thập Cẩm',
+        description: 'Đầy đủ pate, chả, thịt nướng, xá xíu, trứng',
         price: 30000,
-        image: banhMiChaLua,
+        image: banhMiOpLa,
         category: 'Bánh Mì',
-        rating: 4.8,
-    },
-    {
-        id: '3',
-        name: 'Bánh Mì Xíu Mại',
-        description: 'Xíu mại sốt cà chua đậm đà, hành tây, rau thơm',
-        price: 32000,
-        image: banhMiXiuMai,
-        category: 'Bánh Mì',
-        rating: 4.7,
+        rating: 5.0,
         isPopular: true,
     },
     {
-        id: '4',
-        name: 'Bánh Mì Ốp La',
-        description: 'Trứng ốp la, pate, nước tương, dưa leo, rau mùi',
-        price: 28000,
-        image: banhMiOpLa,
+        id: 'bm4',
+        name: 'Bánh Mì Đặc Biệt',
+        description: 'Phiên bản đặc biệt đầy ắp nhân thịt và sốt',
+        price: 40000,
+        image: banhMiThitNuong,
         category: 'Bánh Mì',
+        rating: 5.0,
+    },
+
+    // Xôi
+    {
+        id: 'x1',
+        name: 'Xôi Pate Ruốc',
+        description: 'Xôi nếp dẻo thơm, pate béo ngậy, ruốc bông',
+        price: 20000,
+        image: banhMiXiuMai, // Placeholder
+        category: 'Xôi',
+        rating: 4.7,
+    },
+    {
+        id: 'x2',
+        name: 'Xôi Trứng Chả',
+        description: 'Xôi trắng, trứng kho, chả lụa kho tiêu',
+        price: 25000,
+        image: banhMiChaLua, // Placeholder
+        category: 'Xôi',
+        rating: 4.8,
+    },
+    {
+        id: 'x3',
+        name: 'Xôi Thập Cẩm',
+        description: 'Thập cẩm các loại topping: thịt, trứng, chả, pate',
+        price: 30000,
+        image: banhMiThitNuong, // Placeholder
+        category: 'Xôi',
+        rating: 4.9,
+        isPopular: true,
+    },
+
+    // Đồ Uống
+    {
+        id: 'd1',
+        name: 'Trà Chanh',
+        description: 'Trà chanh tươi mát lạnh, giải nhiệt',
+        price: 10000,
+        image: banhMiOpLa, // Placeholder
+        category: 'Đồ Uống',
+        rating: 4.5,
+    },
+    {
+        id: 'd2',
+        name: 'Cafe Muối',
+        description: 'Sự kết hợp độc đáo giữa cafe và kem muối béo mặn',
+        price: 20000,
+        image: banhMiThitNuong, // Placeholder
+        category: 'Đồ Uống',
+        rating: 4.8,
+        isPopular: true,
+    },
+    {
+        id: 'd3',
+        name: 'Sữa Tươi Trân Châu',
+        description: 'Sữa tươi thanh trùng, trân châu đường đen dẻo dai',
+        price: 20000,
+        image: banhMiChaLua, // Placeholder
+        category: 'Đồ Uống',
+        rating: 4.7,
+    },
+
+    // Ăn Vặt
+    {
+        id: 's1',
+        name: 'Bánh Cá Taiyaki',
+        description: 'Bánh cá nhân phomai/bò khô (2 con)',
+        price: 10000,
+        image: banhMiXiuMai, // Placeholder
+        category: 'Ăn Vặt',
         rating: 4.6,
+    },
+    {
+        id: 's2',
+        name: 'Nem Chua Rán',
+        description: 'Nem chua rán giòn tan, tương ớt cay nồng',
+        price: 25000,
+        image: banhMiThitNuong, // Placeholder
+        category: 'Ăn Vặt',
+        rating: 4.8,
+        isPopular: true,
     },
 ];
 
-const categories = ['Tất cả', 'Bánh Mì', 'Combo', 'Đồ uống'];
+const categories = ['Tất cả', 'Bánh Mì', 'Xôi', 'Đồ Uống', 'Ăn Vặt'];
 
 const MenuSection = () => {
     const [activeCategory, setActiveCategory] = useState('Tất cả');

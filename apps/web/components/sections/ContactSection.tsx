@@ -97,21 +97,18 @@ const ContactSection = () => {
                         </div>
                     </div>
 
-                    {/* Map Placeholder */}
-                    <div className="bg-card rounded-2xl shadow-soft overflow-hidden h-[400px] md:h-auto">
-                        <div className="w-full h-full bg-secondary flex items-center justify-center">
-                            <div className="text-center p-8">
-                                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                                    <MapPin className="w-10 h-10 text-primary" />
-                                </div>
-                                <h3 className="font-display text-xl font-semibold text-foreground mb-2">
-                                    Bản đồ
-                                </h3>
-                                <p className="text-muted-foreground text-sm">
-                                    Kiến Hưng, Hà Đông, Hà Nội
-                                </p>
-                            </div>
-                        </div>
+                    {/* Map */}
+                    <div className="bg-card rounded-2xl shadow-soft overflow-hidden h-[400px] md:h-auto min-h-[400px]">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1862.6687487271963!2d105.78923053852086!3d20.96695289737979!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135add39e4f5067%3A0x7292211535266158!2zS2nhur9uIEjGsG5nLCBIw6AgxJMOw7RuZywgSGFub2ksIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1706423000000!5m2!1sen!2s"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="Bản đồ quán Bánh Mì"
+                        ></iframe>
                     </div>
                 </div>
             </div>
