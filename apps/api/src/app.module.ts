@@ -22,6 +22,7 @@ import { ReviewModule } from './modules/review/review.module'
 import { PromotionModule } from './modules/promotion/promotion.module'
 import { NotificationModule } from './modules/notification/notification.module'
 import { CartModule } from './modules/cart/cart.module'
+import { LanguageModule } from './modules/language/language.module'
 
 import { EventEmitterModule } from '@nestjs/event-emitter'
 
@@ -58,7 +59,9 @@ import { AppContext } from './trpc/context'
     ReviewModule,
     PromotionModule,
     NotificationModule,
+    NotificationModule,
     CartModule,
+    LanguageModule,
 
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],

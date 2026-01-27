@@ -74,6 +74,15 @@ export const UpdateDishBodySchema = z.object({
     name: z.string().optional(),
     description: z.string().optional(),
     languageId: z.string().optional(),
+    variants: z
+        .array(
+            z.object({
+                id: z.string().optional(), // If present, update; else create
+                name: z.string(),
+                options: z.array(z.string()),
+            }),
+        )
+        .optional(),
 });
 
 export type UpdateDishBodyType = z.infer<typeof UpdateDishBodySchema>;
@@ -84,6 +93,25 @@ export const LinkDishCategorySchema = z.object({
 });
 
 export type LinkDishCategoryType = z.infer<typeof LinkDishCategorySchema>;
+
+export const VariantOptionSchema = z.object({
+    id: z.string(),
+    value: z.string(),
+});
+
+export const VariantSchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    options: z.array(VariantOptionSchema),
+});
+
+export const SKUSchema = z.object({
+    id: z.string(),
+    value: z.string(),
+    price: z.number(),
+    stock: z.number(),
+    images: z.array(z.string()),
+});
 
 export const DishDetailResSchema = DishSchema.extend({
     translations: z
@@ -102,6 +130,8 @@ export const DishDetailResSchema = DishSchema.extend({
             }),
         )
         .optional(),
+    variants: z.array(VariantSchema).optional(),
+    skus: z.array(SKUSchema).optional(),
 }).nullable();
 
 export type DishDetailResType = z.infer<typeof DishDetailResSchema>;

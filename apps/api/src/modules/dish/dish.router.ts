@@ -48,6 +48,20 @@ export class DishRouter {
   @Mutation({
     input: z.object({
       id: z.string(),
+      variants: UpdateDishBodySchema.shape.variants,
+    }),
+    output: z.array(z.object({ id: z.string(), value: z.string() })),
+  })
+  @UseMiddlewares(AuthMiddleware, AdminRoleMiddleware)
+  async checkVariantUpdate(
+    @Input() input: { id: string; variants: UpdateDishBodyType['variants'] },
+  ) {
+    return this.dishService.checkVariantUpdateImpact(input.id, input.variants)
+  }
+
+  @Mutation({
+    input: z.object({
+      id: z.string(),
       data: UpdateDishBodySchema,
     }),
     output: DishDetailResSchema,

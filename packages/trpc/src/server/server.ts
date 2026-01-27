@@ -66,6 +66,10 @@ const appRouter = t.router({
     list: publicProcedure.input(GetDishesQuerySchema).output(GetDishesResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     detail: publicProcedure.input(z.object({ id: z.string() })).output(DishDetailResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     create: publicProcedure.input(CreateDishBodySchema).output(DishDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    checkVariantUpdate: publicProcedure.input(z.object({
+      id: z.string(),
+      UpdateDishBodySchema,
+    })).output(z.array(z.object({ id: z.string(), value: z.string() }))).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     update: publicProcedure.input(z.object({
       id: z.string(),
       data: UpdateDishBodySchema,
@@ -117,6 +121,16 @@ const appRouter = t.router({
     add: publicProcedure.input(AddCartItemSchema).output(CartItemSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     update: publicProcedure.input(UpdateCartItemSchema).output(CartItemSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     remove: publicProcedure.input(RemoveCartItemSchema).output(CartItemSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
+  }),
+  language: t.router({
+    list: publicProcedure.input(GetLanguagesQuerySchema).output(z.any()).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    detail: publicProcedure.input(z.object({ id: z.string() })).output(LanguageResponseSchema.nullable()).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    create: publicProcedure.input(CreateLanguageBodySchema).output(LanguageResponseSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    update: publicProcedure.input(z.object({
+      id: z.string(),
+      data: UpdateLanguageBodySchema,
+    })).output(LanguageResponseSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    delete: publicProcedure.input(z.object({ id: z.string() })).output(z.any()).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   })
 });
 export type AppRouter = typeof appRouter;

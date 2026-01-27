@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
 import { DishRepo } from './dish.repo'
 import { CreateDishBodyType, UpdateDishBodyType, GetDishesQueryType } from '@repo/schema'
 import { createPaginationResult } from '@/shared/utils/pagination.util'
-
 import { PrismaService } from '@/shared/prisma'
+import { generateSkuCombinations } from './dish.util'
 
 @Injectable()
 export class DishService {
@@ -13,30 +13,64 @@ export class DishService {
   ) {}
 
   async create(params: CreateDishBodyType & { createdById: string }) {
+    // Auto-generate SKUs if variants exist but skus are missing
+    if (
+      (!params.skus || params.skus.length === 0) &&
+      params.variants &&
+      params.variants.length > 0
+    ) {
+      const combinations = generateSkuCombinations(params.variants)
+      params.skus = combinations.map((c) => ({
+        value: `SKU-${c.internalId}-${Date.now()}`, // Ensure uniqueness
+        price: params.basePrice,
+        stock: 0,
+        optionValues: c.optionValues,
+        images: [],
+      }))
+    }
+
     return await this.dishRepo.create(params)
+  }
+
+  async checkVariantUpdateImpact(id: string, variants: UpdateDishBodyType['variants']) {
+    return this.dishRepo.checkVariantDeletionImpact(id, variants)
   }
 
   async update(params: { id: string; data: UpdateDishBodyType; updatedById: string }) {
     const { id, data, updatedById } = params
-    const { name, description, languageId } = data
+
+    // Check variant impact if variants are being updated
+    if (data.variants) {
+      const impactedSkus = await this.dishRepo.checkVariantDeletionImpact(id, data.variants)
+      if (impactedSkus.length > 0) {
+        // We throw an error with the list of impacted SKUs so the FE can show a warning
+        // The FE should then call this API again?
+        // Ideally we need a "force" flag in the schema, but schema wasn't updated with force flag.
+        // For now, I will assume that if the user sends the request, they MIGHT know.
+        // But the prompt says "validate logic... phải cảnh báo".
+        // Implementation: The Router should have a separate procedure for checking,
+        // OR this update method throws, and FE calls a "forceUpdate" endpoint?
+
+        // Simpler: I'll throw 422 with a message.
+        // The user must assume the FE handles "checkVariantUpdateImpact" BEFORE calling update.
+        // But if they call update directly, we block it?
+        // Let's just block it.
+        // "Cannot delete variants that are in use by SKUs: [list]".
+
+        // To allow "FORCE", we would need to change schema.
+        // Since I cannot change schema repeatedly easily (user interaction),
+        // I will implement the check endpoint and assume the FE uses it.
+        // Here, I will just proceed? No, that violates "Safe".
+        // I will throw.
+        throw new UnprocessableEntityException({
+          message: 'Update would delete active SKUs',
+          impactedSkus,
+        })
+      }
+    }
 
     return await this.prisma.$transaction(async (tx) => {
-      const dish = await this.dishRepo.update(params, tx)
-
-      if (name || description) {
-        await this.dishRepo.upsertDishTranslation(
-          id,
-          {
-            name,
-            description,
-            languageId,
-            updatedById,
-          },
-          tx,
-        )
-      }
-
-      return this.dishRepo.findByIdOrThrow(id, tx)
+      return this.dishRepo.update(params, tx)
     })
   }
 
@@ -50,6 +84,7 @@ export class DishService {
     const { total, data: dishes } = await this.dishRepo.list(query)
     return createPaginationResult(dishes, total, query)
   }
+
   async delete(id: string, deletedById: string) {
     const dish = await this.dishRepo.findById(id)
     if (!dish) throw new NotFoundException('Dish not found')
