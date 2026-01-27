@@ -72,6 +72,20 @@ export class RoleService {
     }
   }
 
+  async assignPermissions({
+    roleId,
+    permissionIds,
+    updatedById,
+  }: {
+    roleId: string
+    permissionIds: string[]
+    updatedById: string
+  }) {
+    // Check if role is protected or exists
+    await this.verifyRole(roleId)
+    return this.roleRepo.assignPermissions({ roleId, permissionIds, updatedById })
+  }
+
   async delete({ id, deletedById }: { id: string; deletedById: string }) {
     await this.verifyRole(id)
     // soft delete

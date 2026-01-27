@@ -21,6 +21,8 @@ import { OrderModule } from './modules/order/order.module'
 import { ReviewModule } from './modules/review/review.module'
 import { PromotionModule } from './modules/promotion/promotion.module'
 import { NotificationModule } from './modules/notification/notification.module'
+import { CartModule } from './modules/cart/cart.module'
+
 import { EventEmitterModule } from '@nestjs/event-emitter'
 
 import superjson from 'superjson'
@@ -56,6 +58,8 @@ import { AppContext } from './trpc/context'
     ReviewModule,
     PromotionModule,
     NotificationModule,
+    CartModule,
+
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

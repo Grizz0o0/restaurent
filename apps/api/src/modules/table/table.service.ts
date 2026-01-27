@@ -54,7 +54,7 @@ export class TableService {
     const table = await this.tableRepo.findById(id)
     if (!table) throw new NotFoundException('Table not found')
 
-    const qrCodeUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/table/${table.id}?token=${(table as any).qrCode}`
+    const qrCodeUrl = `${envConfig.FRONTEND_URL}/table/${table.id}?token=${(table as any).qrCode}`
 
     return { ...table, qrCodeUrl }
   }
@@ -64,7 +64,7 @@ export class TableService {
 
     const tablesWithQr = tables.map((table: RestaurantTableType) => ({
       ...table,
-      qrCodeUrl: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/table/${table.id}?token=${(table as any).qrCode}`,
+      qrCodeUrl: `${envConfig.FRONTEND_URL || 'http://localhost:3000'}/table/${table.id}?token=${(table as any).qrCode}`,
     }))
 
     return createPaginationResult(tablesWithQr, total, query)

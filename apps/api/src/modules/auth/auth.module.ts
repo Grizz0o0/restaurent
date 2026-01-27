@@ -4,11 +4,12 @@ import { AuthService } from './auth.service'
 import { AuthRouter } from './auth.router'
 import { AuthRepository } from './auth.repo'
 import { GoogleService } from './google.service'
+import envConfig from '@/shared/config'
 
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'super-secret',
+      secret: envConfig.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
   ],

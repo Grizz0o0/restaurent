@@ -7,14 +7,15 @@ import { PrismaClientExceptionFilter } from '@/shared/filters/prisma-client-exce
 import { HttpAdapterHost } from '@nestjs/core'
 import { TransformInterceptor } from '@/shared/interceptors/transform.interceptor'
 import { AllExceptionsFilter } from '@/shared/filters/all-exception.filter'
+import envConfig from '@/shared/config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.enableShutdownHooks()
-  const port = process.env.APP_PORT || 3052
+  const port = envConfig.APP_PORT
   app.setGlobalPrefix('v1/api')
   app.enableCors({
-    origin: process.env.CORS_ORIGIN ?? `http://localhost:${port}`,
+    origin: envConfig.FRONTEND_URL,
     credentials: true,
   })
   app.useGlobalInterceptors(new LoggingInterceptor(), new TransformInterceptor())

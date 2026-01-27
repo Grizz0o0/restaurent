@@ -77,6 +77,37 @@ export class RoleRepo {
     })
   }
 
+  async assignPermissions({
+    roleId,
+    permissionIds,
+    updatedById,
+  }: {
+    roleId: string
+    permissionIds: string[]
+    updatedById: string
+  }) {
+    if (permissionIds.length > 0) {
+      const permissions = await this.prismaService.permission.findMany({
+        where: { id: { in: permissionIds } },
+      })
+      const deletedPermission = permissions.filter((p) => p.deletedAt)
+      if (deletedPermission.length > 0) {
+        throw new BadRequestException('Some permissions are deleted')
+      }
+    }
+
+    return this.prismaService.role.update({
+      where: { id: roleId, deletedAt: null },
+      data: {
+        permissions: {
+          set: permissionIds.map((id) => ({ id })),
+        },
+        updatedById,
+      },
+      include: { permissions: true },
+    })
+  }
+
   delete({ id, deletedById, isHard }: { id: string; deletedById: string; isHard?: boolean }) {
     return isHard
       ? this.prismaService.role.delete({ where: { id, deletedAt: null } })

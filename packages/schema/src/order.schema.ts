@@ -16,6 +16,7 @@ export const OrderSchema = z.object({
     guestId: z.string().nullable(),
     status: z.string(),
     totalAmount: z.number(), // DB has totalAmount
+    discount: z.number().optional(), // Added discount
     items: z.array(OrderItemSchema),
     createdAt: z.date(),
     updatedAt: z.date(),
@@ -35,6 +36,20 @@ export const CreateOrderBodySchema = z.object({
 });
 
 export type CreateOrderBodyType = z.infer<typeof CreateOrderBodySchema>;
+
+export const CreateOrderFromCartSchema = z.object({
+    promotionCode: z.string().optional(),
+    guestInfo: z.any().optional(),
+});
+
+export type CreateOrderFromCartType = z.infer<typeof CreateOrderFromCartSchema>;
+
+export const UpdateOrderStatusSchema = z.object({
+    orderId: z.string(),
+    status: z.string(),
+});
+
+export type UpdateOrderStatusType = z.infer<typeof UpdateOrderStatusSchema>;
 
 export const GetOrdersQuerySchema = z.object({
     page: z.number().default(1),

@@ -13,7 +13,10 @@ import {
   GetRoleDetailParamsType,
   CreateRoleBodyType,
   UpdateRoleBodyType,
+  AssignPermissionsSchema,
+  AssignPermissionsType,
 } from '@repo/schema'
+
 import { Context } from '@/trpc/context'
 import z from 'zod'
 
@@ -73,5 +76,16 @@ export class RoleRouter {
   })
   async delete(@Input() input: GetRoleDetailParamsType, @Ctx() ctx: Context) {
     return this.roleService.delete({ id: input.roleId, deletedById: ctx.user!.userId })
+  }
+  @Mutation({
+    input: AssignPermissionsSchema,
+    output: GetRoleDetailResSchema,
+  })
+  async assignPermissions(@Input() input: AssignPermissionsType, @Ctx() ctx: Context) {
+    return this.roleService.assignPermissions({
+      roleId: input.roleId,
+      permissionIds: input.permissionIds,
+      updatedById: ctx.user!.userId,
+    })
   }
 }

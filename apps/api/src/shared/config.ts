@@ -61,6 +61,7 @@ const configSchema = z.object({
   // ===== Other =====
   SECRET_API_KEY: z.string(),
   JWT_SECRET: z.string(),
+  FRONTEND_URL: z.string().url(),
 })
 
 const configServer = configSchema.safeParse(process.env)

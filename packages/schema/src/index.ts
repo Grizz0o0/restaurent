@@ -13,3 +13,4 @@ export * from './review.schema';
 export * from './order.schema';
 export * from './promotion.schema';
 export * from './notification.schema';
+export * from './cart.schema';
