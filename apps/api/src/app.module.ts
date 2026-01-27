@@ -23,6 +23,9 @@ import { PromotionModule } from './modules/promotion/promotion.module'
 import { NotificationModule } from './modules/notification/notification.module'
 import { CartModule } from './modules/cart/cart.module'
 import { LanguageModule } from './modules/language/language.module'
+import { SupplierModule } from './modules/supplier/supplier.module'
+import { InventoryModule } from './modules/inventory/inventory.module'
+import { InventoryTransactionModule } from './modules/inventory-transaction/inventory-transaction.module'
 
 import { EventEmitterModule } from '@nestjs/event-emitter'
 
@@ -62,6 +65,9 @@ import { AppContext } from './trpc/context'
     NotificationModule,
     CartModule,
     LanguageModule,
+    SupplierModule,
+    InventoryModule,
+    InventoryTransactionModule,
 
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],

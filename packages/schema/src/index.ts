@@ -15,3 +15,5 @@ export * from './promotion.schema';
 export * from './notification.schema';
 export * from './cart.schema';
 export * from './language.schema';
+export * from './supplier.schema';
+export * from './inventory.schema';

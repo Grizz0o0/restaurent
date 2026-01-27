@@ -411,7 +411,28 @@ model SKU {
 
 model Supplier {
   id                     String                  @id @default(uuid())
-  logo                   String                  @db.VarChar(1000)
+  logo                   String?                 @db.VarChar(1000)
+  name                   String                  @db.VarChar(500) // Added name field explicitly if it was missing or implied? Wait, looking at previous view_file, Supplier didn't have a name field shown in the snippet? Let me check line 412 again. 
+  // Ah, the previous view_file output for Supplier (lines 412-429) indeed did NOT show a 'name' field. That's strange for a Supplier. 
+  // Let me re-read the previous view_file output carefully.
+  // Model Supplier starts at 412.
+  // 413: id
+  // 414: logo
+  // 415: dishes
+  // 416: supplierTranslations
+  // ...
+  // It seems 'name' is in SupplierTranslation? 
+  // "Supplier: CRUD info (name/contact/rating), translations."
+  // If name is translatable, it might be only in translation. But usually there's a fallback or main name?
+  // The user request says "Supplier: CRUD info (name/contact/rating)".
+  // I will add contact info and rating to Supplier.
+  
+  contactName            String?                 @db.VarChar(500)
+  phoneNumber            String?                 @db.VarChar(50)
+  email                  String?                 @db.VarChar(255)
+  website                String?                 @db.VarChar(500)
+  rating                 Decimal                 @db.Decimal(2, 1) @default(0)
+  
   dishes                 Dish[]
   supplierTranslations   SupplierTranslation[]
   inventories            Inventory[]
@@ -634,8 +655,10 @@ model Inventory {
   supplierId   String?
   supplier     Supplier?       @relation(fields: [supplierId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   itemName     String          @db.VarChar(500)
-  quantity     Int
+  quantity     Decimal         @db.Decimal(10, 2)
   unit         String          @db.VarChar(50)
+  threshold    Decimal         @db.Decimal(10, 2) @default(0) // Low stock alert threshold
+  
   dishes       InventoryDish[]
   transactions InventoryTransaction[]
   createdById  String?
@@ -729,7 +752,7 @@ model InventoryTransaction {
   id           String   @id @default(uuid())
   inventoryId  String
   inventory    Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
-  changeQuantity Int
+  changeQuantity Decimal @db.Decimal(10, 2)
   reason       TransactionReason
   timestamp    DateTime @default(now())
 }

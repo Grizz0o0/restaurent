@@ -29,17 +29,17 @@ export type AggregateInventoryTransaction = {
 }
 
 export type InventoryTransactionAvgAggregateOutputType = {
-  changeQuantity: number | null
+  changeQuantity: runtime.Decimal | null
 }
 
 export type InventoryTransactionSumAggregateOutputType = {
-  changeQuantity: number | null
+  changeQuantity: runtime.Decimal | null
 }
 
 export type InventoryTransactionMinAggregateOutputType = {
   id: string | null
   inventoryId: string | null
-  changeQuantity: number | null
+  changeQuantity: runtime.Decimal | null
   reason: $Enums.TransactionReason | null
   timestamp: Date | null
 }
@@ -47,7 +47,7 @@ export type InventoryTransactionMinAggregateOutputType = {
 export type InventoryTransactionMaxAggregateOutputType = {
   id: string | null
   inventoryId: string | null
-  changeQuantity: number | null
+  changeQuantity: runtime.Decimal | null
   reason: $Enums.TransactionReason | null
   timestamp: Date | null
 }
@@ -184,7 +184,7 @@ export type InventoryTransactionGroupByArgs<ExtArgs extends runtime.Types.Extens
 export type InventoryTransactionGroupByOutputType = {
   id: string
   inventoryId: string
-  changeQuantity: number
+  changeQuantity: runtime.Decimal
   reason: $Enums.TransactionReason
   timestamp: Date
   _count: InventoryTransactionCountAggregateOutputType | null
@@ -215,7 +215,7 @@ export type InventoryTransactionWhereInput = {
   NOT?: Prisma.InventoryTransactionWhereInput | Prisma.InventoryTransactionWhereInput[]
   id?: Prisma.StringFilter<"InventoryTransaction"> | string
   inventoryId?: Prisma.StringFilter<"InventoryTransaction"> | string
-  changeQuantity?: Prisma.IntFilter<"InventoryTransaction"> | number
+  changeQuantity?: Prisma.DecimalFilter<"InventoryTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFilter<"InventoryTransaction"> | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFilter<"InventoryTransaction"> | Date | string
   inventory?: Prisma.XOR<Prisma.InventoryScalarRelationFilter, Prisma.InventoryWhereInput>
@@ -236,7 +236,7 @@ export type InventoryTransactionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.InventoryTransactionWhereInput[]
   NOT?: Prisma.InventoryTransactionWhereInput | Prisma.InventoryTransactionWhereInput[]
   inventoryId?: Prisma.StringFilter<"InventoryTransaction"> | string
-  changeQuantity?: Prisma.IntFilter<"InventoryTransaction"> | number
+  changeQuantity?: Prisma.DecimalFilter<"InventoryTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFilter<"InventoryTransaction"> | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFilter<"InventoryTransaction"> | Date | string
   inventory?: Prisma.XOR<Prisma.InventoryScalarRelationFilter, Prisma.InventoryWhereInput>
@@ -261,14 +261,14 @@ export type InventoryTransactionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.InventoryTransactionScalarWhereWithAggregatesInput | Prisma.InventoryTransactionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"InventoryTransaction"> | string
   inventoryId?: Prisma.StringWithAggregatesFilter<"InventoryTransaction"> | string
-  changeQuantity?: Prisma.IntWithAggregatesFilter<"InventoryTransaction"> | number
+  changeQuantity?: Prisma.DecimalWithAggregatesFilter<"InventoryTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonWithAggregatesFilter<"InventoryTransaction"> | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeWithAggregatesFilter<"InventoryTransaction"> | Date | string
 }
 
 export type InventoryTransactionCreateInput = {
   id?: string
-  changeQuantity: number
+  changeQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: $Enums.TransactionReason
   timestamp?: Date | string
   inventory: Prisma.InventoryCreateNestedOneWithoutTransactionsInput
@@ -277,14 +277,14 @@ export type InventoryTransactionCreateInput = {
 export type InventoryTransactionUncheckedCreateInput = {
   id?: string
   inventoryId: string
-  changeQuantity: number
+  changeQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: $Enums.TransactionReason
   timestamp?: Date | string
 }
 
 export type InventoryTransactionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  changeQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  changeQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFieldUpdateOperationsInput | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   inventory?: Prisma.InventoryUpdateOneRequiredWithoutTransactionsNestedInput
@@ -293,7 +293,7 @@ export type InventoryTransactionUpdateInput = {
 export type InventoryTransactionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   inventoryId?: Prisma.StringFieldUpdateOperationsInput | string
-  changeQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  changeQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFieldUpdateOperationsInput | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -301,14 +301,14 @@ export type InventoryTransactionUncheckedUpdateInput = {
 export type InventoryTransactionCreateManyInput = {
   id?: string
   inventoryId: string
-  changeQuantity: number
+  changeQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: $Enums.TransactionReason
   timestamp?: Date | string
 }
 
 export type InventoryTransactionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  changeQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  changeQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFieldUpdateOperationsInput | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -316,7 +316,7 @@ export type InventoryTransactionUpdateManyMutationInput = {
 export type InventoryTransactionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   inventoryId?: Prisma.StringFieldUpdateOperationsInput | string
-  changeQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  changeQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFieldUpdateOperationsInput | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -411,14 +411,14 @@ export type EnumTransactionReasonFieldUpdateOperationsInput = {
 
 export type InventoryTransactionCreateWithoutInventoryInput = {
   id?: string
-  changeQuantity: number
+  changeQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: $Enums.TransactionReason
   timestamp?: Date | string
 }
 
 export type InventoryTransactionUncheckedCreateWithoutInventoryInput = {
   id?: string
-  changeQuantity: number
+  changeQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: $Enums.TransactionReason
   timestamp?: Date | string
 }
@@ -455,35 +455,35 @@ export type InventoryTransactionScalarWhereInput = {
   NOT?: Prisma.InventoryTransactionScalarWhereInput | Prisma.InventoryTransactionScalarWhereInput[]
   id?: Prisma.StringFilter<"InventoryTransaction"> | string
   inventoryId?: Prisma.StringFilter<"InventoryTransaction"> | string
-  changeQuantity?: Prisma.IntFilter<"InventoryTransaction"> | number
+  changeQuantity?: Prisma.DecimalFilter<"InventoryTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFilter<"InventoryTransaction"> | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFilter<"InventoryTransaction"> | Date | string
 }
 
 export type InventoryTransactionCreateManyInventoryInput = {
   id?: string
-  changeQuantity: number
+  changeQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   reason: $Enums.TransactionReason
   timestamp?: Date | string
 }
 
 export type InventoryTransactionUpdateWithoutInventoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  changeQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  changeQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFieldUpdateOperationsInput | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventoryTransactionUncheckedUpdateWithoutInventoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  changeQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  changeQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFieldUpdateOperationsInput | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InventoryTransactionUncheckedUpdateManyWithoutInventoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  changeQuantity?: Prisma.IntFieldUpdateOperationsInput | number
+  changeQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   reason?: Prisma.EnumTransactionReasonFieldUpdateOperationsInput | $Enums.TransactionReason
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -544,7 +544,7 @@ export type $InventoryTransactionPayload<ExtArgs extends runtime.Types.Extension
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     inventoryId: string
-    changeQuantity: number
+    changeQuantity: runtime.Decimal
     reason: $Enums.TransactionReason
     timestamp: Date
   }, ExtArgs["result"]["inventoryTransaction"]>
@@ -973,7 +973,7 @@ export interface Prisma__InventoryTransactionClient<T, Null = never, ExtArgs ext
 export interface InventoryTransactionFieldRefs {
   readonly id: Prisma.FieldRef<"InventoryTransaction", 'String'>
   readonly inventoryId: Prisma.FieldRef<"InventoryTransaction", 'String'>
-  readonly changeQuantity: Prisma.FieldRef<"InventoryTransaction", 'Int'>
+  readonly changeQuantity: Prisma.FieldRef<"InventoryTransaction", 'Decimal'>
   readonly reason: Prisma.FieldRef<"InventoryTransaction", 'TransactionReason'>
   readonly timestamp: Prisma.FieldRef<"InventoryTransaction", 'DateTime'>
 }

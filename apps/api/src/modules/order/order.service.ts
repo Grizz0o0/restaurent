@@ -1,10 +1,13 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
 import { OrderRepo } from './order.repo'
 import { PrismaService } from '@/shared/prisma/prisma.service'
+import { TransactionReason } from 'src/generated/prisma/client'
 
 import { CreateOrderBodyType, GetOrdersQueryType } from '@repo/schema'
 import { DishRepo } from '@/modules/dish/dish.repo'
 import { createPaginationResult } from '@/shared/utils/pagination.util'
+import { NotificationService } from '../notification/notification.service'
+import { NotificationType, Channel } from 'src/generated/prisma/client'
 
 import { EventEmitter2 } from '@nestjs/event-emitter'
 
@@ -15,6 +18,7 @@ export class OrderService {
     private readonly dishRepo: DishRepo,
     private readonly prismaService: PrismaService,
     private readonly eventEmitter: EventEmitter2,
+    private readonly notificationService: NotificationService,
   ) {}
 
   async updateStatus(orderId: string, status: string, userId?: string) {
@@ -110,7 +114,14 @@ export class OrderService {
           sku: {
             include: {
               dish: {
-                include: { dishTranslations: true },
+                include: {
+                  dishTranslations: true,
+                  inventories: {
+                    include: {
+                      inventory: true,
+                    },
+                  },
+                },
               },
             },
           },
@@ -131,17 +142,65 @@ export class OrderService {
         const itemTotal = price * quantity
         subTotal += itemTotal
 
-        // Find English translation or fallback
+        // Check and Deduct Stock
+        if (item.sku.dish.inventories && item.sku.dish.inventories.length > 0) {
+          for (const invDish of item.sku.dish.inventories) {
+            const requiredQty = Number(invDish.quantityUsed) * quantity
+            const currentStock = Number(invDish.inventory.quantity)
+
+            if (currentStock < requiredQty) {
+              throw new BadRequestException(
+                `Insufficient stock for ingredient: ${invDish.inventory.itemName}. Required: ${requiredQty}, Available: ${currentStock}`,
+              )
+            }
+
+            // Deduct stock
+            await tx.inventory.update({
+              where: { id: invDish.inventoryId },
+              data: { quantity: { decrement: requiredQty } },
+            })
+
+            // Log transaction
+            await tx.inventoryTransaction.create({
+              data: {
+                inventoryId: invDish.inventoryId,
+                changeQuantity: -requiredQty,
+                reason: TransactionReason.ORDER,
+                timestamp: new Date(),
+              },
+            })
+
+            // Check Low Stock logic
+            const newStock = currentStock - requiredQty
+            const threshold = Number(invDish.inventory.threshold) || 0
+
+            if (newStock <= threshold) {
+              // Determine who to notify? Typically Admin or Manager.
+              // For now, we create a system notification or emit event.
+              // Since this is inside transaction, if we want to ensure notification is created, we can create it here.
+              // Notification model likely requires userId. If we want global notification, maybe assign to admin.
+              // Or better, just emit event as previously thought, but need to be sure event handler handles it.
+              // Let's create a notification for "LOW_STOCK" type directly if schema supports it or use event.
+              // The prompt asked for "Low stock alert logic (Notifications)".
+              // I'll emit an event 'inventory.low_stock' and assume a listener handles it OR create a notification record if userId is available.
+              // But inventory alert usually goes to Staff/Manager.
+              // Let's stick to emitting event for modularity, as NotificationService might need to find all admins.
+              this.eventEmitter.emit('inventory.low_stock', {
+                inventoryId: invDish.inventoryId,
+                itemName: invDish.inventory.itemName,
+                currentStock: newStock,
+                threshold: threshold,
+                restaurantId: invDish.inventory.restaurantId,
+              })
+            }
+          }
+        }
+
         const dishName = item.sku.dish.dishTranslations[0]?.name || 'Unknown Dish'
 
         snapshots.push({
           dishName: dishName,
-          price: item.sku.price, // Keep as Decimal or convert to number depending on repo/prisma handling? Repo expects number usually or Prisma Decimal.
-          // Check OrderRepo.create implementation later. Assuming it handles what we pass or we construct relation here.
-          // Actually, OrderRepo.create takes a custom structure.
-          // But here we are using transaction, maybe better to use prisma directly or use logic similar to OrderRepo.
-          // Let's rely on constructing data for Prisma create directly for atomicity or use OrderRepo if it supports transaction passing (it doesn't seem to).
-          // So I will implement creation logic here using `tx`.
+          price: item.sku.price,
           quantity: quantity,
           images: item.sku.images,
           skuValue: item.sku.value,

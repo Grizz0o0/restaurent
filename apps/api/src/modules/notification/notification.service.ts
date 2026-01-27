@@ -51,7 +51,7 @@ export class NotificationService implements OnModuleInit {
     userId: string,
     title: string,
     body: string,
-    type: 'ORDER_UPDATE' | 'PROMOTION',
+    type: 'ORDER_UPDATE' | 'PROMOTION' | 'LOW_STOCK',
     data?: any,
   ) {
     // 1. Save to Database
@@ -122,6 +122,41 @@ export class NotificationService implements OnModuleInit {
           'PROMOTION',
         )
       }
+    }
+  }
+
+  @OnEvent('inventory.low_stock')
+  async handleLowStock(payload: {
+    inventoryId: string
+    itemName: string
+    currentStock: number
+    threshold: number
+  }) {
+    this.logger.warn(
+      `Low stock alert for ${payload.itemName}: ${payload.currentStock} (Threshold: ${payload.threshold})`,
+    )
+
+    // Find Admins/Managers to notify
+    // Assuming 'ADMIN' and 'MANAGER' roles exist.
+    // Optimized: Fetch users where role.name in ['ADMIN', 'MANAGER']
+    const admins = await this.prisma.user.findMany({
+      where: {
+        role: {
+          name: { in: ['ADMIN', 'MANAGER'] },
+        },
+        status: 'ACTIVE',
+      },
+      select: { id: true },
+    })
+
+    for (const admin of admins) {
+      await this.send(
+        admin.id,
+        'Cảnh báo tồn kho!',
+        `Nguyên liệu ${payload.itemName} sắp hết. Tồn kho hiện tại: ${payload.currentStock} ${payload.threshold ? `(Ngưỡng: ${payload.threshold})` : ''}`,
+        'LOW_STOCK',
+        { inventoryId: payload.inventoryId },
+      )
     }
   }
 }

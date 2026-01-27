@@ -102,6 +102,7 @@ const appRouter = t.router({
     createFromCart: publicProcedure.input(CreateOrderFromCartSchema).output(OrderSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     updateStatus: publicProcedure.input(UpdateOrderStatusSchema).output(OrderSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   }),
+  notification: t.router({ sendPush: publicProcedure.input(SendPushNotificationSchema).output(SendPushNotificationSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any) }),
   review: t.router({
     create: publicProcedure.input(CreateReviewBodySchema).output(ReviewDetailResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     list: publicProcedure.input(GetReviewsQuerySchema).output(GetReviewsResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
@@ -115,7 +116,6 @@ const appRouter = t.router({
     delete: publicProcedure.input(z.object({ id: z.string() })).output(PromotionSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     applyCode: publicProcedure.input(ApplyPromotionSchema).output(ApplyPromotionResSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   }),
-  notification: t.router({ sendPush: publicProcedure.input(SendPushNotificationSchema).output(SendPushNotificationSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any) }),
   cart: t.router({
     get: publicProcedure.output(GetCartResSchema).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     add: publicProcedure.input(AddCartItemSchema).output(CartItemSchema).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),

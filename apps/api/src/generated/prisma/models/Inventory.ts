@@ -29,11 +29,13 @@ export type AggregateInventory = {
 }
 
 export type InventoryAvgAggregateOutputType = {
-  quantity: number | null
+  quantity: runtime.Decimal | null
+  threshold: runtime.Decimal | null
 }
 
 export type InventorySumAggregateOutputType = {
-  quantity: number | null
+  quantity: runtime.Decimal | null
+  threshold: runtime.Decimal | null
 }
 
 export type InventoryMinAggregateOutputType = {
@@ -41,8 +43,9 @@ export type InventoryMinAggregateOutputType = {
   restaurantId: string | null
   supplierId: string | null
   itemName: string | null
-  quantity: number | null
+  quantity: runtime.Decimal | null
   unit: string | null
+  threshold: runtime.Decimal | null
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -56,8 +59,9 @@ export type InventoryMaxAggregateOutputType = {
   restaurantId: string | null
   supplierId: string | null
   itemName: string | null
-  quantity: number | null
+  quantity: runtime.Decimal | null
   unit: string | null
+  threshold: runtime.Decimal | null
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -73,6 +77,7 @@ export type InventoryCountAggregateOutputType = {
   itemName: number
   quantity: number
   unit: number
+  threshold: number
   createdById: number
   updatedById: number
   deletedById: number
@@ -85,10 +90,12 @@ export type InventoryCountAggregateOutputType = {
 
 export type InventoryAvgAggregateInputType = {
   quantity?: true
+  threshold?: true
 }
 
 export type InventorySumAggregateInputType = {
   quantity?: true
+  threshold?: true
 }
 
 export type InventoryMinAggregateInputType = {
@@ -98,6 +105,7 @@ export type InventoryMinAggregateInputType = {
   itemName?: true
   quantity?: true
   unit?: true
+  threshold?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -113,6 +121,7 @@ export type InventoryMaxAggregateInputType = {
   itemName?: true
   quantity?: true
   unit?: true
+  threshold?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -128,6 +137,7 @@ export type InventoryCountAggregateInputType = {
   itemName?: true
   quantity?: true
   unit?: true
+  threshold?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -228,8 +238,9 @@ export type InventoryGroupByOutputType = {
   restaurantId: string
   supplierId: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal
   unit: string
+  threshold: runtime.Decimal
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -266,8 +277,9 @@ export type InventoryWhereInput = {
   restaurantId?: Prisma.StringFilter<"Inventory"> | string
   supplierId?: Prisma.StringNullableFilter<"Inventory"> | string | null
   itemName?: Prisma.StringFilter<"Inventory"> | string
-  quantity?: Prisma.IntFilter<"Inventory"> | number
+  quantity?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFilter<"Inventory"> | string
+  threshold?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringNullableFilter<"Inventory"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Inventory"> | string | null
   deletedById?: Prisma.StringNullableFilter<"Inventory"> | string | null
@@ -290,6 +302,7 @@ export type InventoryOrderByWithRelationInput = {
   itemName?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -313,8 +326,9 @@ export type InventoryWhereUniqueInput = Prisma.AtLeast<{
   restaurantId?: Prisma.StringFilter<"Inventory"> | string
   supplierId?: Prisma.StringNullableFilter<"Inventory"> | string | null
   itemName?: Prisma.StringFilter<"Inventory"> | string
-  quantity?: Prisma.IntFilter<"Inventory"> | number
+  quantity?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFilter<"Inventory"> | string
+  threshold?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringNullableFilter<"Inventory"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Inventory"> | string | null
   deletedById?: Prisma.StringNullableFilter<"Inventory"> | string | null
@@ -337,6 +351,7 @@ export type InventoryOrderByWithAggregationInput = {
   itemName?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -358,8 +373,9 @@ export type InventoryScalarWhereWithAggregatesInput = {
   restaurantId?: Prisma.StringWithAggregatesFilter<"Inventory"> | string
   supplierId?: Prisma.StringNullableWithAggregatesFilter<"Inventory"> | string | null
   itemName?: Prisma.StringWithAggregatesFilter<"Inventory"> | string
-  quantity?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
+  quantity?: Prisma.DecimalWithAggregatesFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringWithAggregatesFilter<"Inventory"> | string
+  threshold?: Prisma.DecimalWithAggregatesFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringNullableWithAggregatesFilter<"Inventory"> | string | null
   updatedById?: Prisma.StringNullableWithAggregatesFilter<"Inventory"> | string | null
   deletedById?: Prisma.StringNullableWithAggregatesFilter<"Inventory"> | string | null
@@ -371,8 +387,9 @@ export type InventoryScalarWhereWithAggregatesInput = {
 export type InventoryCreateInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -390,8 +407,9 @@ export type InventoryUncheckedCreateInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -405,8 +423,9 @@ export type InventoryUncheckedCreateInput = {
 export type InventoryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -424,8 +443,9 @@ export type InventoryUncheckedUpdateInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -441,8 +461,9 @@ export type InventoryCreateManyInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -454,8 +475,9 @@ export type InventoryCreateManyInput = {
 export type InventoryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -466,8 +488,9 @@ export type InventoryUncheckedUpdateManyInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -493,6 +516,7 @@ export type InventoryCountOrderByAggregateInput = {
   itemName?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -503,6 +527,7 @@ export type InventoryCountOrderByAggregateInput = {
 
 export type InventoryAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
 }
 
 export type InventoryMaxOrderByAggregateInput = {
@@ -512,6 +537,7 @@ export type InventoryMaxOrderByAggregateInput = {
   itemName?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -527,6 +553,7 @@ export type InventoryMinOrderByAggregateInput = {
   itemName?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -537,6 +564,7 @@ export type InventoryMinOrderByAggregateInput = {
 
 export type InventorySumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  threshold?: Prisma.SortOrder
 }
 
 export type InventoryScalarRelationFilter = {
@@ -785,8 +813,9 @@ export type InventoryUpdateOneRequiredWithoutTransactionsNestedInput = {
 export type InventoryCreateWithoutCreatedByInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -803,8 +832,9 @@ export type InventoryUncheckedCreateWithoutCreatedByInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   updatedById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -827,8 +857,9 @@ export type InventoryCreateManyCreatedByInputEnvelope = {
 export type InventoryCreateWithoutUpdatedByInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -845,8 +876,9 @@ export type InventoryUncheckedCreateWithoutUpdatedByInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -869,8 +901,9 @@ export type InventoryCreateManyUpdatedByInputEnvelope = {
 export type InventoryCreateWithoutDeletedByInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -887,8 +920,9 @@ export type InventoryUncheckedCreateWithoutDeletedByInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedAt?: Date | string | null
@@ -932,8 +966,9 @@ export type InventoryScalarWhereInput = {
   restaurantId?: Prisma.StringFilter<"Inventory"> | string
   supplierId?: Prisma.StringNullableFilter<"Inventory"> | string | null
   itemName?: Prisma.StringFilter<"Inventory"> | string
-  quantity?: Prisma.IntFilter<"Inventory"> | number
+  quantity?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFilter<"Inventory"> | string
+  threshold?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.StringNullableFilter<"Inventory"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Inventory"> | string | null
   deletedById?: Prisma.StringNullableFilter<"Inventory"> | string | null
@@ -977,8 +1012,9 @@ export type InventoryUpdateManyWithWhereWithoutDeletedByInput = {
 export type InventoryCreateWithoutSupplierInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -994,8 +1030,9 @@ export type InventoryUncheckedCreateWithoutSupplierInput = {
   id?: string
   restaurantId: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1035,8 +1072,9 @@ export type InventoryUpdateManyWithWhereWithoutSupplierInput = {
 export type InventoryCreateWithoutRestaurantInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1052,8 +1090,9 @@ export type InventoryUncheckedCreateWithoutRestaurantInput = {
   id?: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1093,8 +1132,9 @@ export type InventoryUpdateManyWithWhereWithoutRestaurantInput = {
 export type InventoryCreateWithoutDishesInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1111,8 +1151,9 @@ export type InventoryUncheckedCreateWithoutDishesInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1141,8 +1182,9 @@ export type InventoryUpdateToOneWithWhereWithoutDishesInput = {
 export type InventoryUpdateWithoutDishesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1159,8 +1201,9 @@ export type InventoryUncheckedUpdateWithoutDishesInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1173,8 +1216,9 @@ export type InventoryUncheckedUpdateWithoutDishesInput = {
 export type InventoryCreateWithoutTransactionsInput = {
   id?: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1191,8 +1235,9 @@ export type InventoryUncheckedCreateWithoutTransactionsInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1221,8 +1266,9 @@ export type InventoryUpdateToOneWithWhereWithoutTransactionsInput = {
 export type InventoryUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1239,8 +1285,9 @@ export type InventoryUncheckedUpdateWithoutTransactionsInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1255,8 +1302,9 @@ export type InventoryCreateManyCreatedByInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   updatedById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -1269,8 +1317,9 @@ export type InventoryCreateManyUpdatedByInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -1283,8 +1332,9 @@ export type InventoryCreateManyDeletedByInput = {
   restaurantId: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedAt?: Date | string | null
@@ -1295,8 +1345,9 @@ export type InventoryCreateManyDeletedByInput = {
 export type InventoryUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1313,8 +1364,9 @@ export type InventoryUncheckedUpdateWithoutCreatedByInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1329,8 +1381,9 @@ export type InventoryUncheckedUpdateManyWithoutCreatedByInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1341,8 +1394,9 @@ export type InventoryUncheckedUpdateManyWithoutCreatedByInput = {
 export type InventoryUpdateWithoutUpdatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1359,8 +1413,9 @@ export type InventoryUncheckedUpdateWithoutUpdatedByInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1375,8 +1430,9 @@ export type InventoryUncheckedUpdateManyWithoutUpdatedByInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1387,8 +1443,9 @@ export type InventoryUncheckedUpdateManyWithoutUpdatedByInput = {
 export type InventoryUpdateWithoutDeletedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1405,8 +1462,9 @@ export type InventoryUncheckedUpdateWithoutDeletedByInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1421,8 +1479,9 @@ export type InventoryUncheckedUpdateManyWithoutDeletedByInput = {
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1434,8 +1493,9 @@ export type InventoryCreateManySupplierInput = {
   id?: string
   restaurantId: string
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1447,8 +1507,9 @@ export type InventoryCreateManySupplierInput = {
 export type InventoryUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1464,8 +1525,9 @@ export type InventoryUncheckedUpdateWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1480,8 +1542,9 @@ export type InventoryUncheckedUpdateManyWithoutSupplierInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   restaurantId?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1494,8 +1557,9 @@ export type InventoryCreateManyRestaurantInput = {
   id?: string
   supplierId?: string | null
   itemName: string
-  quantity: number
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   unit: string
+  threshold?: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1507,8 +1571,9 @@ export type InventoryCreateManyRestaurantInput = {
 export type InventoryUpdateWithoutRestaurantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1524,8 +1589,9 @@ export type InventoryUncheckedUpdateWithoutRestaurantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1540,8 +1606,9 @@ export type InventoryUncheckedUpdateManyWithoutRestaurantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
+  threshold?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1597,6 +1664,7 @@ export type InventorySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   itemName?: boolean
   quantity?: boolean
   unit?: boolean
+  threshold?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -1620,6 +1688,7 @@ export type InventorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   itemName?: boolean
   quantity?: boolean
   unit?: boolean
+  threshold?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -1640,6 +1709,7 @@ export type InventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   itemName?: boolean
   quantity?: boolean
   unit?: boolean
+  threshold?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -1660,6 +1730,7 @@ export type InventorySelectScalar = {
   itemName?: boolean
   quantity?: boolean
   unit?: boolean
+  threshold?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -1668,7 +1739,7 @@ export type InventorySelectScalar = {
   updatedAt?: boolean
 }
 
-export type InventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "restaurantId" | "supplierId" | "itemName" | "quantity" | "unit" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["inventory"]>
+export type InventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "restaurantId" | "supplierId" | "itemName" | "quantity" | "unit" | "threshold" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["inventory"]>
 export type InventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   restaurant?: boolean | Prisma.RestaurantDefaultArgs<ExtArgs>
   supplier?: boolean | Prisma.Inventory$supplierArgs<ExtArgs>
@@ -1710,8 +1781,9 @@ export type $InventoryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     restaurantId: string
     supplierId: string | null
     itemName: string
-    quantity: number
+    quantity: runtime.Decimal
     unit: string
+    threshold: runtime.Decimal
     createdById: string | null
     updatedById: string | null
     deletedById: string | null
@@ -2152,8 +2224,9 @@ export interface InventoryFieldRefs {
   readonly restaurantId: Prisma.FieldRef<"Inventory", 'String'>
   readonly supplierId: Prisma.FieldRef<"Inventory", 'String'>
   readonly itemName: Prisma.FieldRef<"Inventory", 'String'>
-  readonly quantity: Prisma.FieldRef<"Inventory", 'Int'>
+  readonly quantity: Prisma.FieldRef<"Inventory", 'Decimal'>
   readonly unit: Prisma.FieldRef<"Inventory", 'String'>
+  readonly threshold: Prisma.FieldRef<"Inventory", 'Decimal'>
   readonly createdById: Prisma.FieldRef<"Inventory", 'String'>
   readonly updatedById: Prisma.FieldRef<"Inventory", 'String'>
   readonly deletedById: Prisma.FieldRef<"Inventory", 'String'>
