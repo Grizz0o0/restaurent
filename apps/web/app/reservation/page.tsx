@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner'; // or use-toast
+import { toast } from 'sonner';
 import { Calendar } from '@/components/ui/calendar';
 import {
     Popover,
@@ -86,7 +86,7 @@ export default function ReservationPage() {
                 <div>Loading tables...</div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {tablesData?.data.map((table) => (
+                    {tablesData?.data.map((table: any) => (
                         <Card
                             key={table.id}
                             className={cn(

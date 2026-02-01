@@ -1,6 +1,7 @@
 import z from 'zod';
 import { UserStatus } from '@repo/constants';
 import { TypeOfValidationCode } from '@repo/constants';
+export { TypeOfValidationCode };
 
 export const UserSchema = z.object({
     id: z.string(),
@@ -50,10 +51,12 @@ export const RegisterBodySchema = UserSchema.pick({
         }
     });
 
-export const RegisterResSchema = UserSchema.omit({
-    password: true,
-    totpSecret: true,
-}).strict();
+export const LoginResSchema = z.object({
+    accessToken: z.string(),
+    refreshToken: z.string(),
+});
+
+export const RegisterResSchema = LoginResSchema;
 
 export const ValidationCode = z.object({
     id: z.string(),
@@ -95,11 +98,6 @@ export const LoginBodySchema = UserSchema.pick({
             });
         }
     });
-
-export const LoginResSchema = z.object({
-    accessToken: z.string(),
-    refreshToken: z.string(),
-});
 
 export const DeviceSchema = z.object({
     id: z.string(),

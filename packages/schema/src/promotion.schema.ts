@@ -25,9 +25,29 @@ export const PromotionSchema = z.object({
     id: z.string(),
     code: z.string(),
     type: PromotionTypeSchema,
-    amount: z.number(),
-    percentage: z.number().nullable(),
-    minOrderValue: z.number().nullable(),
+    amount: z
+        .custom<any>(
+            (val) =>
+                typeof val === 'object' && val !== null && 'toNumber' in val,
+        )
+        .transform((v) => v.toNumber())
+        .or(z.number()),
+    percentage: z
+        .custom<any>(
+            (val) =>
+                typeof val === 'object' && val !== null && 'toNumber' in val,
+        )
+        .transform((v) => v.toNumber())
+        .or(z.number())
+        .nullable(),
+    minOrderValue: z
+        .custom<any>(
+            (val) =>
+                typeof val === 'object' && val !== null && 'toNumber' in val,
+        )
+        .transform((v) => v.toNumber())
+        .or(z.number())
+        .nullable(),
     validFrom: z.date(),
     validTo: z.date(),
     usageLimit: z.number().nullable(),

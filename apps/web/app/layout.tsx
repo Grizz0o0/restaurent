@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 };
 
 import TRPCProvider from '../lib/trpc/provider';
-import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -31,6 +30,7 @@ import { SocketProvider } from '@/providers/socket-provider';
 
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { CartDrawer } from '@/components/cart/cart-drawer';
 
 export default function RootLayout({
     children,
@@ -54,8 +54,8 @@ export default function RootLayout({
                                     {children}
                                 </main>
                                 <Footer />
-                                <Toaster />
                                 <Sonner />
+                                <CartDrawer />
                             </TooltipProvider>
                         </SocketProvider>
                     </ThemeProvider>

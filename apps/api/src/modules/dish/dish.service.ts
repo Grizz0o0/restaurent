@@ -82,7 +82,16 @@ export class DishService {
 
   async list(query: GetDishesQueryType) {
     const { total, data: dishes } = await this.dishRepo.list(query)
-    return createPaginationResult(dishes, total, query)
+    const transformedDishes = dishes.map((dish) => {
+      const translation = dish.dishTranslations?.[0]
+      return {
+        ...dish,
+        name: translation?.name ?? '',
+        description: translation?.description ?? '',
+      }
+    })
+
+    return createPaginationResult(transformedDishes, total, query)
   }
 
   async delete(id: string, deletedById: string) {

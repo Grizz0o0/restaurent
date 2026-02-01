@@ -56,7 +56,7 @@ const About = () => {
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="relative">
-                            <div className="aspect-[4/3] rounded-3xl overflow-hidden relative">
+                            <div className="aspect-4/3 rounded-3xl overflow-hidden relative">
                                 <Image
                                     src={heroImage}
                                     alt="Bánh Mì Sài Gòn"

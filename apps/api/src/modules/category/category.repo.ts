@@ -136,7 +136,14 @@ export class CategoryRepo {
       }),
     }
 
-    return await paginate(
+    return await paginate<
+      Prisma.DishCategoryGetPayload<{
+        include: {
+          dishCategoryTranslations: true
+          childrenCategories: true
+        }
+      }>
+    >(
       this.prisma.dishCategory,
       {
         where,

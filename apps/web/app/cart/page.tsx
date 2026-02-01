@@ -119,7 +119,7 @@ const Cart = () => {
                                 key={item.id}
                                 className="flex gap-4 bg-card p-4 rounded-2xl border border-border"
                             >
-                                <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 relative">
+                                <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 relative">
                                     <Image
                                         src={item.image}
                                         alt={item.name}

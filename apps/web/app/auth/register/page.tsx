@@ -1,12 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { RegisterBodySchema } from '@repo/schema';
+import { TypeOfValidationCode } from '@repo/constants';
 import { z } from 'zod';
-import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -26,56 +25,60 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
+import { useAuth } from '@/hooks/domain/use-auth';
+import { useState } from 'react';
 
-const schema = z
-    .object({
-        firstName: z.string().trim().min(2, 'Ít nhất 2 ký tự'),
-        lastName: z.string().trim().min(2, 'Ít nhất 2 ký tự'),
-        email: z.string().trim().email('Email không hợp lệ').max(255),
-        password: z.string().min(6, 'Mật khẩu tối thiểu 6 ký tự').max(72),
-        confirmPassword: z.string().min(6).max(72),
-    })
-    .refine((v) => v.password === v.confirmPassword, {
-        path: ['confirmPassword'],
-        message: 'Mật khẩu xác nhận không khớp',
-    });
-
-type FormValues = z.infer<typeof schema>;
+type FormValues = z.infer<typeof RegisterBodySchema>;
 
 export default function RegisterPage() {
-    const router = useRouter();
-    const [submitting, setSubmitting] = useState(false);
+    const { registerAsync, sendOTPAsync, isLoading } = useAuth();
+    const [otpSent, setOtpSent] = useState(false);
+    const [countdown, setCountdown] = useState(0);
 
     const form = useForm<FormValues>({
-        resolver: zodResolver(schema),
+        resolver: zodResolver(RegisterBodySchema),
         defaultValues: {
-            firstName: '',
-            lastName: '',
+            name: '',
             email: '',
+            phoneNumber: '',
             password: '',
             confirmPassword: '',
+            code: '',
         },
     });
 
-    const onSubmit = async (values: FormValues) => {
-        setSubmitting(true);
-
-        // TODO: Implement actual registration logic
-        console.log('Register values:', values);
-
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        const success = true;
-
-        setSubmitting(false);
-
-        if (success) {
-            toast.success('Tạo tài khoản thành công', {
-                description: 'Bạn có thể đăng nhập ngay.',
+    const handleSendOTP = async () => {
+        const email = form.getValues('email');
+        if (!email) {
+            form.setError('email', { message: 'Vui lòng nhập email trước' });
+            return;
+        }
+        try {
+            await sendOTPAsync({
+                email,
+                type: TypeOfValidationCode.REGISTER,
             });
-            router.push('/auth/login');
-        } else {
-            toast.error('Đăng ký thất bại');
+            setOtpSent(true);
+            setCountdown(60);
+            const timer = setInterval(() => {
+                setCountdown((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(timer);
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+        } catch (error) {
+            // Toast handled in hook
+        }
+    };
+
+    const onSubmit = async (values: FormValues) => {
+        try {
+            await registerAsync(values);
+        } catch (error) {
+            // Toast handled in hook
         }
     };
 
@@ -95,18 +98,35 @@ export default function RegisterPage() {
                         <Form {...form}>
                             <form
                                 onSubmit={form.handleSubmit(onSubmit)}
-                                className="space-y-5"
+                                className="space-y-4"
                             >
+                                <FormField
+                                    control={form.control}
+                                    name="name"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Họ và tên</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Nguyễn Văn A"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
                                 <div className="grid grid-cols-2 gap-4">
                                     <FormField
                                         control={form.control}
-                                        name="firstName"
+                                        name="email"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Họ</FormLabel>
+                                                <FormLabel>Email</FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                        placeholder="Nguyễn"
+                                                        placeholder="email@example.com"
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -116,13 +136,15 @@ export default function RegisterPage() {
                                     />
                                     <FormField
                                         control={form.control}
-                                        name="lastName"
+                                        name="phoneNumber"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Tên</FormLabel>
+                                                <FormLabel>
+                                                    Số điện thoại
+                                                </FormLabel>
                                                 <FormControl>
                                                     <Input
-                                                        placeholder="Văn A"
+                                                        placeholder="0912..."
                                                         {...field}
                                                     />
                                                 </FormControl>
@@ -132,24 +154,40 @@ export default function RegisterPage() {
                                     />
                                 </div>
 
-                                <FormField
-                                    control={form.control}
-                                    name="email"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Email</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="email"
-                                                    placeholder="email@example.com"
-                                                    autoComplete="email"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                <div className="flex gap-2 items-end">
+                                    <FormField
+                                        control={form.control}
+                                        name="code"
+                                        render={({ field }) => (
+                                            <FormItem className="flex-1">
+                                                <FormLabel>
+                                                    Mã xác thực (OTP)
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder="Nhập mã 6 số từ email"
+                                                        maxLength={6}
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        onClick={handleSendOTP}
+                                        disabled={isLoading || countdown > 0}
+                                        className="mb-2 shrink-0 min-w-25"
+                                    >
+                                        {countdown > 0
+                                            ? `${countdown}s`
+                                            : otpSent
+                                              ? 'Gửi lại'
+                                              : 'Lấy mã'}
+                                    </Button>
+                                </div>
 
                                 <FormField
                                     control={form.control}
@@ -192,15 +230,13 @@ export default function RegisterPage() {
                                 <Button
                                     type="submit"
                                     variant="hero"
-                                    className="w-full"
-                                    disabled={submitting}
+                                    className="w-full mt-4"
+                                    disabled={isLoading}
                                 >
-                                    {submitting
-                                        ? 'Đang tạo tài khoản...'
-                                        : 'Đăng ký'}
+                                    {isLoading ? 'Đang xử lý...' : 'Đăng ký'}
                                 </Button>
 
-                                <div className="text-center text-sm">
+                                <div className="text-center text-sm mt-4">
                                     <span className="text-muted-foreground">
                                         Đã có tài khoản?{' '}
                                     </span>

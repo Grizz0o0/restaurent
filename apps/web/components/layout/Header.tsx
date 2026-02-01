@@ -6,12 +6,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ShoppingCart, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { CartButton } from '@/components/cart/cart-button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { cn } from '@/lib/utils';
 
+import { useAuth } from '@/hooks/domain/use-auth';
+import { UserNav } from './user-nav';
+
 const Header = () => {
+    const { isAuthenticated, user, logout, isLoading } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [cartCount] = useState(2); // TODO: Integrate with real cart state
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
 
@@ -89,31 +93,7 @@ const Header = () => {
                     {/* Actions */}
                     <div className="flex items-center gap-3">
                         <div className="hidden sm:block">
-                            <Link href="/cart">
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="relative flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                                >
-                                    <ShoppingCart className="w-5 h-5" />
-                                    {cartCount > 0 && (
-                                        <span className="bg-chili text-white text-[10px] font-bold px-1.5 h-4 flex items-center justify-center rounded-full animate-in zoom-in">
-                                            {cartCount}
-                                        </span>
-                                    )}
-                                </Button>
-                            </Link>
-                        </div>
-                        <div className="hidden sm:block">
-                            <Link href="/auth/login">
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                                >
-                                    Đăng nhập
-                                </Button>
-                            </Link>
+                            <CartButton />
                         </div>
                         <Link href="/menu">
                             <Button
@@ -123,6 +103,23 @@ const Header = () => {
                                 Đặt hàng ngay
                             </Button>
                         </Link>
+                        <div className="hidden sm:block">
+                            {isLoading ? (
+                                <div className="h-9 w-20 bg-muted/50 animate-pulse rounded-md" />
+                            ) : isAuthenticated ? (
+                                <UserNav />
+                            ) : (
+                                <Link href="/auth/login">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                                    >
+                                        Đăng nhập
+                                    </Button>
+                                </Link>
+                            )}
+                        </div>
 
                         {/* Mobile menu button */}
                         <button
@@ -159,18 +156,37 @@ const Header = () => {
                             ))}
                             <div className="h-px bg-border/50 my-2" />
                             <div className="flex flex-col gap-2 px-2">
-                                <Link
-                                    href="/auth/login"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    <Button
-                                        variant="outline"
-                                        className="w-full rounded-xl"
-                                        size="lg"
+                                {isAuthenticated ? (
+                                    <div className="flex flex-col gap-2">
+                                        <div className="px-4 py-2 text-sm font-medium text-foreground">
+                                            Chào, {user?.name}
+                                        </div>
+                                        <Button
+                                            variant="outline"
+                                            className="w-full rounded-xl"
+                                            size="lg"
+                                            onClick={() => {
+                                                logout();
+                                                setIsMenuOpen(false);
+                                            }}
+                                        >
+                                            Đăng xuất
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        href="/auth/login"
+                                        onClick={() => setIsMenuOpen(false)}
                                     >
-                                        Đăng nhập
-                                    </Button>
-                                </Link>
+                                        <Button
+                                            variant="outline"
+                                            className="w-full rounded-xl"
+                                            size="lg"
+                                        >
+                                            Đăng nhập
+                                        </Button>
+                                    </Link>
+                                )}
                                 <div className="flex items-center justify-between px-2 py-2">
                                     <span className="text-sm font-medium text-muted-foreground">
                                         Chế độ

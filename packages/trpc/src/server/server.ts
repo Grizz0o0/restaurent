@@ -1,5 +1,6 @@
 import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
+
 import {
     RegisterBodySchema,
     RegisterResSchema,
@@ -97,8 +98,8 @@ import {
     AssignStaffBodySchema,
     RemoveStaffBodySchema,
 } from '@repo/schema';
-
-const t = initTRPC.create();
+import superjson from 'superjson';
+const t = initTRPC.create({ transformer: superjson });
 const publicProcedure = t.procedure;
 
 const appRouter = t.router({

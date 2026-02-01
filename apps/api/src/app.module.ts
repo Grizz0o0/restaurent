@@ -44,9 +44,10 @@ import { AppContext } from './trpc/context'
       isGlobal: true,
     }),
     TRPCModule.forRoot({
-      autoSchemaFile: '../../packages/trpc/src/server/trpc-schema.ts',
+      autoSchemaFile: '../../packages/trpc/src/server',
       transformer: superjson,
       context: AppContext,
+      basePath: '/v1/api/trpc',
     }),
     AuthModule,
     AdminModule,

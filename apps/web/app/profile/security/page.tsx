@@ -6,14 +6,15 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
+// import {
+//     Card,
+//     CardContent,
+//     CardDescription,
+//     CardHeader,
+//     CardTitle,
+// } from '@/components/ui/card'; // We might not need cards inside the layout structure if we use sections
 import { toast } from 'sonner';
+import { Separator } from '@/components/ui/separator';
 
 export default function SecurityPage() {
     const [setupData, setSetupData] = useState<{
@@ -27,7 +28,7 @@ export default function SecurityPage() {
         onSuccess: (data) => {
             setSetupData(data);
             toast.info(
-                'QR Code generated. Please scan with your Authenticator app.',
+                'Mã QR đã được tạo. Vui lòng quét bằng ứng dụng Authenticator.',
             );
         },
         onError: (error) => {
@@ -37,110 +38,118 @@ export default function SecurityPage() {
 
     const disableMutation = trpc.auth.disable2FA.useMutation({
         onSuccess: () => {
-            toast.success('2FA disabled successfully.');
+            toast.success('Đã tắt xác thực 2 bước.');
             setVerificationCode('');
-            // Optional: Refetch user status if 2FA status is stored in user context
         },
         onError: (error) => {
             toast.error(error.message);
         },
     });
 
-    // We assume backend validates the code "implicitly" via a "verify" endpoint or enabling only happens once verified?
-    // Wait, backend `setupTwoFactorAuth` JUST returns secret. It doesn't enable it yet until we verify?
-    // Actually `setupTwoFactorAuth` updates generated secret to DB. BUT usually there's a "Confirm" step.
-    // My backend `setupTwoFactorAuth` DOES Update DB immediately with `totpSecret`. This means it's enabled "provisionally" or immediately?
-    // Backend `setupTwoFactorAuth` updates `totpSecret`.
-    // Backend `login` checks `totpSecret`.
-    // So if user scans but fails to verify, they are locked out?
-    // A better flow is: Setup returns secret -> User verifies -> Backend saves secret.
-    // Current Backend Implementation: `setupTwoFactorAuth` saves secret to User immediately.
-    // If user loses the page, they are stuck with unknown secret?
-    // Assuming simplified flow for now: User scans and testing login ensures it works.
-    // OR: Implementing a 'verify' endpoint would be better, but sticking to existing backend for now.
-    // Actually `disable2FA` exists.
-
     const handleSetup = () => {
         setupMutation.mutate(undefined);
     };
 
     const handleDisable = () => {
-        if (!verificationCode)
-            return toast.error('Please enter the code to disable.');
+        if (!verificationCode) return toast.error('Vui lòng nhập mã xác thực.');
         disableMutation.mutate({ totpCode: verificationCode });
     };
 
     return (
-        <div className="container max-w-2xl py-10">
-            <h1 className="text-3xl font-bold mb-8">Security Settings</h1>
+        <div className="space-y-6">
+            <div>
+                <h3 className="text-lg font-medium">Bảo mật</h3>
+                <p className="text-sm text-muted-foreground">
+                    Quản lý bảo mật tài khoản và xác thực 2 bước.
+                </p>
+            </div>
+            <Separator />
 
-            <Card className="mb-8">
-                <CardHeader>
-                    <CardTitle>Two-Factor Authentication (2FA)</CardTitle>
-                    <CardDescription>
-                        Add an extra layer of security to your account.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    {!setupData ? (
+            <div className="space-y-4">
+                <h4 className="text-sm font-medium">Xác thực 2 bước (2FA)</h4>
+                <p className="text-sm text-muted-foreground">
+                    Tăng cường bảo mật cho tài khoản của bạn bằng cách yêu cầu
+                    mã xác thực khi đăng nhập.
+                </p>
+
+                {!setupData ? (
+                    <div className="flex flex-col gap-4">
                         <Button
                             onClick={handleSetup}
                             disabled={setupMutation.isPending}
+                            className="w-fit"
                         >
                             {setupMutation.isPending
-                                ? 'Generating...'
-                                : 'Setup 2FA'}
+                                ? 'Đang tạo...'
+                                : 'Thiết lập 2FA'}
                         </Button>
-                    ) : (
-                        <div className="flex flex-col items-center gap-6">
-                            <div className="p-4 bg-white rounded-lg">
-                                <QRCodeSVG value={setupData.uri} size={200} />
-                            </div>
-                            <div className="text-center">
-                                <p className="text-sm text-muted-foreground mb-2">
-                                    Scan this QR Code with Google Authenticator
-                                </p>
-                                <p className="font-mono bg-muted p-2 rounded text-sm">
-                                    {setupData.secret}
-                                </p>
+
+                        <div className="border rounded-lg p-4 bg-muted/50">
+                            <h5 className="text-sm font-medium mb-2">
+                                Tắt 2FA
+                            </h5>
+                            <div className="flex items-end gap-2 max-w-sm">
+                                <div className="grid w-full gap-1.5">
+                                    <Label htmlFor="code" className="text-xs">
+                                        Mã Authenticator
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        id="code"
+                                        placeholder="123456"
+                                        value={verificationCode}
+                                        maxLength={6}
+                                        onChange={(e) =>
+                                            setVerificationCode(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <Button
+                                    variant="destructive"
+                                    onClick={handleDisable}
+                                    disabled={disableMutation.isPending}
+                                >
+                                    {disableMutation.isPending
+                                        ? 'Đang tắt...'
+                                        : 'Tắt 2FA'}
+                                </Button>
                             </div>
                         </div>
-                    )}
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Disable 2FA</CardTitle>
-                    <CardDescription>
-                        Turn off two-factor authentication.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label htmlFor="code">Authenticator Code</Label>
-                        <Input
-                            type="text"
-                            id="code"
-                            placeholder="123456"
-                            value={verificationCode}
-                            maxLength={6}
-                            onChange={(e) =>
-                                setVerificationCode(e.target.value)
-                            }
-                        />
                     </div>
-                    <Button
-                        variant="destructive"
-                        onClick={handleDisable}
-                        disabled={disableMutation.isPending}
-                    >
-                        {disableMutation.isPending
-                            ? 'Disabling...'
-                            : 'Disable 2FA'}
-                    </Button>
-                </CardContent>
-            </Card>
+                ) : (
+                    <div className="flex flex-col items-start gap-6 border p-6 rounded-lg">
+                        <div className="p-4 bg-white rounded-lg border">
+                            <QRCodeSVG value={setupData.uri} size={180} />
+                        </div>
+                        <div className="space-y-2">
+                            <p className="text-sm font-medium">
+                                1. Quét mã QR bằng Google Authenticator hoặc
+                                Authy
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                                Nếu không thể quét, hãy nhập thủ công mã bí mật
+                                sau:
+                            </p>
+                            <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+                                {setupData.secret}
+                            </code>
+                        </div>
+                        <div className="space-y-2">
+                            <p className="text-sm font-medium">
+                                2. Xác thực đã hoàn tất (Lưu ý: Hệ thống hiện
+                                tại đã lưu mã bí mật, vui lòng đảm bảo bạn đã
+                                lưu vào ứng dụng Authenticator trước khi rời đi)
+                            </p>
+                            <Button
+                                onClick={() => setSetupData(null)}
+                                variant="outline"
+                            >
+                                Hoàn tất
+                            </Button>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

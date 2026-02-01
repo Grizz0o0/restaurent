@@ -6,7 +6,7 @@ import { ArrowLeft, MapPin, Phone, Clock, Mail, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 const contactInfo = [
     {
@@ -33,27 +33,26 @@ const contactInfo = [
 
 const branches = [
     {
-        name: 'Chi nhánh Quận 1',
-        address: 'Kiến Hưng, Hà Đông, Hà Nội',
+        name: 'Chi nhánh Kiến Hưng',
+        address: 'Kiến Hưng, Hà Đông, Hà Nội (Chung cư Mipec City View)',
         phone: '0363290475',
         hours: '6:00 - 22:00',
     },
     {
         name: 'Chi nhánh Quận 3',
-        address: 'Kiến Hưng, Hà Đông, Hà Nội',
+        address: 'Quận 3, TP. Hồ Chí Minh',
         phone: '0909 123 457',
         hours: '6:00 - 21:00',
     },
     {
         name: 'Chi nhánh Quận 7',
-        address: 'Kiến Hưng, Hà Đông, Hà Nội',
+        address: 'Quận 7, TP. Hồ Chí Minh',
         phone: '0909 123 458',
         hours: '6:30 - 22:00',
     },
 ];
 
 const Contact = () => {
-    const { toast } = useToast();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -69,8 +68,7 @@ const Contact = () => {
         // Simulate form submission
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        toast({
-            title: 'Gửi thành công!',
+        toast.success('Gửi thành công!', {
             description:
                 'Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.',
         });
@@ -261,19 +259,19 @@ const Contact = () => {
                                 </h3>
                                 <div className="space-y-3 text-sm">
                                     <div className="flex items-start gap-3">
-                                        <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                                        <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                                         <span className="text-muted-foreground">
                                             {branch.address}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+                                        <Phone className="w-4 h-4 text-primary shrink-0" />
                                         <span className="text-muted-foreground">
                                             {branch.phone}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <Clock className="w-4 h-4 text-primary flex-shrink-0" />
+                                        <Clock className="w-4 h-4 text-primary shrink-0" />
                                         <span className="text-muted-foreground">
                                             {branch.hours}
                                         </span>

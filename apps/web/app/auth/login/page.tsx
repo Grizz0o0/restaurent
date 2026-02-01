@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation'; // Not needed anymore, handled in useAuth
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ArrowLeft } from 'lucide-react';
+// import { ArrowLeft } from 'lucide-react';
+import { LoginBodySchema } from '@repo/schema';
+import { useAuth } from '@/hooks/domain/use-auth';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,41 +30,40 @@ import {
 import { toast } from 'sonner';
 
 const schema = z.object({
-    email: z.string().trim().email('Email không hợp lệ').max(255),
-    password: z.string().min(6, 'Mật khẩu tối thiểu 6 ký tự').max(72),
+    email: z.string().email('Email không hợp lệ'),
+    password: z.string().min(1, 'Mật khẩu không được để trống'),
+    totpCode: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof schema>;
 
 export default function LoginPage() {
-    const router = useRouter();
-    const [submitting, setSubmitting] = useState(false);
+    const { loginAsync, isLoading } = useAuth();
+    const [show2FA, setShow2FA] = useState(false);
 
     const form = useForm<FormValues>({
         resolver: zodResolver(schema),
-        defaultValues: { email: '', password: '' },
+        defaultValues: { email: '', password: '', totpCode: '' },
     });
 
     const onSubmit = async (values: FormValues) => {
-        setSubmitting(true);
-
-        // TODO: Implement actual login logic with TRPC or Auth Provider
-        console.log('Login values:', values);
-
-        // Simulator delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        const success = true; // Mock success
-
-        setSubmitting(false);
-
-        if (success) {
-            toast.success('Đăng nhập thành công');
-            router.push('/');
-        } else {
-            toast.error('Đăng nhập thất bại', {
-                description: 'Vui lòng kiểm tra lại thông tin',
-            });
+        try {
+            // Clean up empty strings to match backend expectations (undefined vs empty string)
+            const payload = {
+                ...values,
+                totpCode: values.totpCode || undefined,
+            };
+            await loginAsync(payload);
+        } catch (error: any) {
+            // Check for the specific 2FA error message
+            if (error?.message?.includes('Error.InvalidTOTPAndCode')) {
+                setShow2FA(true);
+                toast.info('Vui lòng nhập mã xác thực 2FA');
+                form.setFocus('totpCode');
+                return;
+            }
+            // If it's another error not handled by useAuth (unlikely but safe)
+            console.error('Login error:', error);
         }
     };
 
@@ -75,7 +76,9 @@ export default function LoginPage() {
                             Đăng nhập
                         </CardTitle>
                         <CardDescription>
-                            Đăng nhập để xem hồ sơ và đặt hàng nhanh hơn.
+                            {show2FA
+                                ? 'Nhập mã xác thực từ ứng dụng Authenticator.'
+                                : 'Đăng nhập để xem hồ sơ và đặt hàng nhanh hơn.'}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -84,52 +87,81 @@ export default function LoginPage() {
                                 onSubmit={form.handleSubmit(onSubmit)}
                                 className="space-y-5"
                             >
-                                <FormField
-                                    control={form.control}
-                                    name="email"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Email</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="email"
-                                                    placeholder="email@example.com"
-                                                    autoComplete="email"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                {!show2FA ? (
+                                    <>
+                                        <FormField
+                                            control={form.control}
+                                            name="email"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Email</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="email"
+                                                            placeholder="email@example.com"
+                                                            autoComplete="email"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
 
-                                <FormField
-                                    control={form.control}
-                                    name="password"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Mật khẩu</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="password"
-                                                    autoComplete="current-password"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                        <FormField
+                                            control={form.control}
+                                            name="password"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Mật khẩu
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            type="password"
+                                                            autoComplete="current-password"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </>
+                                ) : (
+                                    <FormField
+                                        control={form.control}
+                                        name="totpCode"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>
+                                                    Mã xác thực 2FA
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder="123456"
+                                                        maxLength={6}
+                                                        autoComplete="one-time-code"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                )}
 
                                 <Button
                                     type="submit"
                                     variant="hero"
                                     className="w-full"
-                                    disabled={submitting}
+                                    disabled={isLoading}
                                 >
-                                    {submitting
-                                        ? 'Đang đăng nhập...'
-                                        : 'Đăng nhập'}
+                                    {isLoading
+                                        ? 'Đang xử lý...'
+                                        : show2FA
+                                          ? 'Xác thực'
+                                          : 'Đăng nhập'}
                                 </Button>
 
                                 <div className="text-center text-sm">

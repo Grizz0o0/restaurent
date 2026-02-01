@@ -78,7 +78,7 @@ export class AuthService {
     return validationCode
   }
 
-  async register(body: RegisterBodyType) {
+  async register(body: RegisterBodyType & { ip: string; userAgent: string }) {
     try {
       await this.validateValidationCode({
         email: body.email,
@@ -88,13 +88,30 @@ export class AuthService {
 
       const clientRoleId = await this.rolesService.getClientRoleId()
       const hashedPassword = await this.hashingService.hash(body.password)
-      return this.authRepository.createUser({
+      const user = await this.authRepository.createUser({
         name: body.name,
         email: body.email,
         phoneNumber: body.phoneNumber,
         password: hashedPassword,
         roleId: clientRoleId,
       })
+
+      // Create new device
+      const device = await this.authRepository.createDevice({
+        userId: user.id,
+        userAgent: body.userAgent,
+        ip: body.ip,
+      })
+
+      // Create tokens
+      const tokens = await this.generateTokens({
+        userId: user.id,
+        deviceId: device.id,
+        roleId: user.roleId,
+        roleName: 'CLIENT', // Assuming default role name for clientRoleId
+      })
+
+      return tokens
     } catch (error) {
       if (isUniqueConstraintPrismaError(error)) throw new EmailAlreadyExistsException()
       throw error

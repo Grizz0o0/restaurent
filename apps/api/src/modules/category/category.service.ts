@@ -25,7 +25,17 @@ export class CategoryService {
 
   async list(query: GetCategoriesQueryType) {
     const { total, data: categories } = await this.categoryRepo.list(query)
-    return createPaginationResult(categories, total, query)
+
+    const transformedCategories = categories.map((category) => {
+      const translation = category.dishCategoryTranslations?.[0]
+      return {
+        ...category,
+        name: translation?.name ?? '',
+        description: translation?.description ?? '',
+      }
+    })
+
+    return createPaginationResult(transformedCategories, total, query)
   }
 
   async delete(id: string, deletedById: string) {

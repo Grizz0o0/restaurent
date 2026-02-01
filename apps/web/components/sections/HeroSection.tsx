@@ -30,17 +30,17 @@ const HeroSection = () => {
                         <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                             Bánh Mì
                             <span className="text-gradient-warm block mt-2">
-                                Sài Gòn
+                                & Xôi
                             </span>
                             <span className="block text-2xl md:text-3xl font-medium text-muted-foreground mt-4">
-                                Hương vị đường phố Việt Nam
+                                Hương vị Việt Nam
                             </span>
                         </h1>
 
                         <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
-                            Thưởng thức bánh mì giòn rụm với nhân thịt thơm
-                            lừng, rau tươi và nước sốt đặc biệt được chế biến
-                            theo công thức gia truyền từ năm 1985.
+                            Thưởng thức bánh mì giòn rụm và xôi nóng dẻo thơm,
+                            kết hợp cùng các loại topping đậm đà, mang đến bữa
+                            ăn trọn vẹn năng lượng cho ngày mới.
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4">
@@ -64,7 +64,8 @@ const HeroSection = () => {
                             <div className="flex items-center gap-2 text-muted-foreground">
                                 <MapPin className="w-5 h-5 text-chili" />
                                 <span className="text-sm">
-                                    Kiến Hưng, Hà Đông, Hà Nội
+                                    Kiến Hưng, Hà Đông, Hà Nội (Chung cư Mipec
+                                    City View)
                                 </span>
                             </div>
                         </div>

@@ -2,8 +2,21 @@ import { z } from 'zod';
 
 export const DishSchema = z.object({
     id: z.string(),
-    basePrice: z.number(),
-    virtualPrice: z.number().optional(),
+    basePrice: z.preprocess((val) => {
+        if (val && typeof val === 'object' && 'toNumber' in val) {
+            return (val as any).toNumber();
+        }
+        return val;
+    }, z.number()),
+    virtualPrice: z
+        .preprocess((val) => {
+            if (val && typeof val === 'object' && 'toNumber' in val) {
+                return (val as any).toNumber();
+            }
+            return val;
+        }, z.number())
+        .nullable()
+        .optional(),
     supplierId: z.string(),
     images: z.array(z.string()),
     createdAt: z.date(),
@@ -108,9 +121,16 @@ export const VariantSchema = z.object({
 export const SKUSchema = z.object({
     id: z.string(),
     value: z.string(),
-    price: z.number(),
+    price: z
+        .custom<any>(
+            (val) =>
+                typeof val === 'object' && val !== null && 'toNumber' in val,
+        )
+        .transform((v) => v.toNumber())
+        .or(z.number()),
     stock: z.number(),
     images: z.array(z.string()),
+    variantOptions: z.array(VariantOptionSchema).optional(),
 });
 
 export const DishDetailResSchema = DishSchema.extend({

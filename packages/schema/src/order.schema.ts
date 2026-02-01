@@ -4,7 +4,13 @@ import { DishSchema } from './dish.schema';
 export const OrderItemSchema = z.object({
     id: z.string(),
     dishName: z.string(),
-    price: z.number(), // Decimal in DB, number in JS
+    price: z
+        .custom<any>(
+            (val) =>
+                typeof val === 'object' && val !== null && 'toNumber' in val,
+        )
+        .transform((v) => v.toNumber())
+        .or(z.number()), // Decimal in DB, number in JS
     quantity: z.number().int().positive(),
     images: z.array(z.string()),
     skuValue: z.string().optional(),
@@ -15,8 +21,21 @@ export const OrderSchema = z.object({
     tableId: z.string().nullable(),
     guestId: z.string().nullable(),
     status: z.string(),
-    totalAmount: z.number(), // DB has totalAmount
-    discount: z.number().optional(), // Added discount
+    totalAmount: z
+        .custom<any>(
+            (val) =>
+                typeof val === 'object' && val !== null && 'toNumber' in val,
+        )
+        .transform((v) => v.toNumber())
+        .or(z.number()), // DB has totalAmount
+    discount: z
+        .custom<any>(
+            (val) =>
+                typeof val === 'object' && val !== null && 'toNumber' in val,
+        )
+        .transform((v) => v.toNumber())
+        .or(z.number())
+        .optional(), // Added discount
     items: z.array(OrderItemSchema),
     createdAt: z.date(),
     updatedAt: z.date(),

@@ -59,7 +59,7 @@ const Footer = () => {
                         <ul className="space-y-2 text-background/70 text-sm">
                             <li>
                                 <a
-                                    href="#home"
+                                    href="/"
                                     className="hover:text-background transition-colors"
                                 >
                                     Trang chủ
@@ -67,7 +67,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#menu"
+                                    href="/menu"
                                     className="hover:text-background transition-colors"
                                 >
                                     Thực đơn
@@ -75,7 +75,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#about"
+                                    href="/about"
                                     className="hover:text-background transition-colors"
                                 >
                                     Về chúng tôi
@@ -83,7 +83,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#contact"
+                                    href="/contact"
                                     className="hover:text-background transition-colors"
                                 >
                                     Liên hệ
@@ -98,7 +98,7 @@ const Footer = () => {
                         <ul className="space-y-2 text-background/70 text-sm">
                             <li>
                                 <a
-                                    href="#"
+                                    href="/menu"
                                     className="hover:text-background transition-colors"
                                 >
                                     Đặt hàng online
@@ -106,7 +106,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/reservation"
                                     className="hover:text-background transition-colors"
                                 >
                                     Đặt bàn
@@ -114,7 +114,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/contact"
                                     className="hover:text-background transition-colors"
                                 >
                                     Tiệc & sự kiện
@@ -122,7 +122,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="/contact"
                                     className="hover:text-background transition-colors"
                                 >
                                     Nhượng quyền
@@ -135,9 +135,12 @@ const Footer = () => {
                     <div>
                         <h4 className="font-semibold mb-4">Liên hệ</h4>
                         <ul className="space-y-2 text-background/70 text-sm">
-                            <li>Kiến Hưng, Hà Đông, Hà Nội</li>
+                            <li>
+                                Kiến Hưng, Hà Đông, Hà Nội (Chung cư Mipec City
+                                View)
+                            </li>
                             <li>0363290475</li>
-                            <li>hello@banhmi-saigon.vn</li>
+                            <li>hello@banhmi-xoi.com</li>
                             <li>Mở cửa: 6:00 - 22:00</li>
                         </ul>
                     </div>

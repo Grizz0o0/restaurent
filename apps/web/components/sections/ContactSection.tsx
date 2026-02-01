@@ -29,7 +29,7 @@ const ContactSection = () => {
 
                             <div className="space-y-4">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                                         <MapPin className="w-5 h-5 text-primary" />
                                     </div>
                                     <div>
@@ -37,13 +37,14 @@ const ContactSection = () => {
                                             Địa chỉ
                                         </h4>
                                         <p className="text-muted-foreground">
-                                            Kiến Hưng, Hà Đông, Hà Nội
+                                            Kiến Hưng, Hà Đông, Hà Nội (Chung cư
+                                            Mipec City View)
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-herb/10 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-full bg-herb/10 flex items-center justify-center shrink-0">
                                         <Phone className="w-5 h-5 text-herb" />
                                     </div>
                                     <div>
@@ -57,7 +58,7 @@ const ContactSection = () => {
                                 </div>
 
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-chili/10 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-full bg-chili/10 flex items-center justify-center shrink-0">
                                         <Mail className="w-5 h-5 text-chili" />
                                     </div>
                                     <div>
@@ -65,13 +66,13 @@ const ContactSection = () => {
                                             Email
                                         </h4>
                                         <p className="text-muted-foreground">
-                                            hello@banhmi-saigon.vn
+                                            hello@banhmi-xoi.com
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                                         <Clock className="w-5 h-5 text-primary" />
                                     </div>
                                     <div>
@@ -98,9 +99,9 @@ const ContactSection = () => {
                     </div>
 
                     {/* Map */}
-                    <div className="bg-card rounded-2xl shadow-soft overflow-hidden h-[400px] md:h-auto min-h-[400px]">
+                    <div className="bg-card rounded-2xl shadow-soft overflow-hidden h-100 md:h-auto min-h-100">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1862.6687487271963!2d105.78923053852086!3d20.96695289737979!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135add39e4f5067%3A0x7292211535266158!2zS2nhur9uIEjGsG5nLCBIw6AgxJMOw7RuZywgSGFub2ksIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1706423000000!5m2!1sen!2s"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4109.296562172954!2d105.78856857556868!3d20.951673090421092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135adb298ee59bd%3A0x699b8daf626f4564!2zTWlwZWMgS2nhur9uIEjGsG5nIEjDoCDEkMO0bmc!5e1!3m2!1svi!2s!4v1769609771539!5m2!1svi!2s"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}

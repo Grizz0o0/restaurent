@@ -418,17 +418,25 @@ export class DishRepo {
         },
       }),
     }
-    return await paginate(
+    const include = {
+      dishTranslations: true,
+      categories: true,
+      variants: { include: { variantOptions: true } },
+      skus: true,
+    }
+
+    // Type inference helper
+    const getDishesWithRelations = () => {
+      return this.prisma.dish.findFirst({ include })
+    }
+    type DishWithRelations = NonNullable<Awaited<ReturnType<typeof getDishesWithRelations>>>
+
+    return await paginate<DishWithRelations>(
       this.prisma.dish,
       {
         where,
         orderBy: { createdAt: 'desc' },
-        include: {
-          dishTranslations: true,
-          categories: true,
-          variants: { include: { variantOptions: true } },
-          skus: true, // simplified
-        },
+        include,
       },
       { page, limit },
     )

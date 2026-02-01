@@ -43,8 +43,15 @@ export class AuthRouter {
   ) {}
 
   @Mutation({ input: RegisterBodySchema, output: RegisterResSchema })
-  async register(@Input() input: RegisterBodyType) {
-    return this.authService.register(input)
+  async register(@Input() input: RegisterBodyType, @Ctx() ctx: Context) {
+    const userAgent = ctx.req.headers['user-agent'] || ''
+    const ip = ctx.req.ip || ctx.req.connection?.remoteAddress || ''
+
+    return this.authService.register({
+      ...input,
+      userAgent,
+      ip,
+    })
   }
 
   @Mutation({ input: LoginBodySchema, output: LoginResSchema })
