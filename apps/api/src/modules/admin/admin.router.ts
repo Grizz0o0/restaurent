@@ -1,4 +1,4 @@
-import { Input, Mutation, Router, UseMiddlewares } from 'nestjs-trpc'
+import { Input, Mutation, Query, Router, UseMiddlewares } from 'nestjs-trpc'
 import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
 import { AdminRoleMiddleware } from '@/trpc/middlewares/admin-role.middleware'
 import { AdminService } from './admin.service'
@@ -30,5 +30,10 @@ export class AdminRouter {
   @Mutation({ input: ForceLogoutBodySchema })
   async forceLogout(@Input() input: ForceLogoutBodyType) {
     return this.adminService.forceLogout(input.userId)
+  }
+
+  @Query()
+  async getStats() {
+    return this.adminService.getDashboardStats()
   }
 }

@@ -2,28 +2,61 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
-    SheetFooter,
 } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useCartStore } from '@/stores/use-cart-store';
 import { useUIStore } from '@/stores/use-ui-store';
 import { formatCurrency } from '@/lib/utils/format';
+import { trpc } from '@/lib/trpc/client';
+import { toast } from 'sonner';
 
 export function CartDrawer() {
-    const { items, removeItem, updateQuantity } = useCartStore();
     const { isCartOpen, setCartOpen } = useUIStore();
+    const utils = trpc.useUtils();
 
-    const totalAmount = items.reduce(
-        (total, item) => total + (item.price || 0) * item.quantity,
-        0,
-    );
+    const { data: cart, isLoading } = trpc.cart.get.useQuery(undefined, {
+        enabled: isCartOpen,
+    });
+
+    const items = cart?.items || [];
+    const totalAmount = cart?.total || 0;
+
+    const updateQuantityMutation = trpc.cart.update.useMutation({
+        onSuccess: () => {
+            utils.cart.get.invalidate();
+        },
+        onError: (error) => {
+            toast.error(error.message || 'Lỗi cập nhật giỏ hàng');
+        },
+    });
+
+    const removeItemMutation = trpc.cart.remove.useMutation({
+        onSuccess: () => {
+            utils.cart.get.invalidate();
+            toast.success('Đã xóa sản phẩm khỏi giỏ');
+        },
+        onError: (error) => {
+            toast.error(error.message || 'Lỗi xóa sản phẩm');
+        },
+    });
+
+    const handleUpdateQuantity = (itemId: string, newQuantity: number) => {
+        if (newQuantity < 1) return;
+        updateQuantityMutation.mutate({
+            itemId: itemId,
+            quantity: newQuantity,
+        });
+    };
+
+    const handleRemoveItem = (itemId: string) => {
+        removeItemMutation.mutate({ itemId });
+    };
 
     return (
         <Sheet open={isCartOpen} onOpenChange={setCartOpen}>
@@ -39,7 +72,11 @@ export function CartDrawer() {
                 </SheetHeader>
 
                 <ScrollArea className="flex-1">
-                    {items.length === 0 ? (
+                    {isLoading ? (
+                        <div className="flex flex-col items-center justify-center h-[50vh]">
+                            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                        </div>
+                    ) : items.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-[50vh] text-center p-6 space-y-4">
                             <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
                                 <ShoppingBag className="w-8 h-8 text-muted-foreground" />
@@ -65,14 +102,16 @@ export function CartDrawer() {
                         <div className="p-6 space-y-6">
                             {items.map((item) => (
                                 <div
-                                    key={item.skuId}
+                                    key={item.id}
                                     className="flex gap-4 items-start animate-fade-in"
                                 >
                                     <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0 border border-border">
-                                        {item.image ? (
+                                        {item.sku.dish.images?.[0] ? (
                                             <Image
-                                                src={item.image}
-                                                alt={item.dishName || 'Item'}
+                                                src={item.sku.dish.images[0]}
+                                                alt={
+                                                    item.sku.dish.name || 'Item'
+                                                }
                                                 fill
                                                 className="object-cover"
                                             />
@@ -85,26 +124,28 @@ export function CartDrawer() {
                                     <div className="flex-1 min-w-0">
                                         <div className="flex justify-between items-start mb-1">
                                             <h4 className="font-semibold text-sm line-clamp-2">
-                                                {item.dishName}
+                                                {item.sku.dish.name}
                                             </h4>
                                             <button
                                                 onClick={() =>
-                                                    removeItem(item.skuId)
+                                                    handleRemoveItem(item.id)
                                                 }
                                                 className="text-muted-foreground hover:text-destructive transition-colors"
+                                                disabled={
+                                                    removeItemMutation.isPending
+                                                }
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>
 
-                                        {item.variantOptions &&
-                                            item.variantOptions.length > 0 && (
-                                                <p className="text-xs text-muted-foreground mb-2">
-                                                    {item.variantOptions.join(
-                                                        ', ',
-                                                    )}
-                                                </p>
-                                            )}
+                                        {/* Display variant info if available - assuming sku.value holds this or we need to parse it */}
+                                        {/* The API returns `sku.value` which might be the variant string or we construct it manually if needed. 
+                                            For now, just showing sku.value if it differs from default/empty */}
+
+                                        <p className="text-xs text-muted-foreground mb-2">
+                                            {item.sku.value}
+                                        </p>
 
                                         <div className="flex items-center justify-between mt-2">
                                             <div className="flex items-center gap-2">
@@ -113,14 +154,14 @@ export function CartDrawer() {
                                                     size="icon"
                                                     className="h-6 w-6 rounded-full"
                                                     onClick={() =>
-                                                        updateQuantity(
-                                                            item.skuId,
-                                                            Math.max(
-                                                                1,
-                                                                item.quantity -
-                                                                    1,
-                                                            ),
+                                                        handleUpdateQuantity(
+                                                            item.id,
+                                                            item.quantity - 1,
                                                         )
+                                                    }
+                                                    disabled={
+                                                        updateQuantityMutation.isPending ||
+                                                        item.quantity <= 1
                                                     }
                                                 >
                                                     <Minus className="w-3 h-3" />
@@ -133,10 +174,13 @@ export function CartDrawer() {
                                                     size="icon"
                                                     className="h-6 w-6 rounded-full"
                                                     onClick={() =>
-                                                        updateQuantity(
-                                                            item.skuId,
+                                                        handleUpdateQuantity(
+                                                            item.id,
                                                             item.quantity + 1,
                                                         )
+                                                    }
+                                                    disabled={
+                                                        updateQuantityMutation.isPending
                                                     }
                                                 >
                                                     <Plus className="w-3 h-3" />
@@ -144,7 +188,7 @@ export function CartDrawer() {
                                             </div>
                                             <span className="font-semibold text-sm">
                                                 {formatCurrency(
-                                                    (item.price || 0) *
+                                                    (item.sku.price || 0) *
                                                         item.quantity,
                                                 )}
                                             </span>

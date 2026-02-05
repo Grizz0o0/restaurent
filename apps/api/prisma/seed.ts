@@ -72,47 +72,136 @@ async function main() {
   console.log('Creating roles and permissions...')
 
   const permissionsData = [
+    // Users Module
     { name: 'Manage Users', path: 'users.*', method: HTTPMethod.POST, module: 'Users' },
     { name: 'View Users', path: 'users.list', method: HTTPMethod.GET, module: 'Users' },
+    { name: 'My Profile', path: 'profile.*', method: HTTPMethod.GET, module: 'Users' },
+
+    // Catalog Module (Dishes, Categories)
     { name: 'Manage Dishes', path: 'dishes.*', method: HTTPMethod.POST, module: 'Catalog' },
     { name: 'View Dishes', path: 'dishes.list', method: HTTPMethod.GET, module: 'Catalog' },
+    { name: 'Manage Categories', path: 'categories.*', method: HTTPMethod.POST, module: 'Catalog' },
+
+    // Order Module
     { name: 'Manage Orders', path: 'orders.*', method: HTTPMethod.POST, module: 'Sales' },
+    { name: 'View Orders', path: 'orders.list', method: HTTPMethod.GET, module: 'Sales' },
+    { name: 'Create Order', path: 'orders.create', method: HTTPMethod.POST, module: 'Sales' },
+
+    // Inventory Module
     { name: 'Manage Inventory', path: 'inventory.*', method: HTTPMethod.POST, module: 'Inventory' },
     { name: 'View Inventory', path: 'inventory.list', method: HTTPMethod.GET, module: 'Inventory' },
+
+    // Report Module
+    { name: 'View Reports', path: 'reports.*', method: HTTPMethod.GET, module: 'Reports' },
   ]
 
+  // Persist Permissions
+  const permissionMap = new Map<string, string>()
   for (const perm of permissionsData) {
-    await prisma.permission.upsert({
+    const p = await prisma.permission.upsert({
       where: { path_method: { path: perm.path, method: perm.method } },
       update: {},
       create: perm,
     })
+    permissionMap.set(perm.path, p.id)
   }
-  const allPermissions = await prisma.permission.findMany()
 
+  // Helper to get IDs for a list of paths (supports wildcards simple check for now)
+  const getPermIds = (paths: string[]) => {
+    const ids: string[] = []
+    for (const [path, id] of permissionMap.entries()) {
+      // Simple logic: if path starts with one of the requested paths (e.g. 'orders.*' matches 'orders.create' if we had granular)
+      // For now, we match exact paths from our definition above.
+      if (
+        paths.some((p) => p === path || (p.endsWith('.*') && path.startsWith(p.replace('.*', ''))))
+      ) {
+        ids.push(id)
+      }
+    }
+    return [...new Set(ids)].map((id) => ({ id }))
+  }
+
+  const allPermIds = Array.from(permissionMap.values()).map((id) => ({ id }))
+
+  // --- ADMIN ROLE ---
   const adminRole = await prisma.role.upsert({
     where: { name: 'ADMIN' },
     update: {
-      permissions: { connect: allPermissions.map((p) => ({ id: p.id })) },
+      permissions: { set: [], connect: allPermIds },
     },
     create: {
       name: 'ADMIN',
       description: 'Administrator role with full access',
-      permissions: { connect: allPermissions.map((p) => ({ id: p.id })) },
+      permissions: { connect: allPermIds },
     },
   })
 
-  await prisma.role.upsert({
-    where: { name: 'STAFF' },
-    update: {},
-    create: { name: 'STAFF', description: 'Staff role for employees' },
+  // --- MANAGER ROLE ---
+  // Manager: Catalog, Inventory, Sales (Full), Reports, Users (View)
+  const managerPerms = getPermIds([
+    'dishes.*',
+    'dishes.list',
+    'categories.*',
+    'orders.*',
+    'orders.list',
+    'orders.create',
+    'inventory.*',
+    'inventory.list',
+    'reports.*',
+    'users.list',
+    'profile.*',
+  ])
+
+  const managerRole = await prisma.role.upsert({
+    where: { name: 'MANAGER' },
+    update: { permissions: { set: [], connect: managerPerms } },
+    create: {
+      name: 'MANAGER',
+      description: 'Restaurant Manager',
+      permissions: { connect: managerPerms },
+    },
   })
 
-  await prisma.role.upsert({
-    where: { name: 'CLIENT' },
-    update: {},
-    create: { name: 'CLIENT', description: 'Client role for customers' },
+  // --- STAFF ROLE ---
+  // Staff: Sales (sử dụng * để quản lý đơn họ tạo, nhưng có thể hạn chế sau), View Catalog, Inventory List
+  const staffPerms = getPermIds([
+    'orders.*',
+    'orders.list',
+    'orders.create',
+    'dishes.list',
+    'inventory.list',
+    'profile.*',
+  ])
+
+  const staffRole = await prisma.role.upsert({
+    where: { name: 'STAFF' },
+    update: { permissions: { set: [], connect: staffPerms } },
+    create: {
+      name: 'STAFF',
+      description: 'Staff role for employees',
+      permissions: { connect: staffPerms },
+    },
   })
+
+  // --- CUSTOMER ROLE ---
+  // Customer: View Dishes, Create Order (limited logic in code), Profile
+  const customerPerms = getPermIds([
+    'dishes.list',
+    'orders.create', // Khách tạo đơn
+    'orders.list', // Khách xem đơn của mình (logic filter ở service)
+    'profile.*',
+  ])
+
+  await prisma.role.upsert({
+    where: { name: 'CUSTOMER' },
+    update: { permissions: { set: [], connect: customerPerms } },
+    create: {
+      name: 'CUSTOMER',
+      description: 'Customer role',
+      permissions: { connect: customerPerms },
+    },
+  })
+
   console.log('✓ Roles & Permissions created/updated')
 
   // =================================================================================================
@@ -143,7 +232,35 @@ async function main() {
       name: 'Nguyen Van A',
       phoneNumber: '0987654321',
       password: hashedPassword,
-      roleId: (await prisma.role.findUniqueOrThrow({ where: { name: 'CLIENT' } })).id,
+      roleId: (await prisma.role.findUniqueOrThrow({ where: { name: 'CUSTOMER' } })).id,
+      status: UserStatus.ACTIVE,
+    },
+  })
+
+  const managerEmail = 'manager@example.com'
+  await prisma.user.upsert({
+    where: { email: managerEmail },
+    update: { roleId: managerRole.id },
+    create: {
+      email: managerEmail,
+      name: 'Tran Van Quan Ly',
+      phoneNumber: '0912345678',
+      password: hashedPassword,
+      roleId: managerRole.id,
+      status: UserStatus.ACTIVE,
+    },
+  })
+
+  const staffEmail = 'staff@example.com'
+  await prisma.user.upsert({
+    where: { email: staffEmail },
+    update: { roleId: staffRole.id },
+    create: {
+      email: staffEmail,
+      name: 'Le Van Nhan Vien',
+      phoneNumber: '0988888888',
+      password: hashedPassword,
+      roleId: staffRole.id,
       status: UserStatus.ACTIVE,
     },
   })

@@ -31,9 +31,9 @@ import { ReservationModule } from './modules/reservation/reservation.module'
 
 import { EventEmitterModule } from '@nestjs/event-emitter'
 
-import superjson from 'superjson'
-
 import { AppContext } from './trpc/context'
+import SuperJSON from 'superjson'
+// import * as Schema from '@repo/schema'
 
 @Module({
   imports: [
@@ -44,8 +44,7 @@ import { AppContext } from './trpc/context'
       isGlobal: true,
     }),
     TRPCModule.forRoot({
-      autoSchemaFile: '../../packages/trpc/src/server',
-      transformer: superjson,
+      transformer: SuperJSON,
       context: AppContext,
       basePath: '/v1/api/trpc',
     }),

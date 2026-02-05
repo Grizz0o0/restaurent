@@ -13,11 +13,13 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/domain/use-auth';
-import { LogOut, User } from 'lucide-react';
+import { usePermission } from '@/hooks/use-permission';
+import { LayoutDashboard, LogOut, User } from 'lucide-react';
 import Link from 'next/link';
 
 export function UserNav() {
     const { user, logout } = useAuth();
+    const { hasRole } = usePermission();
 
     return (
         <DropdownMenu modal={false}>
@@ -56,6 +58,14 @@ export function UserNav() {
                             <span>Hồ sơ</span>
                         </DropdownMenuItem>
                     </Link>
+                    {(hasRole('ADMIN') || hasRole('MANAGER')) && (
+                        <Link href="/admin/dashboard">
+                            <DropdownMenuItem>
+                                <LayoutDashboard className="mr-2 h-4 w-4" />
+                                <span>Quản lý</span>
+                            </DropdownMenuItem>
+                        </Link>
+                    )}
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => logout()}>

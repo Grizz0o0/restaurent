@@ -15,6 +15,7 @@ export const MenuClient = () => {
     const [activeCategoryId, setActiveCategoryId] = useState<
         string | undefined
     >(undefined);
+    const [selectedDishId, setSelectedDishId] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
     const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
@@ -170,10 +171,7 @@ export const MenuClient = () => {
                                             variant="warm"
                                             size="sm"
                                             onClick={() => {
-                                                // TODO: Open Dish Detail Modal
-                                                toast.info(
-                                                    `Tính năng chọn món đang phát triển: ${item.name}`,
-                                                );
+                                                setSelectedDishId(item.id);
                                             }}
                                         >
                                             Thêm
@@ -193,6 +191,12 @@ export const MenuClient = () => {
                     </div>
                 )}
             </main>
+
+            <DishDetailModal
+                isOpen={!!selectedDishId}
+                dishId={selectedDishId}
+                onClose={() => setSelectedDishId(null)}
+            />
         </div>
     );
 };

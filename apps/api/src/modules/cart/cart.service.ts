@@ -60,6 +60,27 @@ export class CartService {
     }
   }
 
+  private formatCartItem(item: any) {
+    const dishName = item.sku.dish.dishTranslations[0]?.name || item.sku.dish.name || 'Unknown Dish'
+    return {
+      id: item.id,
+      quantity: item.quantity,
+      skuId: item.skuId,
+      sku: {
+        id: item.sku.id,
+        value: item.sku.value,
+        price: Number(item.sku.price),
+        stock: item.sku.stock,
+        images: item.sku.images,
+        dish: {
+          id: item.sku.dish.id,
+          name: dishName,
+          images: item.sku.dish.images,
+        },
+      },
+    }
+  }
+
   async addToCart(userId: string, input: AddCartItemType) {
     const { skuId, quantity } = input
 
@@ -79,22 +100,47 @@ export class CartService {
       },
     })
 
+    let result
     if (existingItem) {
-      return this.prisma.cartItem.update({
+      result = await this.prisma.cartItem.update({
         where: { id: existingItem.id },
         data: {
           quantity: existingItem.quantity + quantity,
         },
+        include: {
+          sku: {
+            include: {
+              dish: {
+                include: {
+                  dishTranslations: true,
+                },
+              },
+            },
+          },
+        },
       })
     } else {
-      return this.prisma.cartItem.create({
+      result = await this.prisma.cartItem.create({
         data: {
           userId,
           skuId,
           quantity,
         },
+        include: {
+          sku: {
+            include: {
+              dish: {
+                include: {
+                  dishTranslations: true,
+                },
+              },
+            },
+          },
+        },
       })
     }
+
+    return this.formatCartItem(result)
   }
 
   async updateCartItem(userId: string, input: UpdateCartItemType) {
@@ -108,10 +154,23 @@ export class CartService {
       throw new NotFoundException('Cart item not found')
     }
 
-    return this.prisma.cartItem.update({
+    const result = await this.prisma.cartItem.update({
       where: { id: itemId },
       data: { quantity },
+      include: {
+        sku: {
+          include: {
+            dish: {
+              include: {
+                dishTranslations: true,
+              },
+            },
+          },
+        },
+      },
     })
+
+    return this.formatCartItem(result)
   }
 
   async removeFromCart(userId: string, input: RemoveCartItemType) {
@@ -125,8 +184,21 @@ export class CartService {
       throw new NotFoundException('Cart item not found')
     }
 
-    return this.prisma.cartItem.delete({
+    const result = await this.prisma.cartItem.delete({
       where: { id: itemId },
+      include: {
+        sku: {
+          include: {
+            dish: {
+              include: {
+                dishTranslations: true,
+              },
+            },
+          },
+        },
+      },
     })
+
+    return this.formatCartItem(result)
   }
 }

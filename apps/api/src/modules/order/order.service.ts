@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common'
+import { Injectable, BadRequestException, Logger } from '@nestjs/common'
 import { OrderRepo } from './order.repo'
 import { PrismaService } from '@/shared/prisma/prisma.service'
 import { TransactionReason } from 'src/generated/prisma/client'
@@ -7,7 +7,6 @@ import { CreateOrderBodyType, GetOrdersQueryType } from '@repo/schema'
 import { DishRepo } from '@/modules/dish/dish.repo'
 import { createPaginationResult } from '@/shared/utils/pagination.util'
 import { NotificationService } from '../notification/notification.service'
-import { NotificationType, Channel } from 'src/generated/prisma/client'
 
 import { EventEmitter2 } from '@nestjs/event-emitter'
 
@@ -59,22 +58,29 @@ export class OrderService {
     // For simplicity, fetching generic list or using Promise.all (not ideal for N items but okay for small orders)
     // Better: add findByIds to DishRepo. Or just iterate.
 
+    const dishIds = [...new Set(data.items.map((item) => item.dishId))]
+    const dishes = await this.dishRepo.findByIds(dishIds)
+    const dishMap = new Map(dishes.map((d) => [d.id, d]))
+
     let totalPrice = 0
     const orderItems = []
 
     for (const item of data.items) {
-      const dish = await this.dishRepo.findById(item.dishId)
+      const dish = dishMap.get(item.dishId)
       if (!dish) throw new BadRequestException(`Dish ${item.dishId} not found`)
 
-      const price = Number((dish as any).basePrice) || 0
+      const price = Number(dish.basePrice) || 0
       const itemTotal = price * item.quantity
       totalPrice += itemTotal
 
+      // Get name from translation or fallback
+      const dishName = dish.dishTranslations?.[0]?.name || 'Unknown Dish'
+
       orderItems.push({
-        dishName: (dish as any).name || 'Unknown Dish',
+        dishName,
         price: price,
         quantity: item.quantity,
-        images: (dish as any).images || [],
+        images: dish.images || [],
         skuValue: item.note || '',
       })
     }
@@ -87,6 +93,10 @@ export class OrderService {
       items: orderItems,
     })
   }
+
+  private readonly logger = new Logger(OrderService.name)
+
+  // ... (constructor remains same)
 
   async createFromCart({
     userId,
@@ -101,6 +111,8 @@ export class OrderService {
     promotionCode?: string
     guestInfo?: any
   }) {
+    this.logger.log(`Creating order from cart for user: ${userId}, role: ${roleName}`)
+
     // If Guest, force tableId from token
     if (roleName === 'GUEST') {
       if (!tableId) throw new BadRequestException('Guest must belong to a table')
@@ -127,6 +139,8 @@ export class OrderService {
           },
         },
       })
+
+      this.logger.log(`Found ${cartItems.length} items in cart for user ${userId}`)
 
       if (cartItems.length === 0) {
         throw new BadRequestException('Cart is empty')
@@ -275,6 +289,9 @@ export class OrderService {
           items: {
             create: snapshots,
           },
+        },
+        include: {
+          items: true,
         },
       })
 

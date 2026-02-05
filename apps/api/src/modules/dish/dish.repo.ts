@@ -403,6 +403,22 @@ export class DishRepo {
     })
   }
 
+  findByIds(ids: string[]) {
+    return this.prisma.dish.findMany({
+      where: { id: { in: ids } },
+      include: {
+        dishTranslations: true,
+        categories: true,
+        variants: {
+          include: { variantOptions: true },
+        },
+        skus: {
+          include: { variantOptions: true },
+        },
+      },
+    })
+  }
+
   async list(query: GetDishesQueryType) {
     const { page, limit, search, categoryId, supplierId } = query
 

@@ -15,8 +15,9 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { trpc } from '@/lib/trpc/client';
 import { formatCurrency } from '@/lib/utils/format';
-import { useCartStore } from '@/stores/use-cart-store';
 import { toast } from 'sonner';
+import { useAuth } from '@/hooks/domain/use-auth';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 interface DishDetailModalProps {
@@ -30,7 +31,9 @@ export function DishDetailModal({
     onClose,
     dishId,
 }: DishDetailModalProps) {
-    const addItem = useCartStore((state) => state.addItem);
+    const { isAuthenticated } = useAuth();
+    const utils = trpc.useUtils();
+
     const [quantity, setQuantity] = useState(1);
     const [selectedOptions, setSelectedOptions] = useState<
         Record<string, string>
@@ -49,6 +52,9 @@ export function DishDetailModal({
             setSelectedOptions({});
         }
     }, [isOpen]);
+
+    // Get dish name with fallback
+    const dishName = dish?.name || dish?.translations?.[0]?.name || 'Món ăn';
 
     // Find matching SKU based on selected options
     const matchingSku = dish?.skus?.find((sku: any) => {
@@ -78,8 +84,26 @@ export function DishDetailModal({
         }));
     };
 
+    const addToCartMutation = trpc.cart.add.useMutation({
+        onSuccess: () => {
+            toast.success(`Đã thêm ${quantity} ${dishName} vào giỏ`);
+            utils.cart.get.invalidate();
+            onClose();
+        },
+        onError: (error) => {
+            toast.error(error.message || 'Không thể thêm vào giỏ hàng');
+        },
+    });
+
     const handleAddToCart = () => {
+        if (!isAuthenticated) {
+            toast.error('Vui lòng đăng nhập để đặt hàng');
+            return;
+        }
+
         if (!dish) return;
+
+        let skuIdToAdd = null;
 
         // Logic check
         if (dish.variants && dish.variants.length > 0) {
@@ -87,41 +111,25 @@ export function DishDetailModal({
                 toast.error('Vui lòng chọn đầy đủ các tùy chọn');
                 return;
             }
-            if (!currentPrice) return;
-
-            addItem({
-                skuId: matchingSku.id,
-                quantity,
-                dishName: dish.name || '',
-                price: Number(currentPrice),
-                image: matchingSku.images?.[0] || dish.images?.[0],
-                variantOptions: matchingSku.variantOptions?.map(
-                    (o: any) => o.value,
-                ),
-            });
+            skuIdToAdd = matchingSku.id;
         } else {
-            // No variants case (assuming there's a default SKU or we handle base dish as item)
-            // Typically system creates a default SKU for no-variant dish.
-            // If not, we might fail. Let's assume default SKU exists or we find one without options.
             const defaultSku = dish.skus?.find(
                 (s: any) => !s.variantOptions || s.variantOptions.length === 0,
             );
             if (defaultSku) {
-                addItem({
-                    skuId: defaultSku.id,
-                    quantity,
-                    dishName: dish.name || '',
-                    price: Number(defaultSku.price),
-                    image: defaultSku.images?.[0] || dish.images?.[0],
-                });
+                skuIdToAdd = defaultSku.id;
             } else {
                 toast.error('Sản phẩm này tạm thời không khả dụng (Lỗi SKU)');
                 return;
             }
         }
 
-        toast.success(`Đã thêm ${quantity} ${dish.name} vào giỏ`);
-        onClose();
+        if (skuIdToAdd) {
+            addToCartMutation.mutate({
+                skuId: skuIdToAdd,
+                quantity: quantity,
+            });
+        }
     };
 
     return (
@@ -129,6 +137,9 @@ export function DishDetailModal({
             <DialogContent className="sm:max-w-125 max-h-[90vh] overflow-y-auto">
                 {isLoading || !dish ? (
                     <div className="flex justify-center py-10">
+                        <DialogTitle className="sr-only">
+                            Đang tải chi tiết món ăn...
+                        </DialogTitle>
                         <Loader2 className="h-8 w-8 animate-spin text-primary" />
                     </div>
                 ) : (
@@ -149,7 +160,7 @@ export function DishDetailModal({
                                 )}
                             </div>
                             <DialogTitle className="text-2xl font-display">
-                                {dish.name}
+                                {dishName}
                             </DialogTitle>
                             <DialogDescription>
                                 {dish.description}
@@ -241,11 +252,15 @@ export function DishDetailModal({
                                 onClick={handleAddToCart}
                                 disabled={
                                     !currentPrice ||
+                                    addToCartMutation.isPending ||
                                     (dish.variants &&
                                         dish.variants.length > 0 &&
                                         !matchingSku)
                                 }
                             >
+                                {addToCartMutation.isPending ? (
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                ) : null}
                                 Thêm vào giỏ -{' '}
                                 {currentPrice
                                     ? formatCurrency(

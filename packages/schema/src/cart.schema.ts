@@ -27,7 +27,16 @@ export const CartItemSchema = z.object({
     sku: z.object({
         id: z.string(),
         value: z.string(),
-        price: z.string().transform((val) => Number(val)), // Decimal to Number
+        price: z
+            .custom<any>(
+                (val) =>
+                    typeof val === 'object' &&
+                    val !== null &&
+                    'toNumber' in val,
+            )
+            .transform((v) => v.toNumber())
+            .or(z.number())
+            .or(z.string().transform((v) => Number(v))),
         stock: z.number(),
         images: z.array(z.string()),
         dish: z.object({

@@ -1,63 +1,101 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
+import {
+    ArrowLeft,
+    Minus,
+    Plus,
+    Trash2,
+    ShoppingBag,
+    Loader2,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-
-import banhMiThitNuong from '@/assets/banh-mi-thit-nuong.jpg';
-import banhMiChaLua from '@/assets/banh-mi-cha-lua.jpg';
-
-interface CartItem {
-    id: number;
-    name: string;
-    price: number;
-    quantity: number;
-    image: any; // Using any for imported image object from Next.js (StaticImageData)
-}
+import { trpc } from '@/lib/trpc/client';
+import { toast } from 'sonner';
+import { useAuth } from '@/hooks/domain/use-auth';
 
 const Cart = () => {
-    const [cartItems, setCartItems] = useState<CartItem[]>([
+    const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+    const utils = trpc.useUtils();
+
+    const { data: cartData, isLoading: isCartLoading } = trpc.cart.get.useQuery(
+        undefined,
         {
-            id: 1,
-            name: 'Bánh Mì Thịt Nướng',
-            price: 35000,
-            quantity: 2,
-            image: banhMiThitNuong,
+            enabled: isAuthenticated,
         },
-        {
-            id: 2,
-            name: 'Bánh Mì Chả Lụa',
-            price: 25000,
-            quantity: 1,
-            image: banhMiChaLua,
-        },
-    ]);
-
-    const updateQuantity = (id: number, delta: number) => {
-        setCartItems((items) =>
-            items
-                .map((item) =>
-                    item.id === id
-                        ? {
-                              ...item,
-                              quantity: Math.max(0, item.quantity + delta),
-                          }
-                        : item,
-                )
-                .filter((item) => item.quantity > 0),
-        );
-    };
-
-    const removeItem = (id: number) => {
-        setCartItems((items) => items.filter((item) => item.id !== id));
-    };
-
-    const subtotal = cartItems.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0,
     );
+
+    const updateItemMutation = trpc.cart.update.useMutation({
+        onSuccess: () => {
+            utils.cart.get.invalidate();
+        },
+        onError: (error) => {
+            toast.error(error.message || 'Không thể cập nhật giỏ hàng');
+        },
+    });
+
+    const removeItemMutation = trpc.cart.remove.useMutation({
+        onSuccess: () => {
+            utils.cart.get.invalidate();
+            toast.success('Đã xóa sản phẩm khỏi giỏ hàng');
+        },
+        onError: (error) => {
+            toast.error(error.message || 'Không thể xóa sản phẩm');
+        },
+    });
+
+    const updateQuantity = (
+        skuId: string,
+        currentQty: number,
+        delta: number,
+    ) => {
+        const newQuantity = currentQty + delta;
+        if (newQuantity < 1) return;
+
+        updateItemMutation.mutate({
+            skuId,
+            quantity: newQuantity,
+        });
+    };
+
+    const removeItem = (skuId: string) => {
+        removeItemMutation.mutate({ skuId });
+    };
+
+    if (isAuthLoading || (isAuthenticated && isCartLoading)) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) {
+        return (
+            <div className="min-h-screen bg-background pt-24 pb-12 flex flex-col items-center justify-center text-center px-4">
+                <ShoppingBag className="w-16 h-16 text-muted-foreground/30 mb-6" />
+                <h2 className="font-display text-2xl font-bold text-foreground mb-4">
+                    Bạn chưa đăng nhập
+                </h2>
+                <p className="text-muted-foreground mb-8">
+                    Vui lòng đăng nhập để xem giỏ hàng của bạn
+                </p>
+                <Link href="/auth/login">
+                    <Button variant="hero">Đăng nhập ngay</Button>
+                </Link>
+            </div>
+        );
+    }
+
+    const cartItems = cartData?.items || [];
+    const subtotal = cartData?.totalPrice || 0;
+    // Backend cart usually returns total price, but sometimes we re-calc on frontend or rely on backend response.
+    // The Schema GetCartResSchema usually has totalPrice.
+    // Let's assume cartData has totalPrice, if not we calculate.
+
+    // Delivery fee logic might be frontend or backend.
+    // For now simple logic as before.
     const deliveryFee = subtotal > 100000 ? 0 : 15000;
     const total = subtotal + deliveryFee;
 
@@ -114,58 +152,95 @@ const Cart = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Cart Items */}
                     <div className="lg:col-span-2 space-y-4">
-                        {cartItems.map((item) => (
-                            <div
-                                key={item.id}
-                                className="flex gap-4 bg-card p-4 rounded-2xl border border-border"
-                            >
-                                <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 relative">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.name}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <h3 className="font-display font-bold text-foreground truncate">
-                                        {item.name}
-                                    </h3>
-                                    <p className="text-primary font-medium mt-1">
-                                        {formatPrice(item.price)}
-                                    </p>
-                                    <div className="flex items-center justify-between mt-3">
-                                        <div className="flex items-center gap-2">
+                        {cartItems.map((item: any) => {
+                            // Correctly accessing nested properties based on typical Prisma include structure
+                            // Check CartItemSchema: usually has sku -> dish -> dishTranslations & images
+                            const dishName =
+                                item.sku?.dish?.dishTranslations?.[0]?.name ||
+                                'Món ăn';
+                            const image =
+                                item.sku?.dish?.images?.[0] ||
+                                '/images/placeholder-dish.jpg';
+                            const price = Number(item.sku?.price || 0);
+
+                            return (
+                                <div
+                                    key={item.id}
+                                    className="flex gap-4 bg-card p-4 rounded-2xl border border-border"
+                                >
+                                    <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0 relative bg-muted">
+                                        <Image
+                                            src={image}
+                                            alt={dishName}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="font-display font-bold text-foreground truncate">
+                                            {dishName}
+                                        </h3>
+                                        {item.sku?.name &&
+                                            item.sku.name !== 'Default' && (
+                                                <p className="text-sm text-muted-foreground">
+                                                    {item.sku.name}
+                                                </p>
+                                            )}
+                                        <p className="text-primary font-medium mt-1">
+                                            {formatPrice(price)}
+                                        </p>
+                                        <div className="flex items-center justify-between mt-3">
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={() =>
+                                                        updateQuantity(
+                                                            item.skuId,
+                                                            item.quantity,
+                                                            -1,
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        updateItemMutation.isPending
+                                                    }
+                                                    className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors disabled:opacity-50"
+                                                >
+                                                    <Minus className="w-4 h-4" />
+                                                </button>
+                                                <span className="w-8 text-center font-medium">
+                                                    {item.quantity}
+                                                </span>
+                                                <button
+                                                    onClick={() =>
+                                                        updateQuantity(
+                                                            item.skuId,
+                                                            item.quantity,
+                                                            1,
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        updateItemMutation.isPending
+                                                    }
+                                                    className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors disabled:opacity-50"
+                                                >
+                                                    <Plus className="w-4 h-4" />
+                                                </button>
+                                            </div>
                                             <button
                                                 onClick={() =>
-                                                    updateQuantity(item.id, -1)
+                                                    removeItem(item.skuId)
                                                 }
-                                                className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors"
-                                            >
-                                                <Minus className="w-4 h-4" />
-                                            </button>
-                                            <span className="w-8 text-center font-medium">
-                                                {item.quantity}
-                                            </span>
-                                            <button
-                                                onClick={() =>
-                                                    updateQuantity(item.id, 1)
+                                                disabled={
+                                                    removeItemMutation.isPending
                                                 }
-                                                className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors"
+                                                className="text-muted-foreground hover:text-chili transition-colors disabled:opacity-50"
                                             >
-                                                <Plus className="w-4 h-4" />
+                                                <Trash2 className="w-5 h-5" />
                                             </button>
                                         </div>
-                                        <button
-                                            onClick={() => removeItem(item.id)}
-                                            className="text-muted-foreground hover:text-chili transition-colors"
-                                        >
-                                            <Trash2 className="w-5 h-5" />
-                                        </button>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
 
                         <Link
                             href="/menu"
@@ -215,9 +290,15 @@ const Cart = () => {
                                 </div>
                             </div>
 
-                            <Button variant="hero" className="w-full" size="lg">
-                                Tiến hành thanh toán
-                            </Button>
+                            <Link href="/checkout">
+                                <Button
+                                    variant="hero"
+                                    className="w-full"
+                                    size="lg"
+                                >
+                                    Tiến hành thanh toán
+                                </Button>
+                            </Link>
 
                             <p className="text-xs text-muted-foreground text-center mt-4">
                                 Thanh toán an toàn và bảo mật

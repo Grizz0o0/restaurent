@@ -11,10 +11,12 @@ import { ModeToggle } from '@/components/mode-toggle';
 import { cn } from '@/lib/utils';
 
 import { useAuth } from '@/hooks/domain/use-auth';
+import { usePermission } from '@/hooks/use-permission';
 import { UserNav } from './user-nav';
 
 const Header = () => {
     const { isAuthenticated, user, logout, isLoading } = useAuth();
+    const { hasRole } = usePermission();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
@@ -161,6 +163,25 @@ const Header = () => {
                                         <div className="px-4 py-2 text-sm font-medium text-foreground">
                                             Chào, {user?.name}
                                         </div>
+                                        {(hasRole('ADMIN') ||
+                                            hasRole('MANAGER')) && (
+                                            <Link
+                                                href="/admin/dashboard"
+                                                onClick={() =>
+                                                    setIsMenuOpen(false)
+                                                }
+                                            >
+                                                <Button
+                                                    variant="ghost"
+                                                    className="w-full justify-start rounded-xl mb-2"
+                                                >
+                                                    <span className="mr-2">
+                                                        ⚡
+                                                    </span>{' '}
+                                                    Quản lý hệ thống
+                                                </Button>
+                                            </Link>
+                                        )}
                                         <Button
                                             variant="outline"
                                             className="w-full rounded-xl"

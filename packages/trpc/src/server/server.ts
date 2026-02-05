@@ -1,6 +1,5 @@
 import { initTRPC } from '@trpc/server';
 import { z } from 'zod';
-
 import {
     RegisterBodySchema,
     RegisterResSchema,
@@ -101,7 +100,6 @@ import {
 import superjson from 'superjson';
 const t = initTRPC.create({ transformer: superjson });
 const publicProcedure = t.procedure;
-
 const appRouter = t.router({
     auth: t.router({
         register: publicProcedure
@@ -165,6 +163,9 @@ const appRouter = t.router({
         forceLogout: publicProcedure
             .input(ForceLogoutBodySchema)
             .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        getStats: publicProcedure
+            .output(z.any())
+            .query(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
     }),
     permission: t.router({
         list: publicProcedure

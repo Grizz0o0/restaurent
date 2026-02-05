@@ -3,19 +3,21 @@
 import { ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useUIStore } from '@/stores/use-ui-store';
-import { useCartStore } from '@/stores/use-cart-store';
 import { useEffect, useState } from 'react';
+import { trpc } from '@/lib/trpc/client';
 
 export function CartButton() {
     const toggleCart = useUIStore((state) => state.toggleCart);
-    const items = useCartStore((state) => state.items);
+    const { data: cart } = trpc.cart.get.useQuery();
+
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
-    const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
+    const itemCount =
+        cart?.items.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
     if (!mounted) {
         return (
