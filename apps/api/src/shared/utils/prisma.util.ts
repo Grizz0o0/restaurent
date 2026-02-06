@@ -4,8 +4,15 @@ export type PaginationOptions = {
 }
 
 export type PaginatedResult<T> = {
-  total: number
   data: T[]
+  pagination: {
+    totalItems: number
+    totalPages: number
+    page: number
+    limit: number
+    hasNext: boolean
+    hasPrev: boolean
+  }
 }
 
 export const paginate = async <T>(
@@ -25,5 +32,17 @@ export const paginate = async <T>(
     }),
   ])
 
-  return { total, data }
+  const totalPages = Math.ceil(total / limit)
+
+  return {
+    data,
+    pagination: {
+      totalItems: total,
+      totalPages,
+      page,
+      limit,
+      hasNext: page < totalPages,
+      hasPrev: page > 1,
+    },
+  }
 }

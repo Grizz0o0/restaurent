@@ -263,6 +263,7 @@ model Dish {
   supplierId             String
   supplier               Supplier                @relation(fields: [supplierId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   images                 String[]                @default([])
+  isActive               Boolean                 @default(true)
   categories             DishCategory[]
   interactions           UserInteraction[]
   variants               Variant[]
@@ -308,9 +309,6 @@ model DishTranslation {
 model DishCategory {
   id                     String                  @id @default(uuid())
   dishes                 Dish[]
-  parentCategoryId       String?
-  parentCategory         DishCategory?           @relation("ParentCategoryCategories", fields: [parentCategoryId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  childrenCategories     DishCategory[]          @relation("ParentCategoryCategories")
   dishCategoryTranslations DishCategoryTranslation[]
   createdById            String?
   createdBy              User?                   @relation("DishCategoryCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: Cascade)

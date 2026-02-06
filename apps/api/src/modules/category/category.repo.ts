@@ -13,12 +13,11 @@ export class CategoryRepo {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateCategoryBodyType & { createdById: string }) {
-    const { name, description, languageId, parentCategoryId, createdById, translations } = data
+    const { name, description, languageId, createdById, translations } = data
 
     return this.prisma.$transaction(async (tx) => {
       const category = await tx.dishCategory.create({
         data: {
-          parentCategoryId,
           createdById,
         },
       })
@@ -40,8 +39,9 @@ export class CategoryRepo {
       return tx.dishCategory.findUniqueOrThrow({
         where: { id: category.id },
         include: {
-          dishCategoryTranslations: true,
-          childrenCategories: true,
+          dishCategoryTranslations: {
+            where: { deletedAt: null },
+          },
         },
       })
     })
@@ -56,13 +56,12 @@ export class CategoryRepo {
     data: UpdateCategoryBodyType
     updatedById: string
   }) {
-    const { name, description, languageId, parentCategoryId } = data
+    const { name, description, languageId } = data
 
     return this.prisma.$transaction(async (tx) => {
       const category = await tx.dishCategory.update({
         where: { id },
         data: {
-          parentCategoryId,
           updatedById,
         },
         include: { dishCategoryTranslations: true },
@@ -104,8 +103,9 @@ export class CategoryRepo {
       return tx.dishCategory.findUniqueOrThrow({
         where: { id },
         include: {
-          dishCategoryTranslations: true,
-          childrenCategories: true,
+          dishCategoryTranslations: {
+            where: { deletedAt: null },
+          },
         },
       })
     })
@@ -115,18 +115,18 @@ export class CategoryRepo {
     return this.prisma.dishCategory.findUnique({
       where: { id },
       include: {
-        dishCategoryTranslations: true,
-        childrenCategories: true,
+        dishCategoryTranslations: {
+          where: { deletedAt: null },
+        },
       },
     })
   }
 
   async list(query: GetCategoriesQueryType) {
-    const { page, limit, search, parentCategoryId } = query
+    const { page, limit, search } = query
 
     const where: Prisma.DishCategoryWhereInput = {
       deletedAt: null,
-      ...(parentCategoryId && { parentCategoryId }),
       ...(search && {
         dishCategoryTranslations: {
           some: {
@@ -140,7 +140,6 @@ export class CategoryRepo {
       Prisma.DishCategoryGetPayload<{
         include: {
           dishCategoryTranslations: true
-          childrenCategories: true
         }
       }>
     >(
@@ -149,8 +148,9 @@ export class CategoryRepo {
         where,
         orderBy: { createdAt: 'desc' },
         include: {
-          dishCategoryTranslations: true,
-          childrenCategories: true,
+          dishCategoryTranslations: {
+            where: { deletedAt: null },
+          },
         },
       },
       { page, limit },
@@ -161,6 +161,12 @@ export class CategoryRepo {
     const category = await this.findById(id)
     if (!category) throw new BadRequestException('Category not found')
 
-    return this.prisma.extended.dishCategory.softDelete({ id })
+    return this.prisma.dishCategory.update({
+      where: { id },
+      data: {
+        deletedAt: new Date(),
+        deletedById,
+      },
+    })
   }
 }

@@ -6,7 +6,6 @@ import {
   GetTablesQueryType,
   RestaurantTableType,
 } from '@repo/schema'
-import { createPaginationResult } from '@/shared/utils/pagination.util'
 import { v4 as uuidv4 } from 'uuid'
 import envConfig from '@/shared/config'
 import { PrismaService } from '@/shared/prisma'
@@ -60,13 +59,13 @@ export class TableService {
   }
 
   async list(query: GetTablesQueryType) {
-    const { data: tables, total } = await this.tableRepo.list(query)
+    const { data: tables, pagination } = await this.tableRepo.list(query)
 
     const tablesWithQr = tables.map((table: RestaurantTableType) => ({
       ...table,
       qrCodeUrl: `${envConfig.FRONTEND_URL || 'http://localhost:3000'}/table/${table.id}?token=${(table as any).qrCode}`,
     }))
 
-    return createPaginationResult(tablesWithQr, total, query)
+    return { data: tablesWithQr, pagination }
   }
 }

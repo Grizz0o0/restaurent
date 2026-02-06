@@ -2,15 +2,10 @@ import { z } from 'zod';
 
 export const RestaurantTableSchema = z.object({
     id: z.string(),
-    name: z.string(), // tableNumber in DB? Schema has tableNumber?
-    // Wait, DB has tableNumber, Schema has name. I should align them.
-    // DB: tableNumber, capacity, qrCode, status
-    // Schema: id, name, capacity, status, token
-    // I will map name -> tableNumber, token -> qrCode
-    tableNumber: z.string(), // Renamed from name
+    tableNumber: z.string(),
     capacity: z.number(),
     status: z.string(),
-    qrCode: z.string(), // Renamed from token
+    qrCode: z.string(),
     qrCodeUrl: z.string().optional(),
     createdAt: z.date(),
     updatedAt: z.date(),

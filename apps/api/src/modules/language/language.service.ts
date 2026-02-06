@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { LanguageRepo } from './language.repo'
 import { CreateLanguageBodyType, GetLanguagesQueryType, UpdateLanguageBodyType } from '@repo/schema'
-import { createPaginationResult } from '@/shared/utils/pagination.util'
 
 @Injectable()
 export class LanguageService {
@@ -25,8 +24,7 @@ export class LanguageService {
   }
 
   async list(query: GetLanguagesQueryType) {
-    const { total, data: languages } = await this.languageRepo.list(query)
-    return createPaginationResult(languages, total, query)
+    return await this.languageRepo.list(query)
   }
 
   async delete(id: string, deletedById: string) {

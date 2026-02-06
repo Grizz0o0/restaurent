@@ -23,6 +23,16 @@ export const DishSchema = z.object({
     updatedAt: z.date(),
     name: z.string().optional(),
     description: z.string().optional(),
+    isActive: z.boolean(),
+    categories: z
+        .array(
+            z.object({
+                id: z.string(),
+                name: z.string().optional(),
+                slug: z.string().optional(),
+            }),
+        )
+        .optional(),
 });
 
 export type DishType = z.infer<typeof DishSchema>;
@@ -43,6 +53,7 @@ export const CreateDishBodySchema = z.object({
     supplierId: z.string(),
     images: z.array(z.string()).default([]),
     categoryIds: z.array(z.string()).default([]),
+    isActive: z.boolean().default(true),
     name: z.string(),
     description: z.string(),
     languageId: z.string(),
@@ -84,6 +95,7 @@ export const UpdateDishBodySchema = z.object({
     supplierId: z.string().optional(),
     images: z.array(z.string()).optional(),
     categoryIds: z.array(z.string()).optional(),
+    isActive: z.boolean().optional(),
     name: z.string().optional(),
     description: z.string().optional(),
     languageId: z.string().optional(),

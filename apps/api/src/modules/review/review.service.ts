@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common'
 import { ReviewRepo } from './review.repo'
 import { CreateReviewBodyType, GetReviewsQueryType } from '@repo/schema'
-import { createPaginationResult } from '@/shared/utils/pagination.util'
 
 @Injectable()
 export class ReviewService {
@@ -13,8 +12,7 @@ export class ReviewService {
   }
 
   async list(query: GetReviewsQueryType) {
-    const { total, data } = await this.reviewRepo.list(query)
-    return createPaginationResult(data, total, query)
+    return await this.reviewRepo.list(query)
   }
 
   async delete(id: string, userId: string, isAdmin: boolean) {

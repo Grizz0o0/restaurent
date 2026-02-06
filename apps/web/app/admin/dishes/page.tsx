@@ -1,0 +1,1124 @@
+'use client';
+
+import { useMemo, useState, useEffect } from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import {
+    Plus,
+    Pencil,
+    Trash2,
+    Loader2,
+    Search,
+    UtensilsCrossed,
+    X,
+} from 'lucide-react';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Badge } from '@/components/ui/badge';
+import { trpc } from '@/lib/trpc/client';
+import { toast } from 'sonner';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form';
+
+// Types
+type Category = {
+    id: string;
+    name: string;
+    slug: string;
+};
+
+// Simplified Dish type for local usage if needed, though we use auto-generated mostly
+type Dish = {
+    id: string;
+    category_id: string | null;
+    name: string;
+    description: string | null;
+    price_vnd: number;
+    image_url: string | null;
+    is_active: boolean;
+};
+
+const dishSchema = z.object({
+    name: z.string().trim().min(1, 'Tên món không được trống').max(200),
+    description: z.string().trim().max(2000).optional().or(z.literal('')),
+    price_vnd: z.number().int().min(0).max(1_000_000_000),
+    category_id: z.string().optional().or(z.literal('')),
+    supplier_id: z.string().min(1, 'Vui lòng chọn nhà cung cấp'),
+    language_id: z.string().min(1, 'Vui lòng chọn ngôn ngữ'),
+    image_url: z
+        .string()
+        .trim()
+        .url('Image URL không hợp lệ')
+        .max(1000)
+        .optional()
+        .or(z.literal('')),
+    is_active: z.boolean(),
+    variants: z
+        .array(
+            z.object({
+                id: z.string().optional(),
+                name: z.string().min(1, 'Tên biến thể không được trống'),
+                options: z
+                    .array(z.object({ value: z.string() }))
+                    .min(1, 'Cần ít nhất 1 tùy chọn'),
+            }),
+        )
+        .optional(),
+});
+
+type DishFormValues = z.infer<typeof dishSchema>;
+
+export default function AdminDishesPage() {
+    const utils = trpc.useUtils();
+
+    // Data Fetching
+    const { data: categoriesData } = trpc.category.list.useQuery({
+        page: 1,
+        limit: 100,
+    });
+    const { data: dishesData, isLoading } = trpc.dish.list.useQuery({
+        page: 1,
+        limit: 100,
+    });
+
+    // Fetch Languages
+    const { data: languagesData } = trpc.language.list.useQuery({
+        page: 1,
+        limit: 100,
+    });
+    // Assuming languages response structure, trpc usually returns data directly or wrapped
+    // The router output was z.any(), so we might need to inspect.
+    // Usually standard response from this repo is { data: [], pagination: ... } or just array.
+    // Based on `dish.service` list: { data: ..., total: ... } => createPaginationResult
+    // Language router list returns languageService.list(input) => findMany.
+    // So it returns an array directly? No, `language.service.ts` uses `findAll` which returns array.
+    // Wait, let's double check language.service.ts.
+    // `findAll` returns `prisma.supplier.findMany` (wait that was supplier service).
+    // Let's check language.service.ts if I saw it.
+    // I only saw language.router.ts.
+    // Assuming it returns array or { data: [] }.
+    // I'll handle both safely.
+    const languagesRaw = languagesData as any;
+    const languages = Array.isArray(languagesRaw)
+        ? languagesRaw
+        : languagesRaw?.data || [];
+
+    // Fetch Suppliers REST
+    const [suppliers, setSuppliers] = useState<any[]>([]);
+    useEffect(() => {
+        const fetchSuppliers = async () => {
+            try {
+                // Determine API URL
+                // If using standard Vite proxy, /v1/api should work if configured
+                // Or try 3052 if local
+                // We'll use a safer approach for local dev:
+                const trpcUrl =
+                    process.env.NEXT_PUBLIC_API_URL ||
+                    'http://localhost:3052/v1/api/trpc';
+                // Remove /trpc tail to get base API
+                const apiUrl = trpcUrl.replace(/\/trpc\/?$/, '');
+
+                const token = localStorage.getItem('accessToken');
+
+                const res = await fetch(`${apiUrl}/suppliers?limit=100`, {
+                    headers: {
+                        Authorization: token ? `Bearer ${token}` : '',
+                    },
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    setSuppliers(Array.isArray(data) ? data : data.data || []);
+                } else {
+                    console.error('Failed to fetch suppliers', res.status);
+                }
+            } catch (err) {
+                console.error('Failed to fetch suppliers', err);
+            }
+        };
+        fetchSuppliers();
+    }, []);
+
+    const categories = categoriesData?.data || [];
+    const dishes = dishesData?.data || [];
+
+    const [open, setOpen] = useState(false);
+    const [editing, setEditing] = useState<any | null>(null);
+    const [deleteId, setDeleteId] = useState<string | null>(null);
+
+    const form = useForm<DishFormValues>({
+        resolver: zodResolver(dishSchema),
+        defaultValues: {
+            name: '',
+            description: '',
+            price_vnd: 0,
+            category_id: '',
+            supplier_id: '',
+            language_id: 'vi', // Default
+            image_url: '',
+            is_active: true,
+            variants: [],
+        },
+    });
+
+    const {
+        fields: variantFields,
+        append: appendVariant,
+        remove: removeVariant,
+    } = useFieldArray({
+        control: form.control,
+        name: 'variants',
+    });
+
+    // Auto-select first supplier if available and not set
+    // Using useEffect to set it when suppliers load
+    useEffect(() => {
+        if (
+            !form.getValues('supplier_id') &&
+            suppliers.length > 0 &&
+            !editing
+        ) {
+            form.setValue('supplier_id', suppliers[0].id);
+        }
+    }, [suppliers, form, editing]);
+
+    const categoryNameById = useMemo(() => {
+        const map = new Map<string, string>();
+        categories.forEach((c) => {
+            if (c.id && c.name) {
+                map.set(c.id, c.name);
+            }
+        });
+        return map;
+    }, [categories]);
+
+    // Mutations
+    const createMutation = trpc.dish.create.useMutation({
+        onSuccess: () => {
+            toast.success('Đã tạo món ăn mới');
+            utils.dish.list.invalidate();
+            setOpen(false);
+            form.reset();
+        },
+        onError: (err) => {
+            toast.error(`Lỗi: ${err.message}`);
+        },
+    });
+
+    const updateMutation = trpc.dish.update.useMutation({
+        onSuccess: () => {
+            toast.success('Đã cập nhật món ăn');
+            utils.dish.list.invalidate();
+            setOpen(false);
+            setEditing(null);
+            form.reset();
+        },
+        onError: (err) => {
+            toast.error(`Lỗi: ${err.message}`);
+        },
+    });
+
+    const toggleActiveMutation = trpc.dish.update.useMutation({
+        onSuccess: () => {
+            toast.success('Đã cập nhật trạng thái món ăn');
+            utils.dish.list.invalidate();
+        },
+        onError: (err) => {
+            toast.error(`Lỗi: ${err.message}`);
+        },
+    });
+
+    // Handlers
+    const openCreate = () => {
+        setEditing(null);
+        form.reset({
+            name: '',
+            description: '',
+            price_vnd: 0,
+            category_id: '',
+            supplier_id: suppliers.length > 0 ? suppliers[0].id : '',
+            language_id: 'vi',
+            image_url: '',
+            is_active: true,
+            variants: [],
+        });
+        setOpen(true);
+    };
+
+    const openEdit = (dish: any) => {
+        setEditing(dish);
+        form.reset({
+            name: dish.name,
+            description: dish.description ?? '',
+            price_vnd: Number(dish.basePrice),
+            category_id: dish.categories?.[0]?.id ?? '', // Using first category for now
+            supplier_id:
+                dish.supplierId ??
+                (suppliers.length > 0 ? suppliers[0].id : ''),
+            language_id: dish.languageId ?? 'vi', // Usually implicit or part of translations
+            image_url: dish.images?.[0] ?? '',
+            is_active: dish.isActive ?? true,
+            variants:
+                dish.variants?.map((v: any) => ({
+                    id: v.id,
+                    name: v.name,
+                    options: v.options.map((o: any) => ({
+                        value: o.value || o,
+                    })),
+                })) ?? [],
+        });
+        setOpen(true);
+    };
+
+    const onSubmit = (values: DishFormValues) => {
+        if (editing) {
+            updateMutation.mutate({
+                id: editing.id,
+                data: {
+                    name: values.name,
+                    description: values.description || undefined,
+                    basePrice: values.price_vnd,
+                    categoryIds: values.category_id ? [values.category_id] : [],
+                    images: values.image_url ? [values.image_url] : [],
+                    isActive: values.is_active,
+                    supplierId: values.supplier_id,
+                    languageId: values.language_id,
+                },
+            });
+        } else {
+            createMutation.mutate({
+                name: values.name,
+                description: values.description || '',
+                basePrice: values.price_vnd,
+                categoryIds: values.category_id ? [values.category_id] : [],
+                images: values.image_url ? [values.image_url] : [],
+                isActive: true,
+                supplierId: values.supplier_id,
+                languageId: values.language_id,
+            });
+        }
+    };
+
+    const handleToggleActive = (dish: any) => {
+        setDeleteId(dish.id);
+    };
+
+    const confirmToggle = () => {
+        if (deleteId) {
+            const dish = dishes.find((d) => d.id === deleteId);
+            if (dish) {
+                toggleActiveMutation.mutate({
+                    id: deleteId,
+                    data: { isActive: !dish.isActive },
+                });
+            }
+            setDeleteId(null);
+        }
+    };
+
+    const formatVnd = (vnd: number) =>
+        new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        }).format(vnd);
+
+    // Filtering Logic
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filterCategory, setFilterCategory] = useState<string>('all');
+    const [filterStatus, setFilterStatus] = useState<string>('all');
+
+    const filteredDishes = useMemo(() => {
+        return dishes.filter((dish) => {
+            const matchName = (dish.name ?? '')
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
+            const matchCategory =
+                filterCategory === 'all' ||
+                dish.categories?.some((c) => c.id === filterCategory);
+            const matchStatus =
+                filterStatus === 'all' ||
+                (filterStatus === 'active' ? dish.isActive : !dish.isActive);
+
+            return matchName && matchCategory && matchStatus;
+        });
+    }, [dishes, searchQuery, filterCategory, filterStatus]);
+
+    // Stats
+    const stats = useMemo(() => {
+        const total = dishes.length;
+        const active = dishes.filter((d) => d.isActive).length;
+        const inactive = total - active;
+        return { total, active, inactive };
+    }, [dishes]);
+
+    return (
+        <div className="flex flex-col p-6 w-full max-w-7xl mx-auto space-y-8">
+            {/* Header Section */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 className="font-display text-3xl font-bold tracking-tight text-foreground">
+                        Quản lý món ăn
+                    </h1>
+                    <p className="text-muted-foreground mt-1 text-sm">
+                        Quản lý danh sách, giá cả và trạng thái hiển thị của món
+                        ăn.
+                    </p>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        onClick={() => utils.dish.list.invalidate()}
+                    >
+                        Làm mới
+                    </Button>
+                    <Dialog
+                        open={open}
+                        onOpenChange={(v) => {
+                            setOpen(v);
+                            if (!v) setEditing(null);
+                        }}
+                    >
+                        <DialogTrigger asChild>
+                            <Button
+                                variant="hero"
+                                onClick={openCreate}
+                                className="gap-2 shadow-lg hover:shadow-primary/25"
+                            >
+                                <Plus className="w-4 h-4" />
+                                Thêm món mới
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-xl max-h-[90vh] overflow-y-auto">
+                            <DialogHeader>
+                                <DialogTitle className="font-display text-2xl">
+                                    {editing
+                                        ? 'Chỉnh sửa món ăn'
+                                        : 'Thêm món ăn mới'}
+                                </DialogTitle>
+                            </DialogHeader>
+
+                            <Form {...form}>
+                                <form
+                                    onSubmit={form.handleSubmit(onSubmit)}
+                                    className="space-y-6 pt-4"
+                                >
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="name"
+                                            render={({ field }) => (
+                                                <FormItem className="col-span-2">
+                                                    <FormLabel>
+                                                        Tên món
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Ví dụ: Bánh mì đặc biệt"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="category_id"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Danh mục
+                                                    </FormLabel>
+                                                    <Select
+                                                        value={
+                                                            field.value || ''
+                                                        }
+                                                        onValueChange={
+                                                            field.onChange
+                                                        }
+                                                    >
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Chọn danh mục" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {categories.map(
+                                                                (c) => (
+                                                                    <SelectItem
+                                                                        key={
+                                                                            c.id
+                                                                        }
+                                                                        value={
+                                                                            c.id
+                                                                        }
+                                                                    >
+                                                                        {c.name}
+                                                                    </SelectItem>
+                                                                ),
+                                                            )}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="price_vnd"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Giá bán (VNĐ)
+                                                    </FormLabel>
+                                                    <FormControl>
+                                                        <div className="relative">
+                                                            <span className="absolute left-3 top-2.5 text-muted-foreground text-sm">
+                                                                ₫
+                                                            </span>
+                                                            <Input
+                                                                type="number"
+                                                                className="pl-7"
+                                                                min={0}
+                                                                step={1000}
+                                                                {...field}
+                                                                onChange={(e) =>
+                                                                    field.onChange(
+                                                                        Number(
+                                                                            e
+                                                                                .target
+                                                                                .value,
+                                                                        ),
+                                                                    )
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <FormField
+                                        control={form.control}
+                                        name="description"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>
+                                                    Mô tả chi tiết
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Textarea
+                                                        rows={3}
+                                                        placeholder="Thành phần, hương vị..."
+                                                        className="resize-none"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="supplier_id"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Nhà cung cấp
+                                                    </FormLabel>
+                                                    <Select
+                                                        value={
+                                                            field.value || ''
+                                                        }
+                                                        onValueChange={
+                                                            field.onChange
+                                                        }
+                                                    >
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Chọn NCC" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {suppliers.map(
+                                                                (s) => (
+                                                                    <SelectItem
+                                                                        key={
+                                                                            s.id
+                                                                        }
+                                                                        value={
+                                                                            s.id
+                                                                        }
+                                                                    >
+                                                                        {s.name}
+                                                                    </SelectItem>
+                                                                ),
+                                                            )}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="language_id"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>
+                                                        Ngôn ngữ
+                                                    </FormLabel>
+                                                    <Select
+                                                        value={
+                                                            field.value || 'vi'
+                                                        }
+                                                        onValueChange={
+                                                            field.onChange
+                                                        }
+                                                    >
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Chọn ngôn ngữ" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            {languages.map(
+                                                                (l: any) => (
+                                                                    <SelectItem
+                                                                        key={
+                                                                            l.id
+                                                                        }
+                                                                        value={
+                                                                            l.id
+                                                                        }
+                                                                    >
+                                                                        {l.name}
+                                                                    </SelectItem>
+                                                                ),
+                                                            )}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <FormField
+                                        control={form.control}
+                                        name="image_url"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>
+                                                    Hình ảnh (URL)
+                                                </FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder="https://example.com/image.jpg"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="is_active"
+                                        render={({ field }) => (
+                                            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm bg-muted/20">
+                                                <div className="space-y-0.5">
+                                                    <FormLabel className="text-base">
+                                                        Đang kinh doanh
+                                                    </FormLabel>
+                                                    <div className="text-sm text-muted-foreground">
+                                                        Hiển thị món này trên
+                                                        thực đơn của khách hàng.
+                                                    </div>
+                                                </div>
+                                                <FormControl>
+                                                    <div className="flex items-center gap-2">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={
+                                                                field.value
+                                                            }
+                                                            onChange={
+                                                                field.onChange
+                                                            }
+                                                            className="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary"
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    {/* Variants Section */}
+                                    <div className="space-y-4 pt-4 border-t">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="font-semibold text-lg">
+                                                Biến thể (Size, Topping)
+                                            </h3>
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() =>
+                                                    appendVariant({
+                                                        name: '',
+                                                        options: [
+                                                            { value: '' },
+                                                        ],
+                                                    })
+                                                }
+                                            >
+                                                <Plus className="w-4 h-4 mr-2" />
+                                                Thêm biến thể
+                                            </Button>
+                                        </div>
+
+                                        {variantFields.map((field, index) => (
+                                            <div
+                                                key={field.id}
+                                                className="p-4 border rounded-lg space-y-4 bg-muted/10 relative"
+                                            >
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="absolute top-2 right-2 text-muted-foreground hover:text-destructive"
+                                                    onClick={() =>
+                                                        removeVariant(index)
+                                                    }
+                                                >
+                                                    <X className="w-4 h-4" />
+                                                </Button>
+
+                                                <FormField
+                                                    control={form.control}
+                                                    name={`variants.${index}.name`}
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>
+                                                                Tên biến thể
+                                                            </FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder="Ví dụ: Size, Mức đường, Topping..."
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+
+                                                <div className="space-y-2">
+                                                    <FormLabel>
+                                                        Tùy chọn (ngăn cách bằng
+                                                        dấu phẩy)
+                                                    </FormLabel>
+                                                    <FormField
+                                                        control={form.control}
+                                                        name={`variants.${index}.options`}
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        placeholder="Ví dụ: S, M, L hoặc Trân châu, Thạch..."
+                                                                        defaultValue={
+                                                                            field.value
+                                                                                ?.map(
+                                                                                    (
+                                                                                        o: any,
+                                                                                    ) =>
+                                                                                        o.value,
+                                                                                )
+                                                                                .join(
+                                                                                    ', ',
+                                                                                ) ||
+                                                                            ''
+                                                                        }
+                                                                        onChange={(
+                                                                            e,
+                                                                        ) => {
+                                                                            const values =
+                                                                                e.target.value
+                                                                                    .split(
+                                                                                        ',',
+                                                                                    )
+                                                                                    .map(
+                                                                                        (
+                                                                                            v,
+                                                                                        ) => ({
+                                                                                            value: v.trim(),
+                                                                                        }),
+                                                                                    )
+                                                                                    .filter(
+                                                                                        (
+                                                                                            v,
+                                                                                        ) =>
+                                                                                            v.value !==
+                                                                                            '',
+                                                                                    );
+                                                                            field.onChange(
+                                                                                values,
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                </FormControl>
+                                                                <FormMessage />
+                                                                <p className="text-xs text-muted-foreground">
+                                                                    Nhập các lựa
+                                                                    chọn cách
+                                                                    nhau bởi dấu
+                                                                    phẩy.
+                                                                </p>
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex gap-3 justify-end pt-4 border-t">
+                                        <Button
+                                            type="button"
+                                            variant="ghost"
+                                            onClick={() => setOpen(false)}
+                                        >
+                                            Hủy bỏ
+                                        </Button>
+                                        <Button
+                                            type="submit"
+                                            variant="hero"
+                                            className="min-w-25"
+                                        >
+                                            {editing
+                                                ? 'Lưu thay đổi'
+                                                : 'Tạo món mới'}
+                                        </Button>
+                                    </div>
+                                </form>
+                            </Form>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+            </div>
+
+            {/* Stats Cards */}
+            <div className="grid gap-4 md:grid-cols-3">
+                <Card className="bg-linear-to-br from-primary/5 to-primary/10 border-primary/20 shadow-sm">
+                    <CardHeader className="pb-2">
+                        <CardDescription className="text-primary/80 font-medium">
+                            Tổng số món ăn
+                        </CardDescription>
+                        <CardTitle className="text-4xl font-display text-primary">
+                            {stats.total}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-xs text-muted-foreground">
+                            Trong thực đơn của nhà hàng
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="shadow-sm">
+                    <CardHeader className="pb-2">
+                        <CardDescription>Đang kinh doanh</CardDescription>
+                        <CardTitle className="text-4xl font-display text-green-600">
+                            {stats.active}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-xs text-muted-foreground">
+                            Sẵn sàng phục vụ khách hàng
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card className="shadow-sm">
+                    <CardHeader className="pb-2">
+                        <CardDescription>Món đã ẩn</CardDescription>
+                        <CardTitle className="text-4xl font-display text-muted-foreground">
+                            {stats.inactive}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-xs text-muted-foreground">
+                            Các món đang tạm dừng phục vụ
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
+            {/* Filter Toolbar */}
+            <div className="flex flex-col md:flex-row gap-4 items-center bg-card p-4 rounded-xl border shadow-sm">
+                <div className="relative flex-1 w-full">
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                        placeholder="Tìm kiếm theo tên món..."
+                        className="pl-9 bg-background"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+                <div className="flex gap-3 w-full md:w-auto">
+                    <Select
+                        value={filterCategory}
+                        onValueChange={setFilterCategory}
+                    >
+                        <SelectTrigger className="w-45 bg-background">
+                            <SelectValue placeholder="Danh mục" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">Tất cả danh mục</SelectItem>
+                            {categories.map((c) => (
+                                <SelectItem key={c.id} value={c.id}>
+                                    {c.name}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+
+                    <Select
+                        value={filterStatus}
+                        onValueChange={setFilterStatus}
+                    >
+                        <SelectTrigger className="w-40 bg-background">
+                            <SelectValue placeholder="Trạng thái" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">
+                                Tất cả trạng thái
+                            </SelectItem>
+                            <SelectItem value="active">
+                                Đang kinh doanh
+                            </SelectItem>
+                            <SelectItem value="inactive">Đang ẩn</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
+
+            {/* Dishes Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {isLoading ? (
+                    <div className="col-span-full flex justify-center py-20">
+                        <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                    </div>
+                ) : filteredDishes.length === 0 ? (
+                    <div className="col-span-full flex flex-col items-center justify-center py-20 text-center space-y-4 bg-muted/20 rounded-xl border border-dashed border-muted-foreground/25">
+                        <div className="bg-muted p-4 rounded-full">
+                            <Search className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                        <div className="max-w-105">
+                            <h3 className="text-lg font-semibold">
+                                Không tìm thấy món ăn
+                            </h3>
+                            <p className="text-muted-foreground mt-1">
+                                Không có món ăn nào khớp với bộ lọc hiện tại của
+                                bạn.
+                            </p>
+                        </div>
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                setSearchQuery('');
+                                setFilterCategory('all');
+                                setFilterStatus('all');
+                            }}
+                        >
+                            Xóa bộ lọc
+                        </Button>
+                    </div>
+                ) : (
+                    filteredDishes.map((dish) => (
+                        <div
+                            key={dish.id}
+                            className="group relative flex flex-col bg-card border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/50"
+                        >
+                            {/* Image Area */}
+                            <div className="aspect-4/3 bg-muted relative overflow-hidden">
+                                {dish.images && dish.images.length > 0 ? (
+                                    <img
+                                        src={dish.images[0]}
+                                        alt={dish.name}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-secondary/30 text-muted-foreground">
+                                        <UtensilsCrossed className="h-10 w-10 opacity-20" />
+                                    </div>
+                                )}
+
+                                <div className="absolute top-2 right-2">
+                                    {!dish.isActive && (
+                                        <Badge
+                                            variant="destructive"
+                                            className="shadow-sm"
+                                        >
+                                            Đang ẩn
+                                        </Badge>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Content */}
+                            <div className="flex-1 p-4 flex flex-col gap-3">
+                                <div className="flex justify-between items-start gap-2">
+                                    <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-primary transition-colors">
+                                        {dish.name}
+                                    </h3>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                    {dish.categories?.map((c) => {
+                                        const catName =
+                                            c.name ||
+                                            categoryNameById.get(c.id) ||
+                                            'N/A';
+                                        return (
+                                            <Badge
+                                                key={c.id}
+                                                variant="secondary"
+                                                className="px-2 py-0 h-6 font-normal text-xs bg-muted/80 text-muted-foreground"
+                                            >
+                                                {catName}
+                                            </Badge>
+                                        );
+                                    })}
+                                    {(!dish.categories ||
+                                        dish.categories.length === 0) && (
+                                        <span className="text-xs text-muted-foreground italic">
+                                            Chưa phân loại
+                                        </span>
+                                    )}
+                                </div>
+
+                                <p className="text-sm text-muted-foreground line-clamp-2 min-h-10">
+                                    {dish.description || 'Chưa có mô tả...'}
+                                </p>
+
+                                <div className="mt-auto pt-3 flex items-center justify-between border-t">
+                                    <span className="font-display font-bold text-lg text-primary">
+                                        {formatVnd(Number(dish.basePrice))}
+                                    </span>
+
+                                    <div className="flex gap-1">
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            className="h-8 w-8 text-muted-foreground hover:text-primary hover:bg-primary/10"
+                                            onClick={() => openEdit(dish)}
+                                        >
+                                            <Pencil className="w-4 h-4" />
+                                            <span className="sr-only">Sửa</span>
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                                            onClick={() =>
+                                                handleToggleActive(dish)
+                                            }
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                            <span className="sr-only">
+                                                {dish.isActive ? 'Ẩn' : 'Hiện'}
+                                            </span>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+
+            {/* Toggle Active/Inactive Dialog */}
+            <AlertDialog
+                open={!!deleteId}
+                onOpenChange={(open) => !open && setDeleteId(null)}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            {dishes.find((d) => d.id === deleteId)?.isActive
+                                ? 'Ẩn món ăn này?'
+                                : 'Hiện lại món ăn này?'}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            {dishes.find((d) => d.id === deleteId)?.isActive
+                                ? 'Món ăn sẽ bị ẩn khỏi thực đơn khách hàng nhưng dữ liệu vẫn được lưu trữ. Bạn có thể hiện lại bất cứ lúc nào.'
+                                : 'Món ăn sẽ hiển thị trở lại trên thực đơn khách hàng.'}
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Hủy bỏ</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={confirmToggle}
+                            className={
+                                dishes.find((d) => d.id === deleteId)?.isActive
+                                    ? 'bg-destructive hover:bg-destructive/90'
+                                    : 'bg-primary hover:bg-primary/90'
+                            }
+                        >
+                            {dishes.find((d) => d.id === deleteId)?.isActive
+                                ? 'Ẩn món ăn'
+                                : 'Hiện món ăn'}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </div>
+    );
+}

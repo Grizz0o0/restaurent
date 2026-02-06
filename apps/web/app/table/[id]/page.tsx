@@ -1,31 +1,53 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import { trpc } from '@/lib/trpc/client';
 import { Button } from '@/components/ui/button';
 import {
     Card,
     CardContent,
-    CardHeader,
-    CardTitle,
     CardFooter,
+    CardHeader,
 } from '@/components/ui/card';
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+    SheetFooter,
+    SheetClose,
+} from '@/components/ui/sheet';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { Loader2, ShoppingCart, Minus, Plus } from 'lucide-react';
+import {
+    Loader2,
+    ShoppingCart,
+    Minus,
+    Plus,
+    UtensilsCrossed,
+    ChefHat,
+} from 'lucide-react';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
-// Placeholder images
-import banhMiThitNuong from '@/assets/banh-mi-thit-nuong.jpg';
-// We might need to map real dish IDs to images if fetching from API,
-// OR just use placeholder for all if images are URLs.
-// For now, I'll fetch dishes from API.
+// Helper to format currency
+const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    }).format(amount);
+};
 
 interface CartItem {
     dishId: string;
     dishName: string;
     price: number;
     quantity: number;
+    image?: string;
 }
 
 export default function GuestTablePage() {
@@ -37,30 +59,33 @@ export default function GuestTablePage() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [cart, setCart] = useState<CartItem[]>([]);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
+    // Authentication
     const loginMutation = trpc.auth.guestLogin.useMutation({
         onSuccess: (data) => {
             localStorage.setItem('accessToken', data.accessToken);
             setIsLoggedIn(true);
-            toast.success('Welcome! You are connected to the table.');
+            toast.success('Xin chào! Bạn đã kết nối với bàn ăn.');
             refetchDishes();
         },
         onError: (err) => {
-            toast.error('Failed to login to table: ' + err.message);
+            toast.error('Lỗi kết nối bàn: ' + err.message);
         },
     });
 
     const createOrderMutation = trpc.order.create.useMutation({
         onSuccess: (data) => {
-            toast.success('Order placed successfully!');
+            toast.success('Đã gửi gọi món thành công!');
             setCart([]);
+            setIsCartOpen(false);
         },
         onError: (err) => {
-            toast.error('Failed to place order: ' + err.message);
+            toast.error('Gửi gọi món thất bại: ' + err.message);
         },
     });
 
-    // Fetch Dishes
+    // Data Fetching
     const {
         data: dishesData,
         refetch: refetchDishes,
@@ -68,7 +93,7 @@ export default function GuestTablePage() {
     } = trpc.dish.list.useQuery(
         {
             page: 1,
-            limit: 50,
+            limit: 100, // Fetch more for scrolling
         },
         {
             enabled: isLoggedIn,
@@ -81,6 +106,7 @@ export default function GuestTablePage() {
         }
     }, [token, tableId]);
 
+    // Cart Logic
     const addToCart = (dish: any) => {
         setCart((prev) => {
             const existing = prev.find((item) => item.dishId === dish.id);
@@ -98,14 +124,12 @@ export default function GuestTablePage() {
                     dishName: dish.name,
                     price: Number(dish.basePrice),
                     quantity: 1,
+                    // Use the first image if available, else undefined
+                    image: dish.images?.[0],
                 },
             ];
         });
-        toast.success(`Added ${dish.name} to cart`);
-    };
-
-    const removeFromCart = (dishId: string) => {
-        setCart((prev) => prev.filter((item) => item.dishId !== dishId));
+        toast.success(`Đã thêm ${dish.name}`, { duration: 1500 });
     };
 
     const updateQuantity = (dishId: string, delta: number) => {
@@ -130,110 +154,306 @@ export default function GuestTablePage() {
             items: cart.map((item) => ({
                 dishId: item.dishId,
                 quantity: item.quantity,
-                // note: ''
             })),
         });
     };
 
-    const totalPrice = cart.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0,
+    const totalPrice = useMemo(
+        () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+        [cart],
     );
 
-    if (!token)
-        return (
-            <div className="p-10 text-center">
-                Missing Token. Please scan the QR code closely.
-            </div>
-        );
-    if (loginMutation.isPending)
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <Loader2 className="animate-spin" /> Auto-logging in...
-            </div>
-        );
+    const totalItems = useMemo(
+        () => cart.reduce((acc, item) => acc + item.quantity, 0),
+        [cart],
+    );
 
-    // Fallback if generic dishes fetch fails, might show empty or error?
-    // Using simple UI
+    if (!token) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen p-6 text-center bg-gray-50">
+                <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-full">
+                    <UtensilsCrossed className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h2 className="text-xl font-bold text-gray-800 mb-2">
+                        Thiếu thông tin bàn
+                    </h2>
+                    <p className="text-gray-500">
+                        Vui lòng quét lại mã QR được dán trên bàn để bắt đầu gọi
+                        món.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
+    if (loginMutation.isPending && !isLoggedIn) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen bg-background">
+                <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
+                <p className="text-muted-foreground animate-pulse">
+                    Đang kết nối vào bàn...
+                </p>
+            </div>
+        );
+    }
+
     return (
-        <div className="container max-w-lg mx-auto py-6 pb-24 px-4">
-            <h1 className="text-2xl font-bold mb-4">Table {tableId} Menu</h1>
-
-            {isLoading && <p>Loading menu...</p>}
-
-            <div className="grid gap-4">
-                {dishesData?.data.map((dish: any) => (
-                    <Card
-                        key={dish.id}
-                        className="flex flex-row overflow-hidden items-center p-2 gap-3"
-                    >
-                        <div className="w-20 h-20 bg-muted rounded relative overflow-hidden flex-shrink-0">
-                            {/* Image placeholder */}
-                            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-xs">
-                                IMG
-                            </div>
+        <div className="min-h-screen bg-gray-50/50 pb-32">
+            {/* Header */}
+            <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b shadow-xs">
+                <div className="container max-w-md mx-auto px-4 h-14 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <div className="bg-primary/10 p-1.5 rounded-lg">
+                            <ChefHat className="w-5 h-5 text-primary" />
                         </div>
-                        <div className="flex-1">
-                            <h3 className="font-semibold">{dish.name}</h3>
-                            <p className="text-primary font-bold">
-                                {new Intl.NumberFormat('vi-VN', {
-                                    style: 'currency',
-                                    currency: 'VND',
-                                }).format(Number(dish.basePrice))}
-                            </p>
-                        </div>
-                        <Button
-                            size="sm"
-                            onClick={() => addToCart(dish)}
-                            variant="secondary"
-                        >
-                            Add
-                        </Button>
-                    </Card>
-                ))}
-            </div>
-
-            {/* Floating Cart */}
-            {cart.length > 0 && (
-                <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 shadow-lg pb-safe">
-                    <div className="container max-w-lg mx-auto">
-                        <div className="mb-4 max-h-40 overflow-auto">
-                            {cart.map((item) => (
-                                <div
-                                    key={item.dishId}
-                                    className="flex justify-between items-center mb-2 text-sm"
-                                >
-                                    <span>{item.dishName}</span>
-                                    <div className="flex items-center gap-2">
-                                        <button
-                                            onClick={() =>
-                                                updateQuantity(item.dishId, -1)
-                                            }
-                                        >
-                                            <Minus className="w-4 h-4" />
-                                        </button>
-                                        <span>{item.quantity}</span>
-                                        <button
-                                            onClick={() =>
-                                                updateQuantity(item.dishId, 1)
-                                            }
-                                        >
-                                            <Plus className="w-4 h-4" />
-                                        </button>
-                                    </div>
-                                </div>
+                        <span className="font-bold text-lg text-foreground">
+                            BAMIXO
+                        </span>
+                    </div>
+                    {/* Placeholder for table number if available in future */}
+                    <Badge variant="secondary" className="font-mono text-xs">
+                        Bàn {tableId.slice(0, 4)}...
+                    </Badge>
+                </div>
+                {/* Horizontal Category Scroll (Mock for now, can be real later) */}
+                {/* <div className="border-t">
+                    <ScrollArea className="w-full whitespace-nowrap">
+                        <div className="flex w-max space-x-4 p-3">
+                            {['Món Mới', 'Bán Chạy', 'Món Chính', 'Đồ Uống', 'Tráng Miệng'].map((cat) => (
+                                <button key={cat} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                                    {cat}
+                                </button>
                             ))}
                         </div>
-                        <Button
-                            className="w-full"
-                            size="lg"
-                            onClick={handleCheckout}
-                            disabled={createOrderMutation.isPending}
-                        >
-                            {createOrderMutation.isPending
-                                ? 'Placing Order...'
-                                : `Place Order • ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalPrice)}`}
-                        </Button>
+                    </ScrollArea>
+                </div> */}
+            </header>
+
+            <main className="container max-w-md mx-auto p-4 space-y-6">
+                {/* Hero Banner / Promo (Optional) */}
+                <div className="bg-linear-to-r from-primary to-primary/80 rounded-2xl p-6 text-white shadow-lg shadow-primary/20">
+                    <h1 className="text-2xl font-bold mb-1">
+                        Xin chào thực khách!
+                    </h1>
+                    <p className="opacity-90 text-sm">
+                        Chúc bạn có một bữa ăn ngon miệng.
+                    </p>
+                </div>
+
+                {isLoading ? (
+                    <div className="space-y-4">
+                        {[1, 2, 3].map((i) => (
+                            <div
+                                key={i}
+                                className="h-32 bg-gray-100/50 rounded-xl animate-pulse"
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                        {dishesData?.data.map((dish: any) => (
+                            <div
+                                key={dish.id}
+                                className="group bg-white rounded-xl border border-dashed hover:border-solid border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col"
+                            >
+                                {/* Image Section */}
+                                <div className="aspect-4/3 relative bg-gray-100 w-full">
+                                    {dish.images?.[0] ? (
+                                        <Image
+                                            src={dish.images[0]}
+                                            alt={dish.name}
+                                            fill
+                                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    ) : (
+                                        <div className="absolute inset-0 flex items-center justify-center text-gray-300">
+                                            <UtensilsCrossed className="w-10 h-10" />
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Content Section */}
+                                <div className="flex-1 p-3 flex flex-col justify-between gap-2">
+                                    <div>
+                                        <h3 className="font-bold text-gray-800 line-clamp-2 text-sm leading-tight h-10">
+                                            {dish.name}
+                                        </h3>
+                                        <p className="text-xs text-gray-500 mt-1 line-clamp-2 h-8">
+                                            {dish.description ||
+                                                'Món ăn thơm ngon, hấp dẫn...'}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex items-center justify-between pt-2 mt-auto border-t border-gray-50">
+                                        <span className="font-bold text-primary text-sm">
+                                            {formatCurrency(
+                                                Number(dish.basePrice),
+                                            )}
+                                        </span>
+                                        <Button
+                                            size="icon"
+                                            className="h-8 w-8 rounded-full shadow-sm shrink-0"
+                                            onClick={() => addToCart(dish)}
+                                        >
+                                            <Plus className="w-4 h-4" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </main>
+
+            {/* Floating Cart Bar - Only visible when cart has items */}
+            {cart.length > 0 && (
+                <div className="fixed bottom-0 left-0 right-0 p-4 z-50 pointer-events-none">
+                    <div className="container max-w-md mx-auto pointer-events-auto">
+                        <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+                            <SheetTrigger asChild>
+                                <div
+                                    className="bg-primary text-primary-foreground p-4 rounded-2xl shadow-xl shadow-primary/30 flex items-center justify-between cursor-pointer active:scale-95 transition-transform"
+                                    onClick={() => setIsCartOpen(true)}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div className="bg-white/20 w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                                            {totalItems}
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium opacity-90">
+                                                Tổng tiền
+                                            </span>
+                                            <span className="font-bold text-lg leading-none">
+                                                {formatCurrency(totalPrice)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <Button
+                                        variant="secondary"
+                                        size="sm"
+                                        className="font-bold"
+                                    >
+                                        Xem giỏ hàng
+                                    </Button>
+                                </div>
+                            </SheetTrigger>
+                            <SheetContent
+                                side="bottom"
+                                className="rounded-t-3xl max-h-[85vh] flex flex-col p-0"
+                            >
+                                <SheetHeader className="p-6 pb-2 border-b">
+                                    <SheetTitle>Giỏ hàng của bạn</SheetTitle>
+                                </SheetHeader>
+
+                                <ScrollArea className="flex-1 p-6">
+                                    {cart.length === 0 ? (
+                                        <div className="text-center py-10 text-muted-foreground">
+                                            Giỏ hàng đang trống
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-6">
+                                            {cart.map((item) => (
+                                                <div
+                                                    key={item.dishId}
+                                                    className="flex gap-4"
+                                                >
+                                                    {/* Optional: Small Image in Cart */}
+                                                    <div className="w-16 h-16 bg-gray-100 rounded-lg relative overflow-hidden shrink-0">
+                                                        {item.image ? (
+                                                            <Image
+                                                                src={item.image}
+                                                                alt={
+                                                                    item.dishName
+                                                                }
+                                                                fill
+                                                                className="object-cover"
+                                                            />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                                                <UtensilsCrossed className="w-6 h-6" />
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="flex-1 space-y-1">
+                                                        <h4 className="font-medium text-sm">
+                                                            {item.dishName}
+                                                        </h4>
+                                                        <p className="text-sm text-primary font-bold">
+                                                            {formatCurrency(
+                                                                item.price,
+                                                            )}
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-1 h-fit">
+                                                        <button
+                                                            className="w-8 h-8 flex items-center justify-center bg-white rounded-md shadow-sm text-gray-600 active:scale-95 transition-all"
+                                                            onClick={() =>
+                                                                updateQuantity(
+                                                                    item.dishId,
+                                                                    -1,
+                                                                )
+                                                            }
+                                                        >
+                                                            <Minus className="w-4 h-4" />
+                                                        </button>
+                                                        <span className="font-medium text-sm min-w-4 text-center">
+                                                            {item.quantity}
+                                                        </span>
+                                                        <button
+                                                            className="w-8 h-8 flex items-center justify-center bg-white rounded-md shadow-sm text-primary active:scale-95 transition-all"
+                                                            onClick={() =>
+                                                                updateQuantity(
+                                                                    item.dishId,
+                                                                    1,
+                                                                )
+                                                            }
+                                                        >
+                                                            <Plus className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </ScrollArea>
+
+                                <div className="p-6 border-t bg-gray-50/50 space-y-4">
+                                    <div className="flex justify-between items-center text-sm">
+                                        <span className="text-muted-foreground">
+                                            Tạm tính
+                                        </span>
+                                        <span className="font-medium">
+                                            {formatCurrency(totalPrice)}
+                                        </span>
+                                    </div>
+                                    <Separator />
+                                    <div className="flex justify-between items-center text-lg font-bold">
+                                        <span>Tổng cộng</span>
+                                        <span className="text-primary">
+                                            {formatCurrency(totalPrice)}
+                                        </span>
+                                    </div>
+                                    <Button
+                                        className="w-full h-12 text-base shadow-lg shadow-primary/25"
+                                        onClick={handleCheckout}
+                                        disabled={
+                                            createOrderMutation.isPending ||
+                                            cart.length === 0
+                                        }
+                                    >
+                                        {createOrderMutation.isPending ? (
+                                            <>
+                                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                                Đang gửi yêu cầu...
+                                            </>
+                                        ) : (
+                                            'Xác nhận gọi món'
+                                        )}
+                                    </Button>
+                                </div>
+                            </SheetContent>
+                        </Sheet>
                     </div>
                 </div>
             )}

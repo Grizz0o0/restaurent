@@ -3210,6 +3210,7 @@ export const DishScalarFieldEnum = {
   virtualPrice: 'virtualPrice',
   supplierId: 'supplierId',
   images: 'images',
+  isActive: 'isActive',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedById: 'deletedById',
@@ -3240,7 +3241,6 @@ export type DishTranslationScalarFieldEnum = (typeof DishTranslationScalarFieldE
 
 export const DishCategoryScalarFieldEnum = {
   id: 'id',
-  parentCategoryId: 'parentCategoryId',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedById: 'deletedById',

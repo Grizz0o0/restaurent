@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common'
 import { RoleRepo } from './role.repo'
 import { CreateRoleBodyType, UpdateRoleBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError, createPaginationResult } from '@/shared/utils'
+import { isUniqueConstraintPrismaError } from '@/shared/utils'
 
 // Define constants locally if not available globally, or import from constants package
 // Assuming standard role names for protection
@@ -33,9 +33,7 @@ export class RoleService {
   }
 
   async list({ limit, page }: { limit: number; page: number }) {
-    const { data: roles, total: totalItems } = await this.roleRepo.list({ page, limit })
-
-    return createPaginationResult(roles, totalItems, { page, limit })
+    return await this.roleRepo.list({ page, limit })
   }
 
   async findById(id: string) {

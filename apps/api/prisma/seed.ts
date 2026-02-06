@@ -277,9 +277,14 @@ async function main() {
       phone: '0363290475',
       tables: {
         create: [
-          { tableNumber: 'T-01', capacity: 4, qrCode: 'QR-T01' },
-          { tableNumber: 'T-02', capacity: 2, qrCode: 'QR-T02' },
+          ...Array.from({ length: 12 }, (_, i) => ({
+            tableNumber: `T-${(i + 1).toString().padStart(2, '0')}`,
+            capacity: 4,
+            qrCode: `QR-T${(i + 1).toString().padStart(2, '0')}`,
+          })),
           { tableNumber: 'VIP-01', capacity: 10, qrCode: 'QR-VIP01' },
+          { tableNumber: 'VIP-02', capacity: 10, qrCode: 'QR-VIP02' },
+          { tableNumber: 'VIP-03', capacity: 10, qrCode: 'QR-VIP03' },
         ],
       },
     },

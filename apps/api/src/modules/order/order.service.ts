@@ -5,7 +5,7 @@ import { TransactionReason } from 'src/generated/prisma/client'
 
 import { CreateOrderBodyType, GetOrdersQueryType } from '@repo/schema'
 import { DishRepo } from '@/modules/dish/dish.repo'
-import { createPaginationResult } from '@/shared/utils/pagination.util'
+
 import { NotificationService } from '../notification/notification.service'
 
 import { EventEmitter2 } from '@nestjs/event-emitter'
@@ -312,7 +312,6 @@ export class OrderService {
   }
 
   async list(query: GetOrdersQueryType) {
-    const { data, total } = await this.orderRepo.list(query)
-    return createPaginationResult(data, total, query)
+    return await this.orderRepo.list(query)
   }
 }

@@ -28,7 +28,6 @@ export type AggregateDishCategory = {
 
 export type DishCategoryMinAggregateOutputType = {
   id: string | null
-  parentCategoryId: string | null
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -39,7 +38,6 @@ export type DishCategoryMinAggregateOutputType = {
 
 export type DishCategoryMaxAggregateOutputType = {
   id: string | null
-  parentCategoryId: string | null
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -50,7 +48,6 @@ export type DishCategoryMaxAggregateOutputType = {
 
 export type DishCategoryCountAggregateOutputType = {
   id: number
-  parentCategoryId: number
   createdById: number
   updatedById: number
   deletedById: number
@@ -63,7 +60,6 @@ export type DishCategoryCountAggregateOutputType = {
 
 export type DishCategoryMinAggregateInputType = {
   id?: true
-  parentCategoryId?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -74,7 +70,6 @@ export type DishCategoryMinAggregateInputType = {
 
 export type DishCategoryMaxAggregateInputType = {
   id?: true
-  parentCategoryId?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -85,7 +80,6 @@ export type DishCategoryMaxAggregateInputType = {
 
 export type DishCategoryCountAggregateInputType = {
   id?: true
-  parentCategoryId?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -169,7 +163,6 @@ export type DishCategoryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type DishCategoryGroupByOutputType = {
   id: string
-  parentCategoryId: string | null
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -201,7 +194,6 @@ export type DishCategoryWhereInput = {
   OR?: Prisma.DishCategoryWhereInput[]
   NOT?: Prisma.DishCategoryWhereInput | Prisma.DishCategoryWhereInput[]
   id?: Prisma.StringFilter<"DishCategory"> | string
-  parentCategoryId?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   createdById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   updatedById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   deletedById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
@@ -209,8 +201,6 @@ export type DishCategoryWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"DishCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DishCategory"> | Date | string
   dishes?: Prisma.DishListRelationFilter
-  parentCategory?: Prisma.XOR<Prisma.DishCategoryNullableScalarRelationFilter, Prisma.DishCategoryWhereInput> | null
-  childrenCategories?: Prisma.DishCategoryListRelationFilter
   dishCategoryTranslations?: Prisma.DishCategoryTranslationListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -219,7 +209,6 @@ export type DishCategoryWhereInput = {
 
 export type DishCategoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  parentCategoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -227,8 +216,6 @@ export type DishCategoryOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dishes?: Prisma.DishOrderByRelationAggregateInput
-  parentCategory?: Prisma.DishCategoryOrderByWithRelationInput
-  childrenCategories?: Prisma.DishCategoryOrderByRelationAggregateInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationOrderByRelationAggregateInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
@@ -240,7 +227,6 @@ export type DishCategoryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.DishCategoryWhereInput | Prisma.DishCategoryWhereInput[]
   OR?: Prisma.DishCategoryWhereInput[]
   NOT?: Prisma.DishCategoryWhereInput | Prisma.DishCategoryWhereInput[]
-  parentCategoryId?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   createdById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   updatedById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   deletedById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
@@ -248,8 +234,6 @@ export type DishCategoryWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"DishCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DishCategory"> | Date | string
   dishes?: Prisma.DishListRelationFilter
-  parentCategory?: Prisma.XOR<Prisma.DishCategoryNullableScalarRelationFilter, Prisma.DishCategoryWhereInput> | null
-  childrenCategories?: Prisma.DishCategoryListRelationFilter
   dishCategoryTranslations?: Prisma.DishCategoryTranslationListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -258,7 +242,6 @@ export type DishCategoryWhereUniqueInput = Prisma.AtLeast<{
 
 export type DishCategoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  parentCategoryId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -275,7 +258,6 @@ export type DishCategoryScalarWhereWithAggregatesInput = {
   OR?: Prisma.DishCategoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DishCategoryScalarWhereWithAggregatesInput | Prisma.DishCategoryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"DishCategory"> | string
-  parentCategoryId?: Prisma.StringNullableWithAggregatesFilter<"DishCategory"> | string | null
   createdById?: Prisma.StringNullableWithAggregatesFilter<"DishCategory"> | string | null
   updatedById?: Prisma.StringNullableWithAggregatesFilter<"DishCategory"> | string | null
   deletedById?: Prisma.StringNullableWithAggregatesFilter<"DishCategory"> | string | null
@@ -290,8 +272,6 @@ export type DishCategoryCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishCreateNestedManyWithoutCategoriesInput
-  parentCategory?: Prisma.DishCategoryCreateNestedOneWithoutChildrenCategoriesInput
-  childrenCategories?: Prisma.DishCategoryCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCategoryInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedDishCategoriesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedDishCategoriesInput
@@ -300,7 +280,6 @@ export type DishCategoryCreateInput = {
 
 export type DishCategoryUncheckedCreateInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -308,7 +287,6 @@ export type DishCategoryUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishUncheckedCreateNestedManyWithoutCategoriesInput
-  childrenCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCategoryInput
 }
 
@@ -318,8 +296,6 @@ export type DishCategoryUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUpdateManyWithoutCategoriesNestedInput
-  parentCategory?: Prisma.DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCategoryNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedDishCategoriesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedDishCategoriesNestedInput
@@ -328,7 +304,6 @@ export type DishCategoryUpdateInput = {
 
 export type DishCategoryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -336,13 +311,11 @@ export type DishCategoryUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUncheckedUpdateManyWithoutCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type DishCategoryCreateManyInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -360,7 +333,6 @@ export type DishCategoryUpdateManyMutationInput = {
 
 export type DishCategoryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -379,14 +351,8 @@ export type DishCategoryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type DishCategoryNullableScalarRelationFilter = {
-  is?: Prisma.DishCategoryWhereInput | null
-  isNot?: Prisma.DishCategoryWhereInput | null
-}
-
 export type DishCategoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  parentCategoryId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -397,7 +363,6 @@ export type DishCategoryCountOrderByAggregateInput = {
 
 export type DishCategoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  parentCategoryId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -408,7 +373,6 @@ export type DishCategoryMaxOrderByAggregateInput = {
 
 export type DishCategoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  parentCategoryId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -586,64 +550,6 @@ export type DishCategoryUncheckedUpdateManyWithoutDishesNestedInput = {
   deleteMany?: Prisma.DishCategoryScalarWhereInput | Prisma.DishCategoryScalarWhereInput[]
 }
 
-export type DishCategoryCreateNestedOneWithoutChildrenCategoriesInput = {
-  create?: Prisma.XOR<Prisma.DishCategoryCreateWithoutChildrenCategoriesInput, Prisma.DishCategoryUncheckedCreateWithoutChildrenCategoriesInput>
-  connectOrCreate?: Prisma.DishCategoryCreateOrConnectWithoutChildrenCategoriesInput
-  connect?: Prisma.DishCategoryWhereUniqueInput
-}
-
-export type DishCategoryCreateNestedManyWithoutParentCategoryInput = {
-  create?: Prisma.XOR<Prisma.DishCategoryCreateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput> | Prisma.DishCategoryCreateWithoutParentCategoryInput[] | Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput[]
-  connectOrCreate?: Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput | Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput[]
-  createMany?: Prisma.DishCategoryCreateManyParentCategoryInputEnvelope
-  connect?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-}
-
-export type DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput = {
-  create?: Prisma.XOR<Prisma.DishCategoryCreateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput> | Prisma.DishCategoryCreateWithoutParentCategoryInput[] | Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput[]
-  connectOrCreate?: Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput | Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput[]
-  createMany?: Prisma.DishCategoryCreateManyParentCategoryInputEnvelope
-  connect?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-}
-
-export type DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput = {
-  create?: Prisma.XOR<Prisma.DishCategoryCreateWithoutChildrenCategoriesInput, Prisma.DishCategoryUncheckedCreateWithoutChildrenCategoriesInput>
-  connectOrCreate?: Prisma.DishCategoryCreateOrConnectWithoutChildrenCategoriesInput
-  upsert?: Prisma.DishCategoryUpsertWithoutChildrenCategoriesInput
-  disconnect?: Prisma.DishCategoryWhereInput | boolean
-  delete?: Prisma.DishCategoryWhereInput | boolean
-  connect?: Prisma.DishCategoryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DishCategoryUpdateToOneWithWhereWithoutChildrenCategoriesInput, Prisma.DishCategoryUpdateWithoutChildrenCategoriesInput>, Prisma.DishCategoryUncheckedUpdateWithoutChildrenCategoriesInput>
-}
-
-export type DishCategoryUpdateManyWithoutParentCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.DishCategoryCreateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput> | Prisma.DishCategoryCreateWithoutParentCategoryInput[] | Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput[]
-  connectOrCreate?: Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput | Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput[]
-  upsert?: Prisma.DishCategoryUpsertWithWhereUniqueWithoutParentCategoryInput | Prisma.DishCategoryUpsertWithWhereUniqueWithoutParentCategoryInput[]
-  createMany?: Prisma.DishCategoryCreateManyParentCategoryInputEnvelope
-  set?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  disconnect?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  delete?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  connect?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  update?: Prisma.DishCategoryUpdateWithWhereUniqueWithoutParentCategoryInput | Prisma.DishCategoryUpdateWithWhereUniqueWithoutParentCategoryInput[]
-  updateMany?: Prisma.DishCategoryUpdateManyWithWhereWithoutParentCategoryInput | Prisma.DishCategoryUpdateManyWithWhereWithoutParentCategoryInput[]
-  deleteMany?: Prisma.DishCategoryScalarWhereInput | Prisma.DishCategoryScalarWhereInput[]
-}
-
-export type DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.DishCategoryCreateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput> | Prisma.DishCategoryCreateWithoutParentCategoryInput[] | Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput[]
-  connectOrCreate?: Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput | Prisma.DishCategoryCreateOrConnectWithoutParentCategoryInput[]
-  upsert?: Prisma.DishCategoryUpsertWithWhereUniqueWithoutParentCategoryInput | Prisma.DishCategoryUpsertWithWhereUniqueWithoutParentCategoryInput[]
-  createMany?: Prisma.DishCategoryCreateManyParentCategoryInputEnvelope
-  set?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  disconnect?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  delete?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  connect?: Prisma.DishCategoryWhereUniqueInput | Prisma.DishCategoryWhereUniqueInput[]
-  update?: Prisma.DishCategoryUpdateWithWhereUniqueWithoutParentCategoryInput | Prisma.DishCategoryUpdateWithWhereUniqueWithoutParentCategoryInput[]
-  updateMany?: Prisma.DishCategoryUpdateManyWithWhereWithoutParentCategoryInput | Prisma.DishCategoryUpdateManyWithWhereWithoutParentCategoryInput[]
-  deleteMany?: Prisma.DishCategoryScalarWhereInput | Prisma.DishCategoryScalarWhereInput[]
-}
-
 export type DishCategoryCreateNestedOneWithoutDishCategoryTranslationsInput = {
   create?: Prisma.XOR<Prisma.DishCategoryCreateWithoutDishCategoryTranslationsInput, Prisma.DishCategoryUncheckedCreateWithoutDishCategoryTranslationsInput>
   connectOrCreate?: Prisma.DishCategoryCreateOrConnectWithoutDishCategoryTranslationsInput
@@ -664,8 +570,6 @@ export type DishCategoryCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishCreateNestedManyWithoutCategoriesInput
-  parentCategory?: Prisma.DishCategoryCreateNestedOneWithoutChildrenCategoriesInput
-  childrenCategories?: Prisma.DishCategoryCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCategoryInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedDishCategoriesInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedDishCategoriesInput
@@ -673,14 +577,12 @@ export type DishCategoryCreateWithoutCreatedByInput = {
 
 export type DishCategoryUncheckedCreateWithoutCreatedByInput = {
   id?: string
-  parentCategoryId?: string | null
   updatedById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishUncheckedCreateNestedManyWithoutCategoriesInput
-  childrenCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCategoryInput
 }
 
@@ -700,8 +602,6 @@ export type DishCategoryCreateWithoutUpdatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishCreateNestedManyWithoutCategoriesInput
-  parentCategory?: Prisma.DishCategoryCreateNestedOneWithoutChildrenCategoriesInput
-  childrenCategories?: Prisma.DishCategoryCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCategoryInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedDishCategoriesInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedDishCategoriesInput
@@ -709,14 +609,12 @@ export type DishCategoryCreateWithoutUpdatedByInput = {
 
 export type DishCategoryUncheckedCreateWithoutUpdatedByInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishUncheckedCreateNestedManyWithoutCategoriesInput
-  childrenCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCategoryInput
 }
 
@@ -736,8 +634,6 @@ export type DishCategoryCreateWithoutDeletedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishCreateNestedManyWithoutCategoriesInput
-  parentCategory?: Prisma.DishCategoryCreateNestedOneWithoutChildrenCategoriesInput
-  childrenCategories?: Prisma.DishCategoryCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCategoryInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedDishCategoriesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedDishCategoriesInput
@@ -745,14 +641,12 @@ export type DishCategoryCreateWithoutDeletedByInput = {
 
 export type DishCategoryUncheckedCreateWithoutDeletedByInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   updatedById?: string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishUncheckedCreateNestedManyWithoutCategoriesInput
-  childrenCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCategoryInput
 }
 
@@ -787,7 +681,6 @@ export type DishCategoryScalarWhereInput = {
   OR?: Prisma.DishCategoryScalarWhereInput[]
   NOT?: Prisma.DishCategoryScalarWhereInput | Prisma.DishCategoryScalarWhereInput[]
   id?: Prisma.StringFilter<"DishCategory"> | string
-  parentCategoryId?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   createdById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   updatedById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
   deletedById?: Prisma.StringNullableFilter<"DishCategory"> | string | null
@@ -833,8 +726,6 @@ export type DishCategoryCreateWithoutDishesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  parentCategory?: Prisma.DishCategoryCreateNestedOneWithoutChildrenCategoriesInput
-  childrenCategories?: Prisma.DishCategoryCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCategoryInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedDishCategoriesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedDishCategoriesInput
@@ -843,14 +734,12 @@ export type DishCategoryCreateWithoutDishesInput = {
 
 export type DishCategoryUncheckedCreateWithoutDishesInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  childrenCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCategoryInput
 }
 
@@ -875,134 +764,12 @@ export type DishCategoryUpdateManyWithWhereWithoutDishesInput = {
   data: Prisma.XOR<Prisma.DishCategoryUpdateManyMutationInput, Prisma.DishCategoryUncheckedUpdateManyWithoutDishesInput>
 }
 
-export type DishCategoryCreateWithoutChildrenCategoriesInput = {
-  id?: string
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  dishes?: Prisma.DishCreateNestedManyWithoutCategoriesInput
-  parentCategory?: Prisma.DishCategoryCreateNestedOneWithoutChildrenCategoriesInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCategoryInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedDishCategoriesInput
-  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedDishCategoriesInput
-  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedDishCategoriesInput
-}
-
-export type DishCategoryUncheckedCreateWithoutChildrenCategoriesInput = {
-  id?: string
-  parentCategoryId?: string | null
-  createdById?: string | null
-  updatedById?: string | null
-  deletedById?: string | null
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  dishes?: Prisma.DishUncheckedCreateNestedManyWithoutCategoriesInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCategoryInput
-}
-
-export type DishCategoryCreateOrConnectWithoutChildrenCategoriesInput = {
-  where: Prisma.DishCategoryWhereUniqueInput
-  create: Prisma.XOR<Prisma.DishCategoryCreateWithoutChildrenCategoriesInput, Prisma.DishCategoryUncheckedCreateWithoutChildrenCategoriesInput>
-}
-
-export type DishCategoryCreateWithoutParentCategoryInput = {
-  id?: string
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  dishes?: Prisma.DishCreateNestedManyWithoutCategoriesInput
-  childrenCategories?: Prisma.DishCategoryCreateNestedManyWithoutParentCategoryInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCategoryInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedDishCategoriesInput
-  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedDishCategoriesInput
-  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedDishCategoriesInput
-}
-
-export type DishCategoryUncheckedCreateWithoutParentCategoryInput = {
-  id?: string
-  createdById?: string | null
-  updatedById?: string | null
-  deletedById?: string | null
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  dishes?: Prisma.DishUncheckedCreateNestedManyWithoutCategoriesInput
-  childrenCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCategoryInput
-}
-
-export type DishCategoryCreateOrConnectWithoutParentCategoryInput = {
-  where: Prisma.DishCategoryWhereUniqueInput
-  create: Prisma.XOR<Prisma.DishCategoryCreateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput>
-}
-
-export type DishCategoryCreateManyParentCategoryInputEnvelope = {
-  data: Prisma.DishCategoryCreateManyParentCategoryInput | Prisma.DishCategoryCreateManyParentCategoryInput[]
-  skipDuplicates?: boolean
-}
-
-export type DishCategoryUpsertWithoutChildrenCategoriesInput = {
-  update: Prisma.XOR<Prisma.DishCategoryUpdateWithoutChildrenCategoriesInput, Prisma.DishCategoryUncheckedUpdateWithoutChildrenCategoriesInput>
-  create: Prisma.XOR<Prisma.DishCategoryCreateWithoutChildrenCategoriesInput, Prisma.DishCategoryUncheckedCreateWithoutChildrenCategoriesInput>
-  where?: Prisma.DishCategoryWhereInput
-}
-
-export type DishCategoryUpdateToOneWithWhereWithoutChildrenCategoriesInput = {
-  where?: Prisma.DishCategoryWhereInput
-  data: Prisma.XOR<Prisma.DishCategoryUpdateWithoutChildrenCategoriesInput, Prisma.DishCategoryUncheckedUpdateWithoutChildrenCategoriesInput>
-}
-
-export type DishCategoryUpdateWithoutChildrenCategoriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dishes?: Prisma.DishUpdateManyWithoutCategoriesNestedInput
-  parentCategory?: Prisma.DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCategoryNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutCreatedDishCategoriesNestedInput
-  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedDishCategoriesNestedInput
-  deletedBy?: Prisma.UserUpdateOneWithoutDeletedDishCategoriesNestedInput
-}
-
-export type DishCategoryUncheckedUpdateWithoutChildrenCategoriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dishes?: Prisma.DishUncheckedUpdateManyWithoutCategoriesNestedInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCategoryNestedInput
-}
-
-export type DishCategoryUpsertWithWhereUniqueWithoutParentCategoryInput = {
-  where: Prisma.DishCategoryWhereUniqueInput
-  update: Prisma.XOR<Prisma.DishCategoryUpdateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedUpdateWithoutParentCategoryInput>
-  create: Prisma.XOR<Prisma.DishCategoryCreateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedCreateWithoutParentCategoryInput>
-}
-
-export type DishCategoryUpdateWithWhereUniqueWithoutParentCategoryInput = {
-  where: Prisma.DishCategoryWhereUniqueInput
-  data: Prisma.XOR<Prisma.DishCategoryUpdateWithoutParentCategoryInput, Prisma.DishCategoryUncheckedUpdateWithoutParentCategoryInput>
-}
-
-export type DishCategoryUpdateManyWithWhereWithoutParentCategoryInput = {
-  where: Prisma.DishCategoryScalarWhereInput
-  data: Prisma.XOR<Prisma.DishCategoryUpdateManyMutationInput, Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryInput>
-}
-
 export type DishCategoryCreateWithoutDishCategoryTranslationsInput = {
   id?: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishCreateNestedManyWithoutCategoriesInput
-  parentCategory?: Prisma.DishCategoryCreateNestedOneWithoutChildrenCategoriesInput
-  childrenCategories?: Prisma.DishCategoryCreateNestedManyWithoutParentCategoryInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedDishCategoriesInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedDishCategoriesInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedDishCategoriesInput
@@ -1010,7 +777,6 @@ export type DishCategoryCreateWithoutDishCategoryTranslationsInput = {
 
 export type DishCategoryUncheckedCreateWithoutDishCategoryTranslationsInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1018,7 +784,6 @@ export type DishCategoryUncheckedCreateWithoutDishCategoryTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   dishes?: Prisma.DishUncheckedCreateNestedManyWithoutCategoriesInput
-  childrenCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutParentCategoryInput
 }
 
 export type DishCategoryCreateOrConnectWithoutDishCategoryTranslationsInput = {
@@ -1043,8 +808,6 @@ export type DishCategoryUpdateWithoutDishCategoryTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUpdateManyWithoutCategoriesNestedInput
-  parentCategory?: Prisma.DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUpdateManyWithoutParentCategoryNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedDishCategoriesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedDishCategoriesNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedDishCategoriesNestedInput
@@ -1052,7 +815,6 @@ export type DishCategoryUpdateWithoutDishCategoryTranslationsInput = {
 
 export type DishCategoryUncheckedUpdateWithoutDishCategoryTranslationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1060,12 +822,10 @@ export type DishCategoryUncheckedUpdateWithoutDishCategoryTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUncheckedUpdateManyWithoutCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput
 }
 
 export type DishCategoryCreateManyCreatedByInput = {
   id?: string
-  parentCategoryId?: string | null
   updatedById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -1075,7 +835,6 @@ export type DishCategoryCreateManyCreatedByInput = {
 
 export type DishCategoryCreateManyUpdatedByInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -1085,7 +844,6 @@ export type DishCategoryCreateManyUpdatedByInput = {
 
 export type DishCategoryCreateManyDeletedByInput = {
   id?: string
-  parentCategoryId?: string | null
   createdById?: string | null
   updatedById?: string | null
   deletedAt?: Date | string | null
@@ -1099,8 +857,6 @@ export type DishCategoryUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUpdateManyWithoutCategoriesNestedInput
-  parentCategory?: Prisma.DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCategoryNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedDishCategoriesNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedDishCategoriesNestedInput
@@ -1108,20 +864,17 @@ export type DishCategoryUpdateWithoutCreatedByInput = {
 
 export type DishCategoryUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUncheckedUpdateManyWithoutCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type DishCategoryUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1135,8 +888,6 @@ export type DishCategoryUpdateWithoutUpdatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUpdateManyWithoutCategoriesNestedInput
-  parentCategory?: Prisma.DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCategoryNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedDishCategoriesNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedDishCategoriesNestedInput
@@ -1144,20 +895,17 @@ export type DishCategoryUpdateWithoutUpdatedByInput = {
 
 export type DishCategoryUncheckedUpdateWithoutUpdatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUncheckedUpdateManyWithoutCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type DishCategoryUncheckedUpdateManyWithoutUpdatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1171,8 +919,6 @@ export type DishCategoryUpdateWithoutDeletedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUpdateManyWithoutCategoriesNestedInput
-  parentCategory?: Prisma.DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCategoryNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedDishCategoriesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedDishCategoriesNestedInput
@@ -1180,20 +926,17 @@ export type DishCategoryUpdateWithoutDeletedByInput = {
 
 export type DishCategoryUncheckedUpdateWithoutDeletedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dishes?: Prisma.DishUncheckedUpdateManyWithoutCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type DishCategoryUncheckedUpdateManyWithoutDeletedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1206,8 +949,6 @@ export type DishCategoryUpdateWithoutDishesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  parentCategory?: Prisma.DishCategoryUpdateOneWithoutChildrenCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCategoryNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedDishCategoriesNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedDishCategoriesNestedInput
@@ -1216,65 +957,16 @@ export type DishCategoryUpdateWithoutDishesInput = {
 
 export type DishCategoryUncheckedUpdateWithoutDishesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  childrenCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput
   dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type DishCategoryUncheckedUpdateManyWithoutDishesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  parentCategoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type DishCategoryCreateManyParentCategoryInput = {
-  id?: string
-  createdById?: string | null
-  updatedById?: string | null
-  deletedById?: string | null
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type DishCategoryUpdateWithoutParentCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dishes?: Prisma.DishUpdateManyWithoutCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUpdateManyWithoutParentCategoryNestedInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCategoryNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutCreatedDishCategoriesNestedInput
-  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedDishCategoriesNestedInput
-  deletedBy?: Prisma.UserUpdateOneWithoutDeletedDishCategoriesNestedInput
-}
-
-export type DishCategoryUncheckedUpdateWithoutParentCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dishes?: Prisma.DishUncheckedUpdateManyWithoutCategoriesNestedInput
-  childrenCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutParentCategoryNestedInput
-  dishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCategoryNestedInput
-}
-
-export type DishCategoryUncheckedUpdateManyWithoutParentCategoryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1291,13 +983,11 @@ export type DishCategoryUncheckedUpdateManyWithoutParentCategoryInput = {
 
 export type DishCategoryCountOutputType = {
   dishes: number
-  childrenCategories: number
   dishCategoryTranslations: number
 }
 
 export type DishCategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   dishes?: boolean | DishCategoryCountOutputTypeCountDishesArgs
-  childrenCategories?: boolean | DishCategoryCountOutputTypeCountChildrenCategoriesArgs
   dishCategoryTranslations?: boolean | DishCategoryCountOutputTypeCountDishCategoryTranslationsArgs
 }
 
@@ -1321,13 +1011,6 @@ export type DishCategoryCountOutputTypeCountDishesArgs<ExtArgs extends runtime.T
 /**
  * DishCategoryCountOutputType without action
  */
-export type DishCategoryCountOutputTypeCountChildrenCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DishCategoryWhereInput
-}
-
-/**
- * DishCategoryCountOutputType without action
- */
 export type DishCategoryCountOutputTypeCountDishCategoryTranslationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DishCategoryTranslationWhereInput
 }
@@ -1335,7 +1018,6 @@ export type DishCategoryCountOutputTypeCountDishCategoryTranslationsArgs<ExtArgs
 
 export type DishCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  parentCategoryId?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -1343,8 +1025,6 @@ export type DishCategorySelect<ExtArgs extends runtime.Types.Extensions.Internal
   createdAt?: boolean
   updatedAt?: boolean
   dishes?: boolean | Prisma.DishCategory$dishesArgs<ExtArgs>
-  parentCategory?: boolean | Prisma.DishCategory$parentCategoryArgs<ExtArgs>
-  childrenCategories?: boolean | Prisma.DishCategory$childrenCategoriesArgs<ExtArgs>
   dishCategoryTranslations?: boolean | Prisma.DishCategory$dishCategoryTranslationsArgs<ExtArgs>
   createdBy?: boolean | Prisma.DishCategory$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.DishCategory$updatedByArgs<ExtArgs>
@@ -1354,14 +1034,12 @@ export type DishCategorySelect<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type DishCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  parentCategoryId?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  parentCategory?: boolean | Prisma.DishCategory$parentCategoryArgs<ExtArgs>
   createdBy?: boolean | Prisma.DishCategory$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.DishCategory$updatedByArgs<ExtArgs>
   deletedBy?: boolean | Prisma.DishCategory$deletedByArgs<ExtArgs>
@@ -1369,14 +1047,12 @@ export type DishCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 
 export type DishCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  parentCategoryId?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  parentCategory?: boolean | Prisma.DishCategory$parentCategoryArgs<ExtArgs>
   createdBy?: boolean | Prisma.DishCategory$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.DishCategory$updatedByArgs<ExtArgs>
   deletedBy?: boolean | Prisma.DishCategory$deletedByArgs<ExtArgs>
@@ -1384,7 +1060,6 @@ export type DishCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 
 export type DishCategorySelectScalar = {
   id?: boolean
-  parentCategoryId?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -1393,11 +1068,9 @@ export type DishCategorySelectScalar = {
   updatedAt?: boolean
 }
 
-export type DishCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "parentCategoryId" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["dishCategory"]>
+export type DishCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["dishCategory"]>
 export type DishCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   dishes?: boolean | Prisma.DishCategory$dishesArgs<ExtArgs>
-  parentCategory?: boolean | Prisma.DishCategory$parentCategoryArgs<ExtArgs>
-  childrenCategories?: boolean | Prisma.DishCategory$childrenCategoriesArgs<ExtArgs>
   dishCategoryTranslations?: boolean | Prisma.DishCategory$dishCategoryTranslationsArgs<ExtArgs>
   createdBy?: boolean | Prisma.DishCategory$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.DishCategory$updatedByArgs<ExtArgs>
@@ -1405,13 +1078,11 @@ export type DishCategoryInclude<ExtArgs extends runtime.Types.Extensions.Interna
   _count?: boolean | Prisma.DishCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DishCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  parentCategory?: boolean | Prisma.DishCategory$parentCategoryArgs<ExtArgs>
   createdBy?: boolean | Prisma.DishCategory$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.DishCategory$updatedByArgs<ExtArgs>
   deletedBy?: boolean | Prisma.DishCategory$deletedByArgs<ExtArgs>
 }
 export type DishCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  parentCategory?: boolean | Prisma.DishCategory$parentCategoryArgs<ExtArgs>
   createdBy?: boolean | Prisma.DishCategory$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.DishCategory$updatedByArgs<ExtArgs>
   deletedBy?: boolean | Prisma.DishCategory$deletedByArgs<ExtArgs>
@@ -1421,8 +1092,6 @@ export type $DishCategoryPayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "DishCategory"
   objects: {
     dishes: Prisma.$DishPayload<ExtArgs>[]
-    parentCategory: Prisma.$DishCategoryPayload<ExtArgs> | null
-    childrenCategories: Prisma.$DishCategoryPayload<ExtArgs>[]
     dishCategoryTranslations: Prisma.$DishCategoryTranslationPayload<ExtArgs>[]
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
@@ -1430,7 +1099,6 @@ export type $DishCategoryPayload<ExtArgs extends runtime.Types.Extensions.Intern
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    parentCategoryId: string | null
     createdById: string | null
     updatedById: string | null
     deletedById: string | null
@@ -1832,8 +1500,6 @@ readonly fields: DishCategoryFieldRefs;
 export interface Prisma__DishCategoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   dishes<T extends Prisma.DishCategory$dishesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DishCategory$dishesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DishPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  parentCategory<T extends Prisma.DishCategory$parentCategoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DishCategory$parentCategoryArgs<ExtArgs>>): Prisma.Prisma__DishCategoryClient<runtime.Types.Result.GetResult<Prisma.$DishCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  childrenCategories<T extends Prisma.DishCategory$childrenCategoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DishCategory$childrenCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DishCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dishCategoryTranslations<T extends Prisma.DishCategory$dishCategoryTranslationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DishCategory$dishCategoryTranslationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DishCategoryTranslationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdBy<T extends Prisma.DishCategory$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DishCategory$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.DishCategory$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DishCategory$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1868,7 +1534,6 @@ export interface Prisma__DishCategoryClient<T, Null = never, ExtArgs extends run
  */
 export interface DishCategoryFieldRefs {
   readonly id: Prisma.FieldRef<"DishCategory", 'String'>
-  readonly parentCategoryId: Prisma.FieldRef<"DishCategory", 'String'>
   readonly createdById: Prisma.FieldRef<"DishCategory", 'String'>
   readonly updatedById: Prisma.FieldRef<"DishCategory", 'String'>
   readonly deletedById: Prisma.FieldRef<"DishCategory", 'String'>
@@ -2292,49 +1957,6 @@ export type DishCategory$dishesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.DishScalarFieldEnum | Prisma.DishScalarFieldEnum[]
-}
-
-/**
- * DishCategory.parentCategory
- */
-export type DishCategory$parentCategoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DishCategory
-   */
-  select?: Prisma.DishCategorySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DishCategory
-   */
-  omit?: Prisma.DishCategoryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DishCategoryInclude<ExtArgs> | null
-  where?: Prisma.DishCategoryWhereInput
-}
-
-/**
- * DishCategory.childrenCategories
- */
-export type DishCategory$childrenCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DishCategory
-   */
-  select?: Prisma.DishCategorySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DishCategory
-   */
-  omit?: Prisma.DishCategoryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DishCategoryInclude<ExtArgs> | null
-  where?: Prisma.DishCategoryWhereInput
-  orderBy?: Prisma.DishCategoryOrderByWithRelationInput | Prisma.DishCategoryOrderByWithRelationInput[]
-  cursor?: Prisma.DishCategoryWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DishCategoryScalarFieldEnum | Prisma.DishCategoryScalarFieldEnum[]
 }
 
 /**

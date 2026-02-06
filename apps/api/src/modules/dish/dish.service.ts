@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
 import { DishRepo } from './dish.repo'
 import { CreateDishBodyType, UpdateDishBodyType, GetDishesQueryType } from '@repo/schema'
-import { createPaginationResult } from '@/shared/utils/pagination.util'
+
 import { PrismaService } from '@/shared/prisma'
 import { generateSkuCombinations } from './dish.util'
 
@@ -81,7 +81,7 @@ export class DishService {
   }
 
   async list(query: GetDishesQueryType) {
-    const { total, data: dishes } = await this.dishRepo.list(query)
+    const { pagination, data: dishes } = await this.dishRepo.list(query)
     const transformedDishes = dishes.map((dish) => {
       const translation = dish.dishTranslations?.[0]
       return {
@@ -91,7 +91,7 @@ export class DishService {
       }
     })
 
-    return createPaginationResult(transformedDishes, total, query)
+    return { data: transformedDishes, pagination }
   }
 
   async delete(id: string, deletedById: string) {

@@ -43,6 +43,7 @@ export type DishMinAggregateOutputType = {
   basePrice: runtime.Decimal | null
   virtualPrice: runtime.Decimal | null
   supplierId: string | null
+  isActive: boolean | null
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -56,6 +57,7 @@ export type DishMaxAggregateOutputType = {
   basePrice: runtime.Decimal | null
   virtualPrice: runtime.Decimal | null
   supplierId: string | null
+  isActive: boolean | null
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -70,6 +72,7 @@ export type DishCountAggregateOutputType = {
   virtualPrice: number
   supplierId: number
   images: number
+  isActive: number
   createdById: number
   updatedById: number
   deletedById: number
@@ -95,6 +98,7 @@ export type DishMinAggregateInputType = {
   basePrice?: true
   virtualPrice?: true
   supplierId?: true
+  isActive?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -108,6 +112,7 @@ export type DishMaxAggregateInputType = {
   basePrice?: true
   virtualPrice?: true
   supplierId?: true
+  isActive?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -122,6 +127,7 @@ export type DishCountAggregateInputType = {
   virtualPrice?: true
   supplierId?: true
   images?: true
+  isActive?: true
   createdById?: true
   updatedById?: true
   deletedById?: true
@@ -223,6 +229,7 @@ export type DishGroupByOutputType = {
   virtualPrice: runtime.Decimal
   supplierId: string
   images: string[]
+  isActive: boolean
   createdById: string | null
   updatedById: string | null
   deletedById: string | null
@@ -260,6 +267,7 @@ export type DishWhereInput = {
   virtualPrice?: Prisma.DecimalFilter<"Dish"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFilter<"Dish"> | string
   images?: Prisma.StringNullableListFilter<"Dish">
+  isActive?: Prisma.BoolFilter<"Dish"> | boolean
   createdById?: Prisma.StringNullableFilter<"Dish"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Dish"> | string | null
   deletedById?: Prisma.StringNullableFilter<"Dish"> | string | null
@@ -286,6 +294,7 @@ export type DishOrderByWithRelationInput = {
   virtualPrice?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -315,6 +324,7 @@ export type DishWhereUniqueInput = Prisma.AtLeast<{
   virtualPrice?: Prisma.DecimalFilter<"Dish"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFilter<"Dish"> | string
   images?: Prisma.StringNullableListFilter<"Dish">
+  isActive?: Prisma.BoolFilter<"Dish"> | boolean
   createdById?: Prisma.StringNullableFilter<"Dish"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Dish"> | string | null
   deletedById?: Prisma.StringNullableFilter<"Dish"> | string | null
@@ -341,6 +351,7 @@ export type DishOrderByWithAggregationInput = {
   virtualPrice?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -363,6 +374,7 @@ export type DishScalarWhereWithAggregatesInput = {
   virtualPrice?: Prisma.DecimalWithAggregatesFilter<"Dish"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringWithAggregatesFilter<"Dish"> | string
   images?: Prisma.StringNullableListFilter<"Dish">
+  isActive?: Prisma.BoolWithAggregatesFilter<"Dish"> | boolean
   createdById?: Prisma.StringNullableWithAggregatesFilter<"Dish"> | string | null
   updatedById?: Prisma.StringNullableWithAggregatesFilter<"Dish"> | string | null
   deletedById?: Prisma.StringNullableWithAggregatesFilter<"Dish"> | string | null
@@ -376,6 +388,7 @@ export type DishCreateInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -399,6 +412,7 @@ export type DishUncheckedCreateInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -420,6 +434,7 @@ export type DishUpdateInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -443,6 +458,7 @@ export type DishUncheckedUpdateInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -465,6 +481,7 @@ export type DishCreateManyInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -478,6 +495,7 @@ export type DishUpdateManyMutationInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -489,6 +507,7 @@ export type DishUncheckedUpdateManyInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -526,6 +545,7 @@ export type DishCountOrderByAggregateInput = {
   virtualPrice?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -544,6 +564,7 @@ export type DishMaxOrderByAggregateInput = {
   basePrice?: Prisma.SortOrder
   virtualPrice?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -557,6 +578,7 @@ export type DishMinOrderByAggregateInput = {
   basePrice?: Prisma.SortOrder
   virtualPrice?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   deletedById?: Prisma.SortOrder
@@ -903,6 +925,7 @@ export type DishCreateWithoutCreatedByInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -925,6 +948,7 @@ export type DishUncheckedCreateWithoutCreatedByInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   updatedById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -955,6 +979,7 @@ export type DishCreateWithoutUpdatedByInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -977,6 +1002,7 @@ export type DishUncheckedCreateWithoutUpdatedByInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -1007,6 +1033,7 @@ export type DishCreateWithoutDeletedByInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1029,6 +1056,7 @@ export type DishUncheckedCreateWithoutDeletedByInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedAt?: Date | string | null
@@ -1079,6 +1107,7 @@ export type DishScalarWhereInput = {
   virtualPrice?: Prisma.DecimalFilter<"Dish"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFilter<"Dish"> | string
   images?: Prisma.StringNullableListFilter<"Dish">
+  isActive?: Prisma.BoolFilter<"Dish"> | boolean
   createdById?: Prisma.StringNullableFilter<"Dish"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Dish"> | string | null
   deletedById?: Prisma.StringNullableFilter<"Dish"> | string | null
@@ -1124,6 +1153,7 @@ export type DishCreateWithoutInteractionsInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1146,6 +1176,7 @@ export type DishUncheckedCreateWithoutInteractionsInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1182,6 +1213,7 @@ export type DishUpdateWithoutInteractionsInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1204,6 +1236,7 @@ export type DishUncheckedUpdateWithoutInteractionsInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1224,6 +1257,7 @@ export type DishCreateWithoutDishTranslationsInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1246,6 +1280,7 @@ export type DishUncheckedCreateWithoutDishTranslationsInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1282,6 +1317,7 @@ export type DishUpdateWithoutDishTranslationsInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1304,6 +1340,7 @@ export type DishUncheckedUpdateWithoutDishTranslationsInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1324,6 +1361,7 @@ export type DishCreateWithoutCategoriesInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1346,6 +1384,7 @@ export type DishUncheckedCreateWithoutCategoriesInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1387,6 +1426,7 @@ export type DishCreateWithoutVariantsInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1409,6 +1449,7 @@ export type DishUncheckedCreateWithoutVariantsInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1445,6 +1486,7 @@ export type DishUpdateWithoutVariantsInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1467,6 +1509,7 @@ export type DishUncheckedUpdateWithoutVariantsInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1487,6 +1530,7 @@ export type DishCreateWithoutSkusInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1509,6 +1553,7 @@ export type DishUncheckedCreateWithoutSkusInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1545,6 +1590,7 @@ export type DishUpdateWithoutSkusInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1567,6 +1613,7 @@ export type DishUncheckedUpdateWithoutSkusInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1587,6 +1634,7 @@ export type DishCreateWithoutSupplierInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1608,6 +1656,7 @@ export type DishUncheckedCreateWithoutSupplierInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1655,6 +1704,7 @@ export type DishCreateWithoutReviewsInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1677,6 +1727,7 @@ export type DishUncheckedCreateWithoutReviewsInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1713,6 +1764,7 @@ export type DishUpdateWithoutReviewsInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1735,6 +1787,7 @@ export type DishUncheckedUpdateWithoutReviewsInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1755,6 +1808,7 @@ export type DishCreateWithoutInventoriesInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1777,6 +1831,7 @@ export type DishUncheckedCreateWithoutInventoriesInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1813,6 +1868,7 @@ export type DishUpdateWithoutInventoriesInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1835,6 +1891,7 @@ export type DishUncheckedUpdateWithoutInventoriesInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1855,6 +1912,7 @@ export type DishCreateWithoutRecommendationsInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1877,6 +1935,7 @@ export type DishUncheckedCreateWithoutRecommendationsInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -1913,6 +1972,7 @@ export type DishUpdateWithoutRecommendationsInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1935,6 +1995,7 @@ export type DishUncheckedUpdateWithoutRecommendationsInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1956,6 +2017,7 @@ export type DishCreateManyCreatedByInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   updatedById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -1969,6 +2031,7 @@ export type DishCreateManyUpdatedByInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   deletedById?: string | null
   deletedAt?: Date | string | null
@@ -1982,6 +2045,7 @@ export type DishCreateManyDeletedByInput = {
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId: string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedAt?: Date | string | null
@@ -1994,6 +2058,7 @@ export type DishUpdateWithoutCreatedByInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2016,6 +2081,7 @@ export type DishUncheckedUpdateWithoutCreatedByInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2037,6 +2103,7 @@ export type DishUncheckedUpdateManyWithoutCreatedByInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2049,6 +2116,7 @@ export type DishUpdateWithoutUpdatedByInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2071,6 +2139,7 @@ export type DishUncheckedUpdateWithoutUpdatedByInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2092,6 +2161,7 @@ export type DishUncheckedUpdateManyWithoutUpdatedByInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2104,6 +2174,7 @@ export type DishUpdateWithoutDeletedByInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2126,6 +2197,7 @@ export type DishUncheckedUpdateWithoutDeletedByInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2147,6 +2219,7 @@ export type DishUncheckedUpdateManyWithoutDeletedByInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2159,6 +2232,7 @@ export type DishUpdateWithoutCategoriesInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2181,6 +2255,7 @@ export type DishUncheckedUpdateWithoutCategoriesInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2202,6 +2277,7 @@ export type DishUncheckedUpdateManyWithoutCategoriesInput = {
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierId?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2215,6 +2291,7 @@ export type DishCreateManySupplierInput = {
   basePrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishCreateimagesInput | string[]
+  isActive?: boolean
   createdById?: string | null
   updatedById?: string | null
   deletedById?: string | null
@@ -2228,6 +2305,7 @@ export type DishUpdateWithoutSupplierInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2249,6 +2327,7 @@ export type DishUncheckedUpdateWithoutSupplierInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2270,6 +2349,7 @@ export type DishUncheckedUpdateManyWithoutSupplierInput = {
   basePrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   virtualPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.DishUpdateimagesInput | string[]
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2378,6 +2458,7 @@ export type DishSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   virtualPrice?: boolean
   supplierId?: boolean
   images?: boolean
+  isActive?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -2405,6 +2486,7 @@ export type DishSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   virtualPrice?: boolean
   supplierId?: boolean
   images?: boolean
+  isActive?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -2423,6 +2505,7 @@ export type DishSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   virtualPrice?: boolean
   supplierId?: boolean
   images?: boolean
+  isActive?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -2441,6 +2524,7 @@ export type DishSelectScalar = {
   virtualPrice?: boolean
   supplierId?: boolean
   images?: boolean
+  isActive?: boolean
   createdById?: boolean
   updatedById?: boolean
   deletedById?: boolean
@@ -2449,7 +2533,7 @@ export type DishSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DishOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "basePrice" | "virtualPrice" | "supplierId" | "images" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["dish"]>
+export type DishOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "basePrice" | "virtualPrice" | "supplierId" | "images" | "isActive" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["dish"]>
 export type DishInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
   categories?: boolean | Prisma.Dish$categoriesArgs<ExtArgs>
@@ -2500,6 +2584,7 @@ export type $DishPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     virtualPrice: runtime.Decimal
     supplierId: string
     images: string[]
+    isActive: boolean
     createdById: string | null
     updatedById: string | null
     deletedById: string | null
@@ -2946,6 +3031,7 @@ export interface DishFieldRefs {
   readonly virtualPrice: Prisma.FieldRef<"Dish", 'Decimal'>
   readonly supplierId: Prisma.FieldRef<"Dish", 'String'>
   readonly images: Prisma.FieldRef<"Dish", 'String[]'>
+  readonly isActive: Prisma.FieldRef<"Dish", 'Boolean'>
   readonly createdById: Prisma.FieldRef<"Dish", 'String'>
   readonly updatedById: Prisma.FieldRef<"Dish", 'String'>
   readonly deletedById: Prisma.FieldRef<"Dish", 'String'>

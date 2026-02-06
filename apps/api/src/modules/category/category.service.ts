@@ -5,37 +5,44 @@ import {
   UpdateCategoryBodyType,
   GetCategoriesQueryType,
 } from '@repo/schema'
-import { createPaginationResult } from '@/shared/utils/pagination.util'
 
 @Injectable()
 export class CategoryService {
   constructor(private readonly categoryRepo: CategoryRepo) {}
 
+  private transform(category: any) {
+    if (!category) return null
+    const translation =
+      category.dishCategoryTranslations?.find((t: any) => t.languageId === 'vi') ||
+      category.dishCategoryTranslations?.[0]
+    return {
+      ...category,
+      name: translation?.name ?? '',
+      description: translation?.description ?? '',
+    }
+  }
+
   async create(params: CreateCategoryBodyType & { createdById: string }) {
-    return await this.categoryRepo.create(params)
+    const category = await this.categoryRepo.create(params)
+    return this.transform(category)
   }
 
   async update(params: { id: string; data: UpdateCategoryBodyType; updatedById: string }) {
-    return await this.categoryRepo.update(params)
+    const category = await this.categoryRepo.update(params)
+    return this.transform(category)
   }
 
   async findById(id: string) {
-    return await this.categoryRepo.findById(id)
+    const category = await this.categoryRepo.findById(id)
+    return this.transform(category)
   }
 
   async list(query: GetCategoriesQueryType) {
-    const { total, data: categories } = await this.categoryRepo.list(query)
+    const { pagination, data: categories } = await this.categoryRepo.list(query)
 
-    const transformedCategories = categories.map((category) => {
-      const translation = category.dishCategoryTranslations?.[0]
-      return {
-        ...category,
-        name: translation?.name ?? '',
-        description: translation?.description ?? '',
-      }
-    })
+    const transformedCategories = categories.map((category) => this.transform(category))
 
-    return createPaginationResult(transformedCategories, total, query)
+    return { data: transformedCategories, pagination }
   }
 
   async delete(id: string, deletedById: string) {

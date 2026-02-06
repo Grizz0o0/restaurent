@@ -1,7 +1,12 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common'
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  BadRequestException,
+} from '@nestjs/common'
 import { UserRepo } from './user.repo'
 import { CreateUserBodyType, UpdateUserBodyType } from '@repo/schema'
-import { isUniqueConstraintPrismaError, createPaginationResult } from '@/shared/utils'
+import { isUniqueConstraintPrismaError } from '@/shared/utils'
 import { HashingService } from '@/shared/services/hashing.service'
 
 @Injectable()
@@ -22,14 +27,14 @@ export class UserService {
     roleId?: string
     status?: string
   }) {
-    const { data: users, total: totalItems } = await this.userRepo.list({
+    const { data: users, pagination } = await this.userRepo.list({
       page,
       limit,
       roleId,
       status,
     })
 
-    return createPaginationResult(users, totalItems, { page, limit })
+    return { data: users, pagination }
   }
 
   async findById(id: string) {
@@ -65,6 +70,13 @@ export class UserService {
     data: UpdateUserBodyType
     updatedById: string
   }) {
+    // Prevent self-update of role or status
+    if (id === updatedById) {
+      if (data.roleId || data.status) {
+        throw new BadRequestException('You cannot update your own role or status')
+      }
+    }
+
     try {
       return await this.userRepo.update({ id, data, updatedById })
     } catch (error) {
@@ -76,6 +88,9 @@ export class UserService {
   }
 
   async delete({ id, deletedById }: { id: string; deletedById: string }) {
+    if (id === deletedById) {
+      throw new BadRequestException('You cannot delete your own account')
+    }
     await this.userRepo.delete({ id, deletedById })
     return { message: 'Delete successfully' }
   }
