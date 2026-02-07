@@ -11,6 +11,9 @@ import {
     Truck,
     ShoppingCart,
     Users,
+    Grid,
+    Ticket,
+    Package,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -23,24 +26,39 @@ const sidebarItems = [
         icon: LayoutDashboard,
     },
     {
-        title: 'Danh mục',
-        href: '/admin/categories',
-        icon: FolderTree,
-    },
-    {
         title: 'Món ăn',
         href: '/admin/dishes',
         icon: UtensilsCrossed,
     },
     {
-        title: 'Nhà cung cấp',
-        href: '/admin/suppliers',
-        icon: Truck,
+        title: 'Danh mục',
+        href: '/admin/categories',
+        icon: FolderTree,
+    },
+    {
+        title: 'Bàn ăn',
+        href: '/admin/tables',
+        icon: Grid,
     },
     {
         title: 'Đơn hàng',
         href: '/admin/orders',
         icon: ShoppingCart,
+    },
+    {
+        title: 'Khuyến mãi',
+        href: '/admin/promotions',
+        icon: Ticket,
+    },
+    {
+        title: 'Kho hàng',
+        href: '/admin/inventory',
+        icon: Package,
+    },
+    {
+        title: 'Nhà cung cấp',
+        href: '/admin/suppliers',
+        icon: Truck,
     },
     {
         title: 'Người dùng',
