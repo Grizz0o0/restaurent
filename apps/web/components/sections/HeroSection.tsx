@@ -10,7 +10,7 @@ const HeroSection = () => {
             className="relative min-h-screen pt-20 overflow-hidden"
         >
             {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-warm" />
+            <div className="absolute inset-0 bg-gradient-warm dark:bg-none dark:bg-background" />
 
             {/* Decorative elements */}
             <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />

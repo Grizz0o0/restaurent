@@ -6,7 +6,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-foreground text-background py-12">
+        <footer className="bg-foreground text-background py-12 dark:bg-background dark:text-foreground border-t dark:border-border">
             <div className="container mx-auto px-4">
                 <div className="grid md:grid-cols-4 gap-8 mb-8">
                     {/* Brand */}
@@ -27,7 +27,7 @@ const Footer = () => {
                                 </span>
                             </div>
                         </div>
-                        <p className="text-background/70 text-sm leading-relaxed">
+                        <p className="text-background/70 text-sm leading-relaxed dark:text-muted-foreground">
                             Hương vị truyền thống Bánh Mì & Xôi Việt Nam, nâng
                             tầm phong cách hiện đại.
                         </p>
@@ -56,11 +56,11 @@ const Footer = () => {
                     {/* Quick Links */}
                     <div>
                         <h4 className="font-semibold mb-4">Liên kết nhanh</h4>
-                        <ul className="space-y-2 text-background/70 text-sm">
+                        <ul className="space-y-2 text-background/70 text-sm dark:text-muted-foreground">
                             <li>
                                 <a
                                     href="/"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Trang chủ
                                 </a>
@@ -68,7 +68,7 @@ const Footer = () => {
                             <li>
                                 <a
                                     href="/menu"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Thực đơn
                                 </a>
@@ -76,7 +76,7 @@ const Footer = () => {
                             <li>
                                 <a
                                     href="/about"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Về chúng tôi
                                 </a>
@@ -84,7 +84,7 @@ const Footer = () => {
                             <li>
                                 <a
                                     href="/contact"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Liên hệ
                                 </a>
@@ -95,11 +95,11 @@ const Footer = () => {
                     {/* Services */}
                     <div>
                         <h4 className="font-semibold mb-4">Dịch vụ</h4>
-                        <ul className="space-y-2 text-background/70 text-sm">
+                        <ul className="space-y-2 text-background/70 text-sm dark:text-muted-foreground">
                             <li>
                                 <a
                                     href="/menu"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Đặt hàng online
                                 </a>
@@ -107,7 +107,7 @@ const Footer = () => {
                             <li>
                                 <a
                                     href="/reservation"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Đặt bàn
                                 </a>
@@ -115,7 +115,7 @@ const Footer = () => {
                             <li>
                                 <a
                                     href="/contact"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Tiệc & sự kiện
                                 </a>
@@ -123,7 +123,7 @@ const Footer = () => {
                             <li>
                                 <a
                                     href="/contact"
-                                    className="hover:text-background transition-colors"
+                                    className="hover:text-background transition-colors dark:hover:text-foreground"
                                 >
                                     Nhượng quyền
                                 </a>
@@ -134,7 +134,7 @@ const Footer = () => {
                     {/* Contact */}
                     <div>
                         <h4 className="font-semibold mb-4">Liên hệ</h4>
-                        <ul className="space-y-2 text-background/70 text-sm">
+                        <ul className="space-y-2 text-background/70 text-sm dark:text-muted-foreground">
                             <li>
                                 Kiến Hưng, Hà Đông, Hà Nội (Chung cư Mipec City
                                 View)
@@ -147,7 +147,7 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom */}
-                <div className="border-t border-background/10 pt-8 text-center text-background/50 text-sm">
+                <div className="border-t border-background/10 pt-8 text-center text-background/50 text-sm dark:border-border dark:text-muted-foreground">
                     <p>© {currentYear} BAMIXO. Tất cả quyền được bảo lưu.</p>
                 </div>
             </div>

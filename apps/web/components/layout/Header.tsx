@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/hooks/domain/use-auth';
 import { usePermission } from '@/hooks/use-permission';
 import { UserNav } from './user-nav';
+import { NotificationBell } from './notification-bell';
 
 const Header = () => {
     const { isAuthenticated, user, logout, isLoading } = useAuth();
@@ -94,6 +95,10 @@ const Header = () => {
                     </nav>
                     {/* Actions */}
                     <div className="flex items-center gap-3">
+                        <div className="hidden sm:flex items-center gap-1">
+                            <ModeToggle />
+                            <NotificationBell />
+                        </div>
                         <div className="hidden sm:block">
                             <CartButton />
                         </div>

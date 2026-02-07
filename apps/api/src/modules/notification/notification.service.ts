@@ -159,4 +159,52 @@ export class NotificationService implements OnModuleInit {
       )
     }
   }
+
+  async getNotifications(userId: string) {
+    const notifications = await this.prisma.notification.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      take: 20, // Limit to 20 recent notifications
+    })
+
+    return notifications.map((n) => ({
+      id: n.id,
+      title: this.getTitleFromType(n.type),
+      content: n.content,
+      type: n.type,
+      isRead: !!n.readAt,
+      createdAt: n.createdAt,
+      data: undefined,
+    }))
+  }
+
+  private getTitleFromType(type: string): string {
+    switch (type) {
+      case 'ORDER_UPDATE':
+        return 'Cập nhật đơn hàng'
+      case 'PROMOTION':
+        return 'Khuyến mãi'
+      case 'LOW_STOCK':
+        return 'Cảnh báo tồn kho'
+      case 'RECOMMENDATION':
+        return 'Gợi ý món ăn'
+      default:
+        return 'Thông báo mới'
+    }
+  }
+
+  async markAsRead(userId: string, notificationId?: string) {
+    if (notificationId) {
+      await this.prisma.notification.update({
+        where: { id: notificationId, userId },
+        data: { readAt: new Date() },
+      })
+    } else {
+      await this.prisma.notification.updateMany({
+        where: { userId, readAt: null },
+        data: { readAt: new Date() },
+      })
+    }
+    return true
+  }
 }

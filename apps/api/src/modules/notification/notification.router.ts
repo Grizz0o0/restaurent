@@ -1,7 +1,14 @@
-import { Input, Mutation, Router, UseMiddlewares } from 'nestjs-trpc'
+import { Input, Mutation, Query, Router, UseMiddlewares, Ctx } from 'nestjs-trpc'
 import { NotificationService } from './notification.service'
-import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware' // Or AdminRoleMiddleware if restricted
-import { SendPushNotificationSchema, SendPushNotificationType } from '@repo/schema'
+import { AuthMiddleware } from '@/trpc/middlewares/auth.middleware'
+import {
+  SendPushNotificationSchema,
+  SendPushNotificationType,
+  NotificationSchema,
+  MarkAsReadSchema,
+  MarkAsReadType,
+} from '@repo/schema'
+import { z } from 'zod'
 
 @Router({ alias: 'notification' })
 @UseMiddlewares(AuthMiddleware)
@@ -21,5 +28,20 @@ export class NotificationRouter {
       input.data,
     )
     return input
+  }
+
+  @Query({
+    output: z.array(NotificationSchema),
+  })
+  async getNotifications(@Ctx() ctx: { user: { id: string } }) {
+    return this.notificationService.getNotifications(ctx.user.id)
+  }
+
+  @Mutation({
+    input: MarkAsReadSchema,
+    output: z.boolean(),
+  })
+  async markAsRead(@Input() input: MarkAsReadType, @Ctx() ctx: { user: { id: string } }) {
+    return this.notificationService.markAsRead(ctx.user.id, input.id)
   }
 }

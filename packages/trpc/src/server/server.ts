@@ -65,6 +65,8 @@ import {
     CreateOrderFromCartSchema,
     UpdateOrderStatusSchema,
     SendPushNotificationSchema,
+    NotificationSchema,
+    MarkAsReadSchema,
     CreateReviewBodySchema,
     ReviewDetailResSchema,
     GetReviewsQuerySchema,
@@ -373,6 +375,13 @@ const appRouter = t.router({
         sendPush: publicProcedure
             .input(SendPushNotificationSchema)
             .output(SendPushNotificationSchema)
+            .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        getNotifications: publicProcedure
+            .output(z.array(NotificationSchema))
+            .query(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        markAsRead: publicProcedure
+            .input(MarkAsReadSchema)
+            .output(z.boolean())
             .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
     }),
     review: t.router({
