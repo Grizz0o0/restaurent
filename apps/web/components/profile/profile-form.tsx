@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -19,18 +19,13 @@ import {
 import { useAuth } from '@/hooks/domain/use-auth';
 import { trpc } from '@/lib/trpc/client';
 import { Separator } from '@/components/ui/separator';
+import { AvatarUpload } from '@/components/ui/avatar-upload';
 
 const schema = z.object({
     display_name: z.string().trim().max(100).optional().or(z.literal('')),
     phone: z.string().trim().max(50).optional().or(z.literal('')),
-    address: z.string().trim().max(500).optional().or(z.literal('')),
-    avatar_url: z
-        .string()
-        .trim()
-        .url('Avatar URL không hợp lệ')
-        .max(1000)
-        .optional()
-        .or(z.literal('')),
+    email: z.string().email().optional().or(z.literal('')),
+    avatar_url: z.string().trim().max(1000).optional().or(z.literal('')),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -44,18 +39,18 @@ export function ProfileForm() {
         defaultValues: {
             display_name: '',
             phone: '',
-            address: '',
+            email: '',
             avatar_url: '',
         },
     });
 
     // Populate form when user data is available
     useEffect(() => {
-        if (user) {
+        if (user && !form.formState.isDirty) {
             form.reset({
                 display_name: user.name || '',
                 phone: user.phoneNumber || '',
-                address: user.translations?.[0]?.address || '', // Taking the first translation address for now
+                email: user.email || '',
                 avatar_url: user.avatar || '',
             });
         }
@@ -77,8 +72,6 @@ export function ProfileForm() {
                 name: values.display_name || undefined,
                 phoneNumber: values.phone || undefined,
                 avatar: values.avatar_url || undefined,
-                // Address update is complex due to translations, skipping for now unless we have a languageId
-                // translations: ...
             });
         } catch (error) {
             // Handled in onError
@@ -101,63 +94,20 @@ export function ProfileForm() {
     }
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h3 className="text-lg font-medium">Thông tin cá nhân</h3>
-                <p className="text-sm text-muted-foreground">
-                    Cập nhật thông tin cá nhân và địa chỉ nhận hàng.
-                </p>
-            </div>
-            <Separator />
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-8"
-                >
-                    <FormField
-                        control={form.control}
-                        name="display_name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Tên hiển thị</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Ví dụ: Minh"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Số điện thoại</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder="0909 123 456"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <div className="flex flex-col md:flex-row gap-8">
+                    {/* Avatar Column */}
+                    <div className="shrink-0">
                         <FormField
                             control={form.control}
                             name="avatar_url"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Avatar URL</FormLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="https://..."
-                                            {...field}
+                                        <AvatarUpload
+                                            value={field.value}
+                                            onChange={field.onChange}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -166,36 +116,76 @@ export function ProfileForm() {
                         />
                     </div>
 
-                    <FormField
-                        control={form.control}
-                        name="address"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Địa chỉ (Chỉ xem)</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Chưa có địa chỉ"
-                                        {...field}
-                                        disabled
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    {/* Info Column */}
+                    <div className="flex-1 space-y-6">
+                        <FormField
+                            control={form.control}
+                            name="display_name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Tên hiển thị</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Ví dụ: Minh"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                    <div className="flex flex-col sm:flex-row gap-3">
-                        <Button
-                            type="submit"
-                            disabled={updateProfileMutation.isPending}
-                        >
-                            {updateProfileMutation.isPending
-                                ? 'Đang lưu...'
-                                : 'Lưu hồ sơ'}
-                        </Button>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <FormField
+                                control={form.control}
+                                name="email"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Email</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                disabled
+                                                className="bg-muted"
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="phone"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Số điện thoại</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="0909 123 456"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
                     </div>
-                </form>
-            </Form>
-        </div>
+                </div>
+
+                <div className="flex justify-start">
+                    <Button
+                        type="submit"
+                        disabled={updateProfileMutation.isPending}
+                        className="min-w-30"
+                    >
+                        {updateProfileMutation.isPending
+                            ? 'Đang lưu...'
+                            : 'Lưu thay đổi'}
+                    </Button>
+                </div>
+            </form>
+        </Form>
     );
 }

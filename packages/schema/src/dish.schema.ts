@@ -33,6 +33,16 @@ export const DishSchema = z.object({
             }),
         )
         .optional(),
+    languageId: z.string().optional(),
+    dishTranslations: z
+        .array(
+            z.object({
+                languageId: z.string(),
+                name: z.string(),
+                description: z.string(),
+            }),
+        )
+        .optional(),
 });
 
 export type DishType = z.infer<typeof DishSchema>;

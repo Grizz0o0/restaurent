@@ -83,11 +83,18 @@ export class DishService {
   async list(query: GetDishesQueryType) {
     const { pagination, data: dishes } = await this.dishRepo.list(query)
     const transformedDishes = dishes.map((dish) => {
-      const translation = dish.dishTranslations?.[0]
+      // Prioritize Vietnamese, then English, then whatever is available
+      const translation =
+        dish.dishTranslations?.find((t) => t.languageId === 'vi') ??
+        dish.dishTranslations?.find((t) => t.languageId === 'en') ??
+        dish.dishTranslations?.[0]
+
       return {
         ...dish,
         name: translation?.name ?? '',
         description: translation?.description ?? '',
+        languageId: translation?.languageId ?? 'vi',
+        dishTranslations: dish.dishTranslations,
       }
     })
 

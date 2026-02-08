@@ -15,6 +15,7 @@ export const DishCategorySchema = z.object({
             }),
         )
         .optional(),
+    languageId: z.string().optional(),
 });
 
 export type DishCategoryType = z.infer<typeof DishCategorySchema>;

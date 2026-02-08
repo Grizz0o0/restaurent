@@ -1,8 +1,10 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Plus, Star } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Plus, Star, Search } from 'lucide-react';
 import { toast } from 'sonner';
+
 import { trpc } from '@/lib/trpc/client';
 import { formatCurrency } from '@/lib/utils/format';
 import { DishDetailModal } from '@/components/menu/dish-detail-modal';
@@ -12,7 +14,17 @@ const MenuSection = () => {
     const [activeCategoryId, setActiveCategoryId] = useState<
         string | undefined
     >(undefined);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [debouncedSearch, setDebouncedSearch] = useState('');
     const [selectedDishId, setSelectedDishId] = useState<string | null>(null);
+
+    // Debounce search
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(searchQuery);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [searchQuery]);
 
     // Fetch Categories
     const { data: categoriesData, isLoading: isLoadingCategories } =
@@ -27,10 +39,12 @@ const MenuSection = () => {
         trpc.dish.list.useQuery({
             categoryId:
                 activeCategoryId === 'all' ? undefined : activeCategoryId,
+            search: debouncedSearch || undefined,
             limit: 8,
             page: 1,
             isActive: true,
         });
+
     const dishes = dishesData?.data || [];
 
     const handleCategoryChange = (id: string) => {
@@ -54,37 +68,51 @@ const MenuSection = () => {
                     </p>
                 </div>
 
-                {/* Category Filter */}
-                <div className="flex flex-wrap justify-center gap-2 mb-12">
-                    <Button
-                        variant={
-                            activeCategoryId === undefined ? 'hero' : 'outline'
-                        }
-                        size="sm"
-                        onClick={() => handleCategoryChange('all')}
-                    >
-                        Tất cả
-                    </Button>
-                    {isLoadingCategories
-                        ? Array.from({ length: 4 }).map((_, i) => (
-                              <Skeleton key={i} className="h-9 w-24" />
-                          ))
-                        : categories.map((category) => (
-                              <Button
-                                  key={category.id}
-                                  variant={
-                                      activeCategoryId === category.id
-                                          ? 'hero'
-                                          : 'outline'
-                                  }
-                                  size="sm"
-                                  onClick={() =>
-                                      handleCategoryChange(category.id)
-                                  }
-                              >
-                                  {category.name}
-                              </Button>
-                          ))}
+                {/* Search & Filter */}
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 max-w-4xl mx-auto">
+                    <div className="relative w-full md:w-96">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder="Tìm kiếm món ăn..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-10 bg-background"
+                        />
+                    </div>
+
+                    <div className="flex flex-wrap justify-center gap-2">
+                        <Button
+                            variant={
+                                activeCategoryId === undefined
+                                    ? 'hero'
+                                    : 'outline'
+                            }
+                            size="sm"
+                            onClick={() => handleCategoryChange('all')}
+                        >
+                            Tất cả
+                        </Button>
+                        {isLoadingCategories
+                            ? Array.from({ length: 4 }).map((_, i) => (
+                                  <Skeleton key={i} className="h-9 w-24" />
+                              ))
+                            : categories.map((category) => (
+                                  <Button
+                                      key={category.id}
+                                      variant={
+                                          activeCategoryId === category.id
+                                              ? 'hero'
+                                              : 'outline'
+                                      }
+                                      size="sm"
+                                      onClick={() =>
+                                          handleCategoryChange(category.id)
+                                      }
+                                  >
+                                      {category.name}
+                                  </Button>
+                              ))}
+                    </div>
                 </div>
 
                 {/* Menu Grid */}

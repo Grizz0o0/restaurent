@@ -59,6 +59,7 @@ import {
     FormLabel,
     FormMessage,
 } from '@/components/ui/form';
+import { ImageUpload } from '@/components/ui/image-upload';
 
 // Types
 type Category = {
@@ -286,16 +287,35 @@ export default function AdminDishesPage() {
     };
 
     const openEdit = (dish: any) => {
+        // Intelligent Translation Selection
+        const vi = dish.dishTranslations?.find(
+            (t: any) => t.languageId === 'vi',
+        );
+        const en = dish.dishTranslations?.find(
+            (t: any) => t.languageId === 'en',
+        );
+
+        // Determine which language content we are actually displaying/editing
+        // If we have VI, great. If not, but we have EN, use EN content and set lang to EN.
+        // Fallback to flattened props (which might be ambiguous, but better than nothing)
+        const displayLang = vi ? 'vi' : en ? 'en' : 'vi';
+        const displayName = vi ? vi.name : en ? en.name : dish.name;
+        const displayDesc = vi
+            ? vi.description
+            : en
+              ? en.description
+              : dish.description;
+
         setEditing(dish);
         form.reset({
-            name: dish.name,
-            description: dish.description ?? '',
+            name: displayName,
+            description: displayDesc ?? '',
             price_vnd: Number(dish.basePrice),
             category_id: dish.categories?.[0]?.id ?? '', // Using first category for now
             supplier_id:
                 dish.supplierId ??
                 (suppliers.length > 0 ? suppliers[0].id : ''),
-            language_id: dish.languageId ?? 'vi', // Usually implicit or part of translations
+            language_id: displayLang,
             image_url: dish.images?.[0] ?? '',
             is_active: dish.isActive ?? true,
             variants:
@@ -660,9 +680,11 @@ export default function AdminDishesPage() {
                                                     Hình ảnh (URL)
                                                 </FormLabel>
                                                 <FormControl>
-                                                    <Input
-                                                        placeholder="https://example.com/image.jpg"
-                                                        {...field}
+                                                    <ImageUpload
+                                                        value={field.value}
+                                                        onChange={
+                                                            field.onChange
+                                                        }
                                                     />
                                                 </FormControl>
                                                 <FormMessage />

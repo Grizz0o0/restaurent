@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { User, Shield, Package, MapPin } from 'lucide-react';
+import { User, Shield, Package, MapPin, LogOut } from 'lucide-react';
+import { useAuth } from '@/hooks/domain/use-auth';
 
 const sidebarNavItems = [
     {
@@ -20,13 +21,11 @@ const sidebarNavItems = [
         title: 'Đơn hàng',
         href: '/profile/orders',
         icon: Package,
-        disabled: true,
     },
     {
         title: 'Sổ địa chỉ',
         href: '/profile/addresses',
         icon: MapPin,
-        disabled: true,
     },
 ];
 
@@ -35,6 +34,8 @@ export function ProfileSidebar({
     ...props
 }: React.HTMLAttributes<HTMLElement>) {
     const pathname = usePathname();
+    const { logout } = useAuth();
+    const router = useRouter();
 
     return (
         <nav
@@ -47,20 +48,32 @@ export function ProfileSidebar({
             {sidebarNavItems.map((item) => (
                 <Link
                     key={item.href}
-                    href={item.disabled ? '#' : item.href}
+                    href={item.href}
                     className={cn(
                         'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-all',
                         pathname === item.href
                             ? 'bg-accent text-accent-foreground shadow-sm'
                             : 'text-muted-foreground',
-                        item.disabled && 'opacity-50 cursor-not-allowed',
                     )}
-                    onClick={(e) => item.disabled && e.preventDefault()}
                 >
                     <item.icon className="h-4 w-4" />
                     {item.title}
                 </Link>
             ))}
+            <div className="lg:pt-4 lg:mt-4 lg:border-t">
+                <button
+                    onClick={() => {
+                        logout();
+                        router.push('/auth/login');
+                    }}
+                    className={cn(
+                        'w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-red-50 hover:text-red-600 transition-all',
+                    )}
+                >
+                    <LogOut className="h-4 w-4" />
+                    Đăng xuất
+                </button>
+            </div>
         </nav>
     );
 }

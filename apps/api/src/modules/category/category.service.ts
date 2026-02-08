@@ -12,13 +12,18 @@ export class CategoryService {
 
   private transform(category: any) {
     if (!category) return null
+    // Prioritize Vietnamese, then English, then whatever is available
     const translation =
-      category.dishCategoryTranslations?.find((t: any) => t.languageId === 'vi') ||
+      category.dishCategoryTranslations?.find((t: any) => t.languageId === 'vi') ??
+      category.dishCategoryTranslations?.find((t: any) => t.languageId === 'en') ??
       category.dishCategoryTranslations?.[0]
+
     return {
       ...category,
       name: translation?.name ?? '',
       description: translation?.description ?? '',
+      languageId: translation?.languageId ?? 'vi',
+      dishCategoryTranslations: category.dishCategoryTranslations,
     }
   }
 

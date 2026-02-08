@@ -1,11 +1,11 @@
 'use client';
 
-import { ProfileForm } from '@/components/profile/profile-form';
+import { AddressList } from '@/components/profile/address-list';
 import { useAuth } from '@/hooks/domain/use-auth';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
-export default function ProfilePage() {
+export default function AddressesPage() {
     const { user, isLoading } = useAuth();
 
     if (isLoading) {
@@ -17,7 +17,7 @@ export default function ProfilePage() {
             <div className="text-center py-20">
                 <h2 className="text-2xl font-bold mb-4">Bạn chưa đăng nhập</h2>
                 <p className="text-muted-foreground mb-8">
-                    Vui lòng đăng nhập để xem hồ sơ
+                    Vui lòng đăng nhập để xem sổ địa chỉ
                 </p>
                 <Button onClick={() => (window.location.href = '/auth/login')}>
                     Đăng nhập ngay
@@ -29,13 +29,13 @@ export default function ProfilePage() {
     return (
         <div className="space-y-6">
             <div>
-                <h3 className="text-lg font-medium">Thông tin tài khoản</h3>
+                <h3 className="text-lg font-medium">Sổ địa chỉ</h3>
                 <p className="text-sm text-muted-foreground">
-                    Cập nhật thông tin cá nhân của bạn.
+                    Quản lý danh sách địa chỉ giao hàng của bạn.
                 </p>
             </div>
             <Separator />
-            <ProfileForm />
+            <AddressList />
         </div>
     );
 }

@@ -6,10 +6,13 @@ import { DishModule } from '@/modules/dish/dish.module'
 import { NotificationModule } from '@/modules/notification/notification.module'
 import { AddressModule } from '@/modules/address/address.module'
 
-@Module({
-  imports: [DishModule, NotificationModule, AddressModule],
+import { OrderListener } from './order.listener'
+import { SocketModule } from '@/modules/socket/socket.module'
 
-  providers: [OrderService, OrderRouter, OrderRepo],
+@Module({
+  imports: [DishModule, NotificationModule, AddressModule, SocketModule],
+
+  providers: [OrderService, OrderRouter, OrderRepo, OrderListener],
   exports: [OrderService],
 })
 export class OrderModule {}

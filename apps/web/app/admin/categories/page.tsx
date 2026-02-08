@@ -63,6 +63,7 @@ interface Category {
         name: string;
         description: string;
     }[];
+    languageId?: string;
 }
 
 export default function AdminCategoriesPage() {
@@ -151,11 +152,24 @@ export default function AdminCategoriesPage() {
     };
 
     const openEdit = (category: Category) => {
+        // Intelligent Translation Selection
+        const translations = (category as any).dishCategoryTranslations;
+        const vi = translations?.find((t: any) => t.languageId === 'vi');
+        const en = translations?.find((t: any) => t.languageId === 'en');
+
+        const displayLang = vi ? 'vi' : en ? 'en' : 'vi';
+        const displayName = vi ? vi.name : en ? en.name : category.name;
+        const displayDesc = vi
+            ? vi.description
+            : en
+              ? en.description
+              : category.description;
+
         setEditing(category);
         setEditFormDefaultValues({
-            name: category.name || '',
-            description: category.description || '',
-            languageId: 'vi',
+            name: displayName || '',
+            description: displayDesc || '',
+            languageId: displayLang,
         });
         setOpen(true);
     };

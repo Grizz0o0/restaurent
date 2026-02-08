@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/prisma'
-import { CreateOrderBodyType, GetOrdersQueryType } from '@repo/schema'
+import { GetOrdersQueryType } from '@repo/schema'
 import { paginate } from '@/shared/utils/prisma.util'
 import { Prisma } from 'src/generated/prisma/client'
 
@@ -75,10 +75,10 @@ export class OrderRepo {
     )
   }
 
-  async updateStatus(id: string, status: OrderStatus) {
+  async updateStatus(id: string, status: OrderStatus, updatedById?: string) {
     return this.prisma.order.update({
       where: { id },
-      data: { status },
+      data: { status, updatedById },
     })
   }
 }

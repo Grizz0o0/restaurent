@@ -25,7 +25,7 @@ export class OrderService {
   ) {}
 
   async updateStatus(orderId: string, status: string, userId?: string) {
-    const order = await this.orderRepo.updateStatus(orderId, status as any)
+    const order = await this.orderRepo.updateStatus(orderId, status as any, userId)
 
     this.eventEmitter.emit('order.updated', {
       userId: order.userId, // Assuming order has userId

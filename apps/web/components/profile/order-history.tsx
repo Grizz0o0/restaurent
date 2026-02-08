@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
 import { Loader2, Package, ChevronDown, ChevronUp } from 'lucide-react';
+import { useSocket } from '@/hooks/use-socket';
+import { toast } from 'sonner';
 
 import {
     Card,
@@ -49,13 +51,36 @@ const statusMap: Record<string, { label: string; color: string }> = {
 
 export function OrderHistory() {
     const [page, setPage] = useState(1);
-    const { data, isLoading } = trpc.order.myOrders.useQuery({
+    const {
+        data: initialData,
+        isLoading,
+        refetch,
+    } = trpc.order.myOrders.useQuery({
         page,
         limit: 10,
     });
 
-    const orders = data?.data || [];
-    const pagination = data?.pagination;
+    // Real-time updates
+    const socket = useSocket();
+
+    useEffect(() => {
+        if (!socket) return;
+
+        socket.on('order_updated', (data) => {
+            console.log('Order updated:', data);
+            toast.info(
+                `Đơn hàng #${data.orderId.slice(-6).toUpperCase()} đã cập nhật trạng thái: ${statusMap[data.status]?.label || data.status}`,
+            );
+            refetch();
+        });
+
+        return () => {
+            socket.off('order_updated');
+        };
+    }, [socket, refetch]);
+
+    const orders = initialData?.data || [];
+    const pagination = initialData?.pagination;
 
     if (isLoading) {
         return (
@@ -86,7 +111,7 @@ export function OrderHistory() {
     return (
         <div className="space-y-4">
             {orders.map((order) => (
-                <div
+                <Collapsible
                     key={order.id}
                     className="border rounded-lg bg-card overflow-hidden"
                 >
@@ -122,20 +147,49 @@ export function OrderHistory() {
                                     {formatCurrency(Number(order.totalAmount))}
                                 </p>
                             </div>
+                            <CollapsibleTrigger asChild>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-8 w-8 p-0 data-[state=open]:rotate-180 transition-transform duration-200"
+                                >
+                                    <ChevronDown className="h-4 w-4" />
+                                    <span className="sr-only">
+                                        Toggle details
+                                    </span>
+                                </Button>
+                            </CollapsibleTrigger>
                         </div>
                     </div>
-                    {/* Order Items Summary */}
-                    <div className="px-4 pb-4">
-                        <div className="text-sm text-muted-foreground">
-                            {order.items
-                                .map(
-                                    (item: any) =>
-                                        `${item.quantity}x ${item.dishName}`,
-                                )
-                                .join(', ')}
+
+                    <CollapsibleContent>
+                        <div className="px-4 pb-4 pt-2 border-t bg-muted/20">
+                            <div className="space-y-3">
+                                {order.items.map((item: any, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="flex justify-between items-center text-sm"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="bg-muted w-8 h-8 rounded flex items-center justify-center text-xs font-medium">
+                                                {item.quantity}x
+                                            </div>
+                                            <span>{item.dishName}</span>
+                                        </div>
+                                        {item.price && (
+                                            <span className="text-muted-foreground">
+                                                {formatCurrency(
+                                                    Number(item.price) *
+                                                        item.quantity,
+                                                )}
+                                            </span>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </CollapsibleContent>
+                </Collapsible>
             ))}
 
             {/* Simple Pagination */}
@@ -150,8 +204,7 @@ export function OrderHistory() {
                         Trước
                     </Button>
                     <span className="flex items-center text-sm font-medium">
-                        Trang {data.pagination.page} /{' '}
-                        {data.pagination.totalPages}
+                        Trang {pagination.page} / {pagination.totalPages}
                     </span>
                     <Button
                         variant="outline"
