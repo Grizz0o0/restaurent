@@ -43,6 +43,18 @@ export class OrderRouter {
   async list(@Input() input: GetOrdersQueryType) {
     return this.orderService.list(input)
   }
+
+  @Query({
+    input: GetOrdersQuerySchema,
+    output: GetOrdersResSchema,
+  })
+  async myOrders(@Input() input: GetOrdersQueryType, @Ctx() ctx: Context) {
+    return this.orderService.list({
+      ...input,
+      userId: ctx.user!.userId,
+    })
+  }
+
   @Mutation({
     input: CreateOrderFromCartSchema,
     output: OrderSchema,

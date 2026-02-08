@@ -10,6 +10,7 @@
  */
 export type * from './models/Language'
 export type * from './models/User'
+export type * from './models/UserAddress'
 export type * from './models/UserTranslation'
 export type * from './models/UserInteraction'
 export type * from './models/VerificationCode'

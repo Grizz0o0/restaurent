@@ -59,6 +59,7 @@ export class OrderRepo {
             lte: toDate,
           },
         }),
+      ...(query.userId && { userId: query.userId }),
     }
 
     return paginate(

@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Language: 'Language',
   User: 'User',
+  UserAddress: 'UserAddress',
   UserTranslation: 'UserTranslation',
   UserInteraction: 'UserInteraction',
   VerificationCode: 'VerificationCode',
@@ -139,6 +140,25 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const UserAddressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  label: 'label',
+  recipientName: 'recipientName',
+  phoneNumber: 'phoneNumber',
+  address: 'address',
+  isDefault: 'isDefault',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  deletedById: 'deletedById',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserAddressScalarFieldEnum = (typeof UserAddressScalarFieldEnum)[keyof typeof UserAddressScalarFieldEnum]
 
 
 export const UserTranslationScalarFieldEnum = {

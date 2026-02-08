@@ -13,15 +13,17 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
 import { Loader2, MapPin, CreditCard, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
+import { AddressForm } from '@/components/profile/address-form';
 
 export default function CheckoutPage() {
     const { isAuthenticated, user, isLoading: isAuthLoading } = useAuth();
     const router = useRouter();
     const utils = trpc.useUtils();
 
-    const [address, setAddress] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('COD');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [selectedAddressId, setSelectedAddressId] = useState<string>('');
+    const [isAddressFormOpen, setIsAddressFormOpen] = useState(false);
 
     // Fetch Cart Data to display summary
     const { data: cartData, isLoading: isCartLoading } = trpc.cart.get.useQuery(
@@ -29,12 +31,24 @@ export default function CheckoutPage() {
         { enabled: isAuthenticated },
     );
 
-    // Auto-fill address from profile if available
+    // Fetch Addresses
+    const { data: addresses, isLoading: isAddressesLoading } =
+        trpc.address.list.useQuery(
+            { page: 1, limit: 50 },
+            { enabled: isAuthenticated },
+        );
+
+    // Auto-select default address
     useEffect(() => {
-        if (user?.translations?.[0]?.address) {
-            setAddress(user.translations[0].address);
+        if (addresses && addresses.length > 0 && !selectedAddressId) {
+            const defaultAddress = addresses.find((a) => a.isDefault);
+            if (defaultAddress) {
+                setSelectedAddressId(defaultAddress.id);
+            } else if (addresses[0]) {
+                setSelectedAddressId(addresses[0].id);
+            }
         }
-    }, [user]);
+    }, [addresses, selectedAddressId]);
 
     const createOrderMutation = trpc.order.createFromCart.useMutation({
         onSuccess: (order) => {
@@ -49,21 +63,15 @@ export default function CheckoutPage() {
     });
 
     const handlePlaceOrder = () => {
-        if (!address.trim()) {
-            toast.error('Vui lòng nhập địa chỉ giao hàng');
+        if (!selectedAddressId) {
+            toast.error('Vui lòng chọn địa chỉ giao hàng');
             return;
         }
 
         setIsSubmitting(true);
         createOrderMutation.mutate({
-            // We pass extra guestInfo for address even if logged in,
-            // or we might need to update Address in backend logic if we want to save it to Order.
-            // The CreateOrderFromCartSchema has guestInfo: z.any().optional().
-            // Ideally backend receives shipping address.
-            // Let's pass it in guestInfo for now or we might need to update schema to explicit shippingAddress.
-            // Looking at CreateOrderFromCartSchema: guestInfo is optional any.
+            addressId: selectedAddressId,
             guestInfo: {
-                address: address,
                 paymentMethod: paymentMethod,
                 phoneNumber: user?.phoneNumber,
             },
@@ -89,7 +97,7 @@ export default function CheckoutPage() {
         return null;
     }
 
-    const subtotal = cartData.totalPrice || 0;
+    const subtotal = cartData.total || 0;
     const deliveryFee = subtotal > 100000 ? 0 : 15000;
     const total = subtotal + deliveryFee;
 
@@ -111,44 +119,79 @@ export default function CheckoutPage() {
                     <div className="lg:col-span-2 space-y-6">
                         {/* Shipping Address */}
                         <Card>
-                            <CardHeader>
+                            <CardHeader className="flex flex-row items-center justify-between">
                                 <CardTitle className="flex items-center gap-2">
                                     <MapPin className="h-5 w-5 text-primary" />
                                     Thông tin giao hàng
                                 </CardTitle>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setIsAddressFormOpen(true)}
+                                >
+                                    <span className="mr-1">+</span> Thêm mới
+                                </Button>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="grid gap-2">
-                                    <Label htmlFor="name">Người nhận</Label>
-                                    <Input
-                                        id="name"
-                                        value={user?.name || ''}
-                                        disabled
-                                        className="bg-muted"
-                                    />
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="phone">Số điện thoại</Label>
-                                    <Input
-                                        id="phone"
-                                        value={user?.phoneNumber || ''}
-                                        disabled
-                                        className="bg-muted"
-                                    />
-                                </div>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="address">
-                                        Địa chỉ nhận hàng
-                                    </Label>
-                                    <Input
-                                        id="address"
-                                        placeholder="Số nhà, tên đường, phường/xã..."
-                                        value={address}
-                                        onChange={(e) =>
-                                            setAddress(e.target.value)
-                                        }
-                                    />
-                                </div>
+                                {isAddressesLoading ? (
+                                    <div className="flex justify-center py-4">
+                                        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                                    </div>
+                                ) : addresses && addresses.length > 0 ? (
+                                    <RadioGroup
+                                        value={selectedAddressId}
+                                        onValueChange={setSelectedAddressId}
+                                        className="grid gap-4 sm:grid-cols-2"
+                                    >
+                                        {addresses.map((addr) => (
+                                            <div key={addr.id}>
+                                                <RadioGroupItem
+                                                    value={addr.id}
+                                                    id={addr.id}
+                                                    className="peer sr-only"
+                                                />
+                                                <Label
+                                                    htmlFor={addr.id}
+                                                    className="flex flex-col gap-2 rounded-lg border border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 cursor-pointer"
+                                                >
+                                                    <div className="flex justify-between items-center">
+                                                        <span className="font-semibold">
+                                                            {addr.label}
+                                                        </span>
+                                                        {addr.isDefault && (
+                                                            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                                                                Mặc định
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-sm space-y-1 text-muted-foreground">
+                                                        <p className="font-medium text-foreground">
+                                                            {addr.recipientName}{' '}
+                                                            - {addr.phoneNumber}
+                                                        </p>
+                                                        <p className="line-clamp-2">
+                                                            {addr.address}
+                                                        </p>
+                                                    </div>
+                                                </Label>
+                                            </div>
+                                        ))}
+                                    </RadioGroup>
+                                ) : (
+                                    <div className="text-center py-6 border-2 border-dashed rounded-lg">
+                                        <MapPin className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+                                        <p className="text-muted-foreground mb-4">
+                                            Bạn chưa có địa chỉ giao hàng nào
+                                        </p>
+                                        <Button
+                                            onClick={() =>
+                                                setIsAddressFormOpen(true)
+                                            }
+                                        >
+                                            Thêm địa chỉ ngay
+                                        </Button>
+                                    </div>
+                                )}
                             </CardContent>
                         </Card>
 
@@ -298,6 +341,11 @@ export default function CheckoutPage() {
                     </div>
                 </div>
             </div>
+            <AddressForm
+                open={isAddressFormOpen}
+                onOpenChange={setIsAddressFormOpen}
+                onSuccess={() => utils.address.list.invalidate()}
+            />
         </div>
     );
 }

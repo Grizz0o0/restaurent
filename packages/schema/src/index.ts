@@ -1,6 +1,7 @@
 export * from './user.schema';
 export * from './role.schema';
 export * from './permission.schema';
+export * from './address.schema';
 export * from './auth.schema';
 export * from './response.schema';
 export * from './table.schema';

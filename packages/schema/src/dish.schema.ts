@@ -43,6 +43,7 @@ export const GetDishesQuerySchema = z.object({
     search: z.string().optional(),
     categoryId: z.string().optional(),
     supplierId: z.string().optional(),
+    isActive: z.boolean().optional(),
 });
 
 export type GetDishesQueryType = z.infer<typeof GetDishesQuerySchema>;

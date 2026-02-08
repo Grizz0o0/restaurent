@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, type Resolver } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
@@ -87,7 +87,7 @@ export default function AdminSuppliersPage() {
     const [deleteId, setDeleteId] = useState<string | null>(null);
 
     const form = useForm<SupplierFormValues>({
-        resolver: zodResolver(supplierSchema as any),
+        resolver: zodResolver(supplierSchema) as Resolver<SupplierFormValues>,
         defaultValues: {
             name: '',
             logo: '',

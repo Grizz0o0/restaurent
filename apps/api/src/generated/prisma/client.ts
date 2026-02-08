@@ -48,6 +48,11 @@ export type Language = Prisma.LanguageModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model UserAddress
+ * 
+ */
+export type UserAddress = Prisma.UserAddressModel
+/**
  * Model UserTranslation
  * 
  */

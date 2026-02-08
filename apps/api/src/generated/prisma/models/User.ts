@@ -392,6 +392,10 @@ export type UserWhereInput = {
   updatedUsers?: Prisma.UserListRelationFilter
   deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   deletedUsers?: Prisma.UserListRelationFilter
+  addresses?: Prisma.UserAddressListRelationFilter
+  createdAddresses?: Prisma.UserAddressListRelationFilter
+  updatedAddresses?: Prisma.UserAddressListRelationFilter
+  deletedAddresses?: Prisma.UserAddressListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -490,6 +494,10 @@ export type UserOrderByWithRelationInput = {
   updatedUsers?: Prisma.UserOrderByRelationAggregateInput
   deletedBy?: Prisma.UserOrderByWithRelationInput
   deletedUsers?: Prisma.UserOrderByRelationAggregateInput
+  addresses?: Prisma.UserAddressOrderByRelationAggregateInput
+  createdAddresses?: Prisma.UserAddressOrderByRelationAggregateInput
+  updatedAddresses?: Prisma.UserAddressOrderByRelationAggregateInput
+  deletedAddresses?: Prisma.UserAddressOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -591,6 +599,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedUsers?: Prisma.UserListRelationFilter
   deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   deletedUsers?: Prisma.UserListRelationFilter
+  addresses?: Prisma.UserAddressListRelationFilter
+  createdAddresses?: Prisma.UserAddressListRelationFilter
+  updatedAddresses?: Prisma.UserAddressListRelationFilter
+  deletedAddresses?: Prisma.UserAddressListRelationFilter
 }, "id" | "email" | "phoneNumber" | "totpSecret">
 
 export type UserOrderByWithAggregationInput = {
@@ -733,6 +745,10 @@ export type UserCreateInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -827,6 +843,10 @@ export type UserUncheckedCreateInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUpdateInput = {
@@ -921,6 +941,10 @@ export type UserUpdateInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -1015,6 +1039,10 @@ export type UserUncheckedUpdateInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1393,6 +1421,68 @@ export type UserUncheckedUpdateManyWithoutDeletedByNestedInput = {
   update?: Prisma.UserUpdateWithWhereUniqueWithoutDeletedByInput | Prisma.UserUpdateWithWhereUniqueWithoutDeletedByInput[]
   updateMany?: Prisma.UserUpdateManyWithWhereWithoutDeletedByInput | Prisma.UserUpdateManyWithWhereWithoutDeletedByInput[]
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserCreateNestedOneWithoutAddressesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAddressesInput, Prisma.UserUncheckedCreateWithoutAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAddressesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutCreatedAddressesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAddressesInput, Prisma.UserUncheckedCreateWithoutCreatedAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAddressesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutUpdatedAddressesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedAddressesInput, Prisma.UserUncheckedCreateWithoutUpdatedAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedAddressesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutDeletedAddressesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDeletedAddressesInput, Prisma.UserUncheckedCreateWithoutDeletedAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeletedAddressesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAddressesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAddressesInput, Prisma.UserUncheckedCreateWithoutAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAddressesInput
+  upsert?: Prisma.UserUpsertWithoutAddressesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAddressesInput, Prisma.UserUpdateWithoutAddressesInput>, Prisma.UserUncheckedUpdateWithoutAddressesInput>
+}
+
+export type UserUpdateOneWithoutCreatedAddressesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAddressesInput, Prisma.UserUncheckedCreateWithoutCreatedAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAddressesInput
+  upsert?: Prisma.UserUpsertWithoutCreatedAddressesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedAddressesInput, Prisma.UserUpdateWithoutCreatedAddressesInput>, Prisma.UserUncheckedUpdateWithoutCreatedAddressesInput>
+}
+
+export type UserUpdateOneWithoutUpdatedAddressesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUpdatedAddressesInput, Prisma.UserUncheckedCreateWithoutUpdatedAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUpdatedAddressesInput
+  upsert?: Prisma.UserUpsertWithoutUpdatedAddressesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUpdatedAddressesInput, Prisma.UserUpdateWithoutUpdatedAddressesInput>, Prisma.UserUncheckedUpdateWithoutUpdatedAddressesInput>
+}
+
+export type UserUpdateOneWithoutDeletedAddressesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDeletedAddressesInput, Prisma.UserUncheckedCreateWithoutDeletedAddressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeletedAddressesInput
+  upsert?: Prisma.UserUpsertWithoutDeletedAddressesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDeletedAddressesInput, Prisma.UserUpdateWithoutDeletedAddressesInput>, Prisma.UserUncheckedUpdateWithoutDeletedAddressesInput>
 }
 
 export type UserCreateNestedOneWithoutUserTranslationsInput = {
@@ -2594,6 +2684,10 @@ export type UserCreateWithoutCreatedLanguagesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedLanguagesInput = {
@@ -2687,6 +2781,10 @@ export type UserUncheckedCreateWithoutCreatedLanguagesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedLanguagesInput = {
@@ -2785,6 +2883,10 @@ export type UserCreateWithoutUpdatedLanguagesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedLanguagesInput = {
@@ -2878,6 +2980,10 @@ export type UserUncheckedCreateWithoutUpdatedLanguagesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedLanguagesInput = {
@@ -2976,6 +3082,10 @@ export type UserCreateWithoutDeletedLanguagesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedLanguagesInput = {
@@ -3069,6 +3179,10 @@ export type UserUncheckedCreateWithoutDeletedLanguagesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedLanguagesInput = {
@@ -3178,6 +3292,10 @@ export type UserUpdateWithoutCreatedLanguagesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedLanguagesInput = {
@@ -3271,6 +3389,10 @@ export type UserUncheckedUpdateWithoutCreatedLanguagesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedLanguagesInput = {
@@ -3375,6 +3497,10 @@ export type UserUpdateWithoutUpdatedLanguagesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedLanguagesInput = {
@@ -3468,6 +3594,10 @@ export type UserUncheckedUpdateWithoutUpdatedLanguagesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedLanguagesInput = {
@@ -3572,6 +3702,10 @@ export type UserUpdateWithoutDeletedLanguagesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedLanguagesInput = {
@@ -3665,6 +3799,10 @@ export type UserUncheckedUpdateWithoutDeletedLanguagesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedUsersInput = {
@@ -3758,6 +3896,10 @@ export type UserCreateWithoutCreatedUsersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedUsersInput = {
@@ -3851,6 +3993,10 @@ export type UserUncheckedCreateWithoutCreatedUsersInput = {
   deletedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutDeletedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedUsersInput = {
@@ -3949,6 +4095,10 @@ export type UserCreateWithoutCreatedByInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedByInput = {
@@ -4042,6 +4192,10 @@ export type UserUncheckedCreateWithoutCreatedByInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedByInput = {
@@ -4145,6 +4299,10 @@ export type UserCreateWithoutUpdatedUsersInput = {
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedUsersInput = {
@@ -4238,6 +4396,10 @@ export type UserUncheckedCreateWithoutUpdatedUsersInput = {
   deletedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutDeletedByInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedUsersInput = {
@@ -4336,6 +4498,10 @@ export type UserCreateWithoutUpdatedByInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedByInput = {
@@ -4429,6 +4595,10 @@ export type UserUncheckedCreateWithoutUpdatedByInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedByInput = {
@@ -4532,6 +4702,10 @@ export type UserCreateWithoutDeletedUsersInput = {
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedUsersInput = {
@@ -4625,6 +4799,10 @@ export type UserUncheckedCreateWithoutDeletedUsersInput = {
   deletedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutDeletedByInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedUsersInput = {
@@ -4723,6 +4901,10 @@ export type UserCreateWithoutDeletedByInput = {
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedByInput = {
@@ -4816,6 +4998,10 @@ export type UserUncheckedCreateWithoutDeletedByInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedByInput = {
@@ -4930,6 +5116,10 @@ export type UserUpdateWithoutCreatedUsersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedUsersInput = {
@@ -5023,6 +5213,10 @@ export type UserUncheckedUpdateWithoutCreatedUsersInput = {
   deletedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutDeletedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -5166,6 +5360,10 @@ export type UserUpdateWithoutUpdatedUsersInput = {
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedUsersInput = {
@@ -5259,6 +5457,10 @@ export type UserUncheckedUpdateWithoutUpdatedUsersInput = {
   deletedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutDeletedByNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutUpdatedByInput = {
@@ -5379,6 +5581,10 @@ export type UserUpdateWithoutDeletedUsersInput = {
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedUsersInput = {
@@ -5472,6 +5678,10 @@ export type UserUncheckedUpdateWithoutDeletedUsersInput = {
   deletedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutDeletedByNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutDeletedByInput = {
@@ -5488,6 +5698,1622 @@ export type UserUpdateWithWhereUniqueWithoutDeletedByInput = {
 export type UserUpdateManyWithWhereWithoutDeletedByInput = {
   where: Prisma.UserScalarWhereInput
   data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutDeletedByInput>
+}
+
+export type UserCreateWithoutAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  interactions?: Prisma.UserInteractionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutDeletedByInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
+  createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
+  updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
+  deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserUncheckedCreateWithoutAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  roleId: string
+  createdById?: string | null
+  updatedById?: string | null
+  deletedById?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interactions?: Prisma.UserInteractionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserCreateOrConnectWithoutAddressesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAddressesInput, Prisma.UserUncheckedCreateWithoutAddressesInput>
+}
+
+export type UserCreateWithoutCreatedAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  interactions?: Prisma.UserInteractionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutDeletedByInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
+  createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
+  updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
+  deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  roleId: string
+  createdById?: string | null
+  updatedById?: string | null
+  deletedById?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interactions?: Prisma.UserInteractionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedAddressesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAddressesInput, Prisma.UserUncheckedCreateWithoutCreatedAddressesInput>
+}
+
+export type UserCreateWithoutUpdatedAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  interactions?: Prisma.UserInteractionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutDeletedByInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
+  createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
+  updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
+  deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserUncheckedCreateWithoutUpdatedAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  roleId: string
+  createdById?: string | null
+  updatedById?: string | null
+  deletedById?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interactions?: Prisma.UserInteractionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserCreateOrConnectWithoutUpdatedAddressesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedAddressesInput, Prisma.UserUncheckedCreateWithoutUpdatedAddressesInput>
+}
+
+export type UserCreateWithoutDeletedAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  interactions?: Prisma.UserInteractionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationCreateNestedManyWithoutDeletedByInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
+  createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
+  updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
+  deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutDeletedAddressesInput = {
+  id?: string
+  email: string
+  name: string
+  password: string
+  phoneNumber: string
+  avatar?: string | null
+  totpSecret?: string | null
+  failedLoginAttempts?: number
+  lockedAt?: Date | string | null
+  status?: $Enums.UserStatus
+  roleId: string
+  createdById?: string | null
+  updatedById?: string | null
+  deletedById?: string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interactions?: Prisma.UserInteractionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUserInput
+  preferences?: Prisma.UserPreferenceUncheckedCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishes?: Prisma.DishUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishes?: Prisma.DishUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutDeletedByInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSKUs?: Prisma.SKUUncheckedCreateNestedManyWithoutDeletedByInput
+  createdLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSuppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutToUserInput
+  createdRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedCreateNestedManyWithoutDeletedByInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedCreateNestedManyWithoutUserInput
+  createdTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedTables?: Prisma.RestaurantTableUncheckedCreateNestedManyWithoutDeletedByInput
+  createdReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedReservations?: Prisma.ReservationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedInventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutDeletedByInput
+  recommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUserInput
+  createdRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutDeletedAddressesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDeletedAddressesInput, Prisma.UserUncheckedCreateWithoutDeletedAddressesInput>
+}
+
+export type UserUpsertWithoutAddressesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAddressesInput, Prisma.UserUncheckedUpdateWithoutAddressesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAddressesInput, Prisma.UserUncheckedCreateWithoutAddressesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAddressesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAddressesInput, Prisma.UserUncheckedUpdateWithoutAddressesInput>
+}
+
+export type UserUpdateWithoutAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  interactions?: Prisma.UserInteractionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUpdateManyWithoutDeletedByNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
+  createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
+  updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
+  deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactions?: Prisma.UserInteractionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUncheckedUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUpsertWithoutCreatedAddressesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAddressesInput, Prisma.UserUncheckedUpdateWithoutCreatedAddressesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAddressesInput, Prisma.UserUncheckedCreateWithoutCreatedAddressesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedAddressesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAddressesInput, Prisma.UserUncheckedUpdateWithoutCreatedAddressesInput>
+}
+
+export type UserUpdateWithoutCreatedAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  interactions?: Prisma.UserInteractionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUpdateManyWithoutDeletedByNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
+  createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
+  updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
+  deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactions?: Prisma.UserInteractionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUncheckedUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUpsertWithoutUpdatedAddressesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedAddressesInput, Prisma.UserUncheckedUpdateWithoutUpdatedAddressesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUpdatedAddressesInput, Prisma.UserUncheckedCreateWithoutUpdatedAddressesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUpdatedAddressesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUpdatedAddressesInput, Prisma.UserUncheckedUpdateWithoutUpdatedAddressesInput>
+}
+
+export type UserUpdateWithoutUpdatedAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  interactions?: Prisma.UserInteractionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUpdateManyWithoutDeletedByNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
+  createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
+  updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
+  deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUpdatedAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactions?: Prisma.UserInteractionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUncheckedUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUpsertWithoutDeletedAddressesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDeletedAddressesInput, Prisma.UserUncheckedUpdateWithoutDeletedAddressesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDeletedAddressesInput, Prisma.UserUncheckedCreateWithoutDeletedAddressesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDeletedAddressesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDeletedAddressesInput, Prisma.UserUncheckedUpdateWithoutDeletedAddressesInput>
+}
+
+export type UserUpdateWithoutDeletedAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  interactions?: Prisma.UserInteractionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUpdateManyWithoutDeletedByNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
+  createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
+  updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
+  deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDeletedAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  roleId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactions?: Prisma.UserInteractionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reservations?: Prisma.ReservationUncheckedUpdateManyWithoutUserNestedInput
+  preferences?: Prisma.UserPreferenceUncheckedUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdRoles?: Prisma.RoleUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishes?: Prisma.DishUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishes?: Prisma.DishUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishes?: Prisma.DishUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategories?: Prisma.DishCategoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariants?: Prisma.VariantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariants?: Prisma.VariantUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSKUs?: Prisma.SKUUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUs?: Prisma.SKUUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSuppliers?: Prisma.SupplierUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishTranslations?: Prisma.DishTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedDishCategoryTranslations?: Prisma.DishCategoryTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSupplierTranslations?: Prisma.SupplierTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdOrders?: Prisma.OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutToUserNestedInput
+  createdRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRestaurants?: Prisma.RestaurantUncheckedUpdateManyWithoutDeletedByNestedInput
+  assignedRestaurants?: Prisma.RestaurantStaffUncheckedUpdateManyWithoutUserNestedInput
+  createdTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedTables?: Prisma.RestaurantTableUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdReservations?: Prisma.ReservationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedReservations?: Prisma.ReservationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdInventories?: Prisma.InventoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedInventories?: Prisma.InventoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  recommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUserNestedInput
+  createdRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRecommendations?: Prisma.RecommendationUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutUserTranslationsInput = {
@@ -5581,6 +7407,10 @@ export type UserCreateWithoutUserTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUserTranslationsInput = {
@@ -5674,6 +7504,10 @@ export type UserUncheckedCreateWithoutUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUserTranslationsInput = {
@@ -5772,6 +7606,10 @@ export type UserCreateWithoutCreatedUserTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedUserTranslationsInput = {
@@ -5865,6 +7703,10 @@ export type UserUncheckedCreateWithoutCreatedUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedUserTranslationsInput = {
@@ -5963,6 +7805,10 @@ export type UserCreateWithoutUpdatedUserTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedUserTranslationsInput = {
@@ -6056,6 +7902,10 @@ export type UserUncheckedCreateWithoutUpdatedUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedUserTranslationsInput = {
@@ -6154,6 +8004,10 @@ export type UserCreateWithoutDeletedUserTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedUserTranslationsInput = {
@@ -6247,6 +8101,10 @@ export type UserUncheckedCreateWithoutDeletedUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedUserTranslationsInput = {
@@ -6356,6 +8214,10 @@ export type UserUpdateWithoutUserTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserTranslationsInput = {
@@ -6449,6 +8311,10 @@ export type UserUncheckedUpdateWithoutUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutCreatedUserTranslationsInput = {
@@ -6553,6 +8419,10 @@ export type UserUpdateWithoutCreatedUserTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedUserTranslationsInput = {
@@ -6646,6 +8516,10 @@ export type UserUncheckedUpdateWithoutCreatedUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedUserTranslationsInput = {
@@ -6750,6 +8624,10 @@ export type UserUpdateWithoutUpdatedUserTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedUserTranslationsInput = {
@@ -6843,6 +8721,10 @@ export type UserUncheckedUpdateWithoutUpdatedUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedUserTranslationsInput = {
@@ -6947,6 +8829,10 @@ export type UserUpdateWithoutDeletedUserTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedUserTranslationsInput = {
@@ -7040,6 +8926,10 @@ export type UserUncheckedUpdateWithoutDeletedUserTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutInteractionsInput = {
@@ -7133,6 +9023,10 @@ export type UserCreateWithoutInteractionsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutInteractionsInput = {
@@ -7226,6 +9120,10 @@ export type UserUncheckedCreateWithoutInteractionsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutInteractionsInput = {
@@ -7335,6 +9233,10 @@ export type UserUpdateWithoutInteractionsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInteractionsInput = {
@@ -7428,6 +9330,10 @@ export type UserUncheckedUpdateWithoutInteractionsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutDevicesInput = {
@@ -7521,6 +9427,10 @@ export type UserCreateWithoutDevicesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDevicesInput = {
@@ -7614,6 +9524,10 @@ export type UserUncheckedCreateWithoutDevicesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDevicesInput = {
@@ -7723,6 +9637,10 @@ export type UserUpdateWithoutDevicesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDevicesInput = {
@@ -7816,6 +9734,10 @@ export type UserUncheckedUpdateWithoutDevicesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -7909,6 +9831,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -8002,6 +9928,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -8111,6 +10041,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -8204,6 +10138,10 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedPermissionsInput = {
@@ -8297,6 +10235,10 @@ export type UserCreateWithoutCreatedPermissionsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPermissionsInput = {
@@ -8390,6 +10332,10 @@ export type UserUncheckedCreateWithoutCreatedPermissionsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPermissionsInput = {
@@ -8488,6 +10434,10 @@ export type UserCreateWithoutUpdatedPermissionsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedPermissionsInput = {
@@ -8581,6 +10531,10 @@ export type UserUncheckedCreateWithoutUpdatedPermissionsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedPermissionsInput = {
@@ -8679,6 +10633,10 @@ export type UserCreateWithoutDeletedPermissionsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedPermissionsInput = {
@@ -8772,6 +10730,10 @@ export type UserUncheckedCreateWithoutDeletedPermissionsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedPermissionsInput = {
@@ -8881,6 +10843,10 @@ export type UserUpdateWithoutCreatedPermissionsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPermissionsInput = {
@@ -8974,6 +10940,10 @@ export type UserUncheckedUpdateWithoutCreatedPermissionsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedPermissionsInput = {
@@ -9078,6 +11048,10 @@ export type UserUpdateWithoutUpdatedPermissionsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedPermissionsInput = {
@@ -9171,6 +11145,10 @@ export type UserUncheckedUpdateWithoutUpdatedPermissionsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedPermissionsInput = {
@@ -9275,6 +11253,10 @@ export type UserUpdateWithoutDeletedPermissionsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedPermissionsInput = {
@@ -9368,6 +11350,10 @@ export type UserUncheckedUpdateWithoutDeletedPermissionsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutRoleInput = {
@@ -9461,6 +11447,10 @@ export type UserCreateWithoutRoleInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
@@ -9554,6 +11544,10 @@ export type UserUncheckedCreateWithoutRoleInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutRoleInput = {
@@ -9657,6 +11651,10 @@ export type UserCreateWithoutCreatedRolesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedRolesInput = {
@@ -9750,6 +11748,10 @@ export type UserUncheckedCreateWithoutCreatedRolesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedRolesInput = {
@@ -9848,6 +11850,10 @@ export type UserCreateWithoutUpdatedRolesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedRolesInput = {
@@ -9941,6 +11947,10 @@ export type UserUncheckedCreateWithoutUpdatedRolesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedRolesInput = {
@@ -10039,6 +12049,10 @@ export type UserCreateWithoutDeletedRolesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedRolesInput = {
@@ -10132,6 +12146,10 @@ export type UserUncheckedCreateWithoutDeletedRolesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedRolesInput = {
@@ -10257,6 +12275,10 @@ export type UserUpdateWithoutCreatedRolesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedRolesInput = {
@@ -10350,6 +12372,10 @@ export type UserUncheckedUpdateWithoutCreatedRolesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedRolesInput = {
@@ -10454,6 +12480,10 @@ export type UserUpdateWithoutUpdatedRolesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedRolesInput = {
@@ -10547,6 +12577,10 @@ export type UserUncheckedUpdateWithoutUpdatedRolesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedRolesInput = {
@@ -10651,6 +12685,10 @@ export type UserUpdateWithoutDeletedRolesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedRolesInput = {
@@ -10744,6 +12782,10 @@ export type UserUncheckedUpdateWithoutDeletedRolesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedDishesInput = {
@@ -10837,6 +12879,10 @@ export type UserCreateWithoutCreatedDishesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedDishesInput = {
@@ -10930,6 +12976,10 @@ export type UserUncheckedCreateWithoutCreatedDishesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedDishesInput = {
@@ -11028,6 +13078,10 @@ export type UserCreateWithoutUpdatedDishesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedDishesInput = {
@@ -11121,6 +13175,10 @@ export type UserUncheckedCreateWithoutUpdatedDishesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedDishesInput = {
@@ -11219,6 +13277,10 @@ export type UserCreateWithoutDeletedDishesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedDishesInput = {
@@ -11312,6 +13374,10 @@ export type UserUncheckedCreateWithoutDeletedDishesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedDishesInput = {
@@ -11421,6 +13487,10 @@ export type UserUpdateWithoutCreatedDishesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedDishesInput = {
@@ -11514,6 +13584,10 @@ export type UserUncheckedUpdateWithoutCreatedDishesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedDishesInput = {
@@ -11618,6 +13692,10 @@ export type UserUpdateWithoutUpdatedDishesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedDishesInput = {
@@ -11711,6 +13789,10 @@ export type UserUncheckedUpdateWithoutUpdatedDishesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedDishesInput = {
@@ -11815,6 +13897,10 @@ export type UserUpdateWithoutDeletedDishesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedDishesInput = {
@@ -11908,6 +13994,10 @@ export type UserUncheckedUpdateWithoutDeletedDishesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedDishTranslationsInput = {
@@ -12001,6 +14091,10 @@ export type UserCreateWithoutCreatedDishTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedDishTranslationsInput = {
@@ -12094,6 +14188,10 @@ export type UserUncheckedCreateWithoutCreatedDishTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedDishTranslationsInput = {
@@ -12192,6 +14290,10 @@ export type UserCreateWithoutUpdatedDishTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedDishTranslationsInput = {
@@ -12285,6 +14387,10 @@ export type UserUncheckedCreateWithoutUpdatedDishTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedDishTranslationsInput = {
@@ -12383,6 +14489,10 @@ export type UserCreateWithoutDeletedDishTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedDishTranslationsInput = {
@@ -12476,6 +14586,10 @@ export type UserUncheckedCreateWithoutDeletedDishTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedDishTranslationsInput = {
@@ -12585,6 +14699,10 @@ export type UserUpdateWithoutCreatedDishTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedDishTranslationsInput = {
@@ -12678,6 +14796,10 @@ export type UserUncheckedUpdateWithoutCreatedDishTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedDishTranslationsInput = {
@@ -12782,6 +14904,10 @@ export type UserUpdateWithoutUpdatedDishTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedDishTranslationsInput = {
@@ -12875,6 +15001,10 @@ export type UserUncheckedUpdateWithoutUpdatedDishTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedDishTranslationsInput = {
@@ -12979,6 +15109,10 @@ export type UserUpdateWithoutDeletedDishTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedDishTranslationsInput = {
@@ -13072,6 +15206,10 @@ export type UserUncheckedUpdateWithoutDeletedDishTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedDishCategoriesInput = {
@@ -13165,6 +15303,10 @@ export type UserCreateWithoutCreatedDishCategoriesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedDishCategoriesInput = {
@@ -13258,6 +15400,10 @@ export type UserUncheckedCreateWithoutCreatedDishCategoriesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedDishCategoriesInput = {
@@ -13356,6 +15502,10 @@ export type UserCreateWithoutUpdatedDishCategoriesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedDishCategoriesInput = {
@@ -13449,6 +15599,10 @@ export type UserUncheckedCreateWithoutUpdatedDishCategoriesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedDishCategoriesInput = {
@@ -13547,6 +15701,10 @@ export type UserCreateWithoutDeletedDishCategoriesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedDishCategoriesInput = {
@@ -13640,6 +15798,10 @@ export type UserUncheckedCreateWithoutDeletedDishCategoriesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedDishCategoriesInput = {
@@ -13749,6 +15911,10 @@ export type UserUpdateWithoutCreatedDishCategoriesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedDishCategoriesInput = {
@@ -13842,6 +16008,10 @@ export type UserUncheckedUpdateWithoutCreatedDishCategoriesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedDishCategoriesInput = {
@@ -13946,6 +16116,10 @@ export type UserUpdateWithoutUpdatedDishCategoriesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedDishCategoriesInput = {
@@ -14039,6 +16213,10 @@ export type UserUncheckedUpdateWithoutUpdatedDishCategoriesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedDishCategoriesInput = {
@@ -14143,6 +16321,10 @@ export type UserUpdateWithoutDeletedDishCategoriesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedDishCategoriesInput = {
@@ -14236,6 +16418,10 @@ export type UserUncheckedUpdateWithoutDeletedDishCategoriesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedDishCategoryTranslationsInput = {
@@ -14329,6 +16515,10 @@ export type UserCreateWithoutCreatedDishCategoryTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedDishCategoryTranslationsInput = {
@@ -14422,6 +16612,10 @@ export type UserUncheckedCreateWithoutCreatedDishCategoryTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedDishCategoryTranslationsInput = {
@@ -14520,6 +16714,10 @@ export type UserCreateWithoutUpdatedDishCategoryTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedDishCategoryTranslationsInput = {
@@ -14613,6 +16811,10 @@ export type UserUncheckedCreateWithoutUpdatedDishCategoryTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedDishCategoryTranslationsInput = {
@@ -14711,6 +16913,10 @@ export type UserCreateWithoutDeletedDishCategoryTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedDishCategoryTranslationsInput = {
@@ -14804,6 +17010,10 @@ export type UserUncheckedCreateWithoutDeletedDishCategoryTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedDishCategoryTranslationsInput = {
@@ -14913,6 +17123,10 @@ export type UserUpdateWithoutCreatedDishCategoryTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedDishCategoryTranslationsInput = {
@@ -15006,6 +17220,10 @@ export type UserUncheckedUpdateWithoutCreatedDishCategoryTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedDishCategoryTranslationsInput = {
@@ -15110,6 +17328,10 @@ export type UserUpdateWithoutUpdatedDishCategoryTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedDishCategoryTranslationsInput = {
@@ -15203,6 +17425,10 @@ export type UserUncheckedUpdateWithoutUpdatedDishCategoryTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedDishCategoryTranslationsInput = {
@@ -15307,6 +17533,10 @@ export type UserUpdateWithoutDeletedDishCategoryTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedDishCategoryTranslationsInput = {
@@ -15400,6 +17630,10 @@ export type UserUncheckedUpdateWithoutDeletedDishCategoryTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedVariantsInput = {
@@ -15493,6 +17727,10 @@ export type UserCreateWithoutCreatedVariantsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedVariantsInput = {
@@ -15586,6 +17824,10 @@ export type UserUncheckedCreateWithoutCreatedVariantsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedVariantsInput = {
@@ -15684,6 +17926,10 @@ export type UserCreateWithoutUpdatedVariantsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedVariantsInput = {
@@ -15777,6 +18023,10 @@ export type UserUncheckedCreateWithoutUpdatedVariantsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedVariantsInput = {
@@ -15875,6 +18125,10 @@ export type UserCreateWithoutDeletedVariantsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedVariantsInput = {
@@ -15968,6 +18222,10 @@ export type UserUncheckedCreateWithoutDeletedVariantsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedVariantsInput = {
@@ -16077,6 +18335,10 @@ export type UserUpdateWithoutCreatedVariantsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedVariantsInput = {
@@ -16170,6 +18432,10 @@ export type UserUncheckedUpdateWithoutCreatedVariantsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedVariantsInput = {
@@ -16274,6 +18540,10 @@ export type UserUpdateWithoutUpdatedVariantsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedVariantsInput = {
@@ -16367,6 +18637,10 @@ export type UserUncheckedUpdateWithoutUpdatedVariantsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedVariantsInput = {
@@ -16471,6 +18745,10 @@ export type UserUpdateWithoutDeletedVariantsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedVariantsInput = {
@@ -16564,6 +18842,10 @@ export type UserUncheckedUpdateWithoutDeletedVariantsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedVariantOptionsInput = {
@@ -16657,6 +18939,10 @@ export type UserCreateWithoutCreatedVariantOptionsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedVariantOptionsInput = {
@@ -16750,6 +19036,10 @@ export type UserUncheckedCreateWithoutCreatedVariantOptionsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedVariantOptionsInput = {
@@ -16848,6 +19138,10 @@ export type UserCreateWithoutUpdatedVariantOptionsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedVariantOptionsInput = {
@@ -16941,6 +19235,10 @@ export type UserUncheckedCreateWithoutUpdatedVariantOptionsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedVariantOptionsInput = {
@@ -17039,6 +19337,10 @@ export type UserCreateWithoutDeletedVariantOptionsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedVariantOptionsInput = {
@@ -17132,6 +19434,10 @@ export type UserUncheckedCreateWithoutDeletedVariantOptionsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedVariantOptionsInput = {
@@ -17241,6 +19547,10 @@ export type UserUpdateWithoutCreatedVariantOptionsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedVariantOptionsInput = {
@@ -17334,6 +19644,10 @@ export type UserUncheckedUpdateWithoutCreatedVariantOptionsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedVariantOptionsInput = {
@@ -17438,6 +19752,10 @@ export type UserUpdateWithoutUpdatedVariantOptionsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedVariantOptionsInput = {
@@ -17531,6 +19849,10 @@ export type UserUncheckedUpdateWithoutUpdatedVariantOptionsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedVariantOptionsInput = {
@@ -17635,6 +19957,10 @@ export type UserUpdateWithoutDeletedVariantOptionsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedVariantOptionsInput = {
@@ -17728,6 +20054,10 @@ export type UserUncheckedUpdateWithoutDeletedVariantOptionsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedSKUsInput = {
@@ -17821,6 +20151,10 @@ export type UserCreateWithoutCreatedSKUsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSKUsInput = {
@@ -17914,6 +20248,10 @@ export type UserUncheckedCreateWithoutCreatedSKUsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSKUsInput = {
@@ -18012,6 +20350,10 @@ export type UserCreateWithoutUpdatedSKUsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedSKUsInput = {
@@ -18105,6 +20447,10 @@ export type UserUncheckedCreateWithoutUpdatedSKUsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedSKUsInput = {
@@ -18203,6 +20549,10 @@ export type UserCreateWithoutDeletedSKUsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedSKUsInput = {
@@ -18296,6 +20646,10 @@ export type UserUncheckedCreateWithoutDeletedSKUsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedSKUsInput = {
@@ -18405,6 +20759,10 @@ export type UserUpdateWithoutCreatedSKUsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSKUsInput = {
@@ -18498,6 +20856,10 @@ export type UserUncheckedUpdateWithoutCreatedSKUsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedSKUsInput = {
@@ -18602,6 +20964,10 @@ export type UserUpdateWithoutUpdatedSKUsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedSKUsInput = {
@@ -18695,6 +21061,10 @@ export type UserUncheckedUpdateWithoutUpdatedSKUsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedSKUsInput = {
@@ -18799,6 +21169,10 @@ export type UserUpdateWithoutDeletedSKUsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedSKUsInput = {
@@ -18892,6 +21266,10 @@ export type UserUncheckedUpdateWithoutDeletedSKUsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedSuppliersInput = {
@@ -18985,6 +21363,10 @@ export type UserCreateWithoutCreatedSuppliersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSuppliersInput = {
@@ -19078,6 +21460,10 @@ export type UserUncheckedCreateWithoutCreatedSuppliersInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSuppliersInput = {
@@ -19176,6 +21562,10 @@ export type UserCreateWithoutUpdatedSuppliersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedSuppliersInput = {
@@ -19269,6 +21659,10 @@ export type UserUncheckedCreateWithoutUpdatedSuppliersInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedSuppliersInput = {
@@ -19367,6 +21761,10 @@ export type UserCreateWithoutDeletedSuppliersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedSuppliersInput = {
@@ -19460,6 +21858,10 @@ export type UserUncheckedCreateWithoutDeletedSuppliersInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedSuppliersInput = {
@@ -19569,6 +21971,10 @@ export type UserUpdateWithoutCreatedSuppliersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSuppliersInput = {
@@ -19662,6 +22068,10 @@ export type UserUncheckedUpdateWithoutCreatedSuppliersInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedSuppliersInput = {
@@ -19766,6 +22176,10 @@ export type UserUpdateWithoutUpdatedSuppliersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedSuppliersInput = {
@@ -19859,6 +22273,10 @@ export type UserUncheckedUpdateWithoutUpdatedSuppliersInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedSuppliersInput = {
@@ -19963,6 +22381,10 @@ export type UserUpdateWithoutDeletedSuppliersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedSuppliersInput = {
@@ -20056,6 +22478,10 @@ export type UserUncheckedUpdateWithoutDeletedSuppliersInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedSupplierTranslationsInput = {
@@ -20149,6 +22575,10 @@ export type UserCreateWithoutCreatedSupplierTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedSupplierTranslationsInput = {
@@ -20242,6 +22672,10 @@ export type UserUncheckedCreateWithoutCreatedSupplierTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedSupplierTranslationsInput = {
@@ -20340,6 +22774,10 @@ export type UserCreateWithoutUpdatedSupplierTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedSupplierTranslationsInput = {
@@ -20433,6 +22871,10 @@ export type UserUncheckedCreateWithoutUpdatedSupplierTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedSupplierTranslationsInput = {
@@ -20531,6 +22973,10 @@ export type UserCreateWithoutDeletedSupplierTranslationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedSupplierTranslationsInput = {
@@ -20624,6 +23070,10 @@ export type UserUncheckedCreateWithoutDeletedSupplierTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedSupplierTranslationsInput = {
@@ -20733,6 +23183,10 @@ export type UserUpdateWithoutCreatedSupplierTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedSupplierTranslationsInput = {
@@ -20826,6 +23280,10 @@ export type UserUncheckedUpdateWithoutCreatedSupplierTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedSupplierTranslationsInput = {
@@ -20930,6 +23388,10 @@ export type UserUpdateWithoutUpdatedSupplierTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedSupplierTranslationsInput = {
@@ -21023,6 +23485,10 @@ export type UserUncheckedUpdateWithoutUpdatedSupplierTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedSupplierTranslationsInput = {
@@ -21127,6 +23593,10 @@ export type UserUpdateWithoutDeletedSupplierTranslationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedSupplierTranslationsInput = {
@@ -21220,6 +23690,10 @@ export type UserUncheckedUpdateWithoutDeletedSupplierTranslationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCartItemsInput = {
@@ -21313,6 +23787,10 @@ export type UserCreateWithoutCartItemsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCartItemsInput = {
@@ -21406,6 +23884,10 @@ export type UserUncheckedCreateWithoutCartItemsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCartItemsInput = {
@@ -21515,6 +23997,10 @@ export type UserUpdateWithoutCartItemsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCartItemsInput = {
@@ -21608,6 +24094,10 @@ export type UserUncheckedUpdateWithoutCartItemsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutOrdersInput = {
@@ -21701,6 +24191,10 @@ export type UserCreateWithoutOrdersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutOrdersInput = {
@@ -21794,6 +24288,10 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutOrdersInput = {
@@ -21892,6 +24390,10 @@ export type UserCreateWithoutCreatedOrdersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedOrdersInput = {
@@ -21985,6 +24487,10 @@ export type UserUncheckedCreateWithoutCreatedOrdersInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedOrdersInput = {
@@ -22083,6 +24589,10 @@ export type UserCreateWithoutUpdatedOrdersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedOrdersInput = {
@@ -22176,6 +24686,10 @@ export type UserUncheckedCreateWithoutUpdatedOrdersInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedOrdersInput = {
@@ -22274,6 +24788,10 @@ export type UserCreateWithoutDeletedOrdersInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedOrdersInput = {
@@ -22367,6 +24885,10 @@ export type UserUncheckedCreateWithoutDeletedOrdersInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedOrdersInput = {
@@ -22476,6 +24998,10 @@ export type UserUpdateWithoutOrdersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -22569,6 +25095,10 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutCreatedOrdersInput = {
@@ -22673,6 +25203,10 @@ export type UserUpdateWithoutCreatedOrdersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedOrdersInput = {
@@ -22766,6 +25300,10 @@ export type UserUncheckedUpdateWithoutCreatedOrdersInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedOrdersInput = {
@@ -22870,6 +25408,10 @@ export type UserUpdateWithoutUpdatedOrdersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedOrdersInput = {
@@ -22963,6 +25505,10 @@ export type UserUncheckedUpdateWithoutUpdatedOrdersInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedOrdersInput = {
@@ -23067,6 +25613,10 @@ export type UserUpdateWithoutDeletedOrdersInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedOrdersInput = {
@@ -23160,6 +25710,10 @@ export type UserUncheckedUpdateWithoutDeletedOrdersInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutReviewsInput = {
@@ -23253,6 +25807,10 @@ export type UserCreateWithoutReviewsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -23346,6 +25904,10 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -23455,6 +26017,10 @@ export type UserUpdateWithoutReviewsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -23548,6 +26114,10 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -23641,6 +26211,10 @@ export type UserCreateWithoutSentMessagesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -23734,6 +26308,10 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -23832,6 +26410,10 @@ export type UserCreateWithoutReceivedMessagesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutReceivedMessagesInput = {
@@ -23925,6 +26507,10 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutReceivedMessagesInput = {
@@ -24034,6 +26620,10 @@ export type UserUpdateWithoutSentMessagesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -24127,6 +26717,10 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutReceivedMessagesInput = {
@@ -24231,6 +26825,10 @@ export type UserUpdateWithoutReceivedMessagesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
@@ -24324,6 +26922,10 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedRestaurantsInput = {
@@ -24417,6 +27019,10 @@ export type UserCreateWithoutCreatedRestaurantsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedRestaurantsInput = {
@@ -24510,6 +27116,10 @@ export type UserUncheckedCreateWithoutCreatedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedRestaurantsInput = {
@@ -24608,6 +27218,10 @@ export type UserCreateWithoutUpdatedRestaurantsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedRestaurantsInput = {
@@ -24701,6 +27315,10 @@ export type UserUncheckedCreateWithoutUpdatedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedRestaurantsInput = {
@@ -24799,6 +27417,10 @@ export type UserCreateWithoutDeletedRestaurantsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedRestaurantsInput = {
@@ -24892,6 +27514,10 @@ export type UserUncheckedCreateWithoutDeletedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedRestaurantsInput = {
@@ -25001,6 +27627,10 @@ export type UserUpdateWithoutCreatedRestaurantsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedRestaurantsInput = {
@@ -25094,6 +27724,10 @@ export type UserUncheckedUpdateWithoutCreatedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedRestaurantsInput = {
@@ -25198,6 +27832,10 @@ export type UserUpdateWithoutUpdatedRestaurantsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedRestaurantsInput = {
@@ -25291,6 +27929,10 @@ export type UserUncheckedUpdateWithoutUpdatedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedRestaurantsInput = {
@@ -25395,6 +28037,10 @@ export type UserUpdateWithoutDeletedRestaurantsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedRestaurantsInput = {
@@ -25488,6 +28134,10 @@ export type UserUncheckedUpdateWithoutDeletedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedTablesInput = {
@@ -25581,6 +28231,10 @@ export type UserCreateWithoutCreatedTablesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedTablesInput = {
@@ -25674,6 +28328,10 @@ export type UserUncheckedCreateWithoutCreatedTablesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedTablesInput = {
@@ -25772,6 +28430,10 @@ export type UserCreateWithoutUpdatedTablesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedTablesInput = {
@@ -25865,6 +28527,10 @@ export type UserUncheckedCreateWithoutUpdatedTablesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedTablesInput = {
@@ -25963,6 +28629,10 @@ export type UserCreateWithoutDeletedTablesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedTablesInput = {
@@ -26056,6 +28726,10 @@ export type UserUncheckedCreateWithoutDeletedTablesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedTablesInput = {
@@ -26165,6 +28839,10 @@ export type UserUpdateWithoutCreatedTablesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedTablesInput = {
@@ -26258,6 +28936,10 @@ export type UserUncheckedUpdateWithoutCreatedTablesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedTablesInput = {
@@ -26362,6 +29044,10 @@ export type UserUpdateWithoutUpdatedTablesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedTablesInput = {
@@ -26455,6 +29141,10 @@ export type UserUncheckedUpdateWithoutUpdatedTablesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedTablesInput = {
@@ -26559,6 +29249,10 @@ export type UserUpdateWithoutDeletedTablesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedTablesInput = {
@@ -26652,6 +29346,10 @@ export type UserUncheckedUpdateWithoutDeletedTablesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutReservationsInput = {
@@ -26745,6 +29443,10 @@ export type UserCreateWithoutReservationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutReservationsInput = {
@@ -26838,6 +29540,10 @@ export type UserUncheckedCreateWithoutReservationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutReservationsInput = {
@@ -26936,6 +29642,10 @@ export type UserCreateWithoutCreatedReservationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedReservationsInput = {
@@ -27029,6 +29739,10 @@ export type UserUncheckedCreateWithoutCreatedReservationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedReservationsInput = {
@@ -27127,6 +29841,10 @@ export type UserCreateWithoutUpdatedReservationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedReservationsInput = {
@@ -27220,6 +29938,10 @@ export type UserUncheckedCreateWithoutUpdatedReservationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedReservationsInput = {
@@ -27318,6 +30040,10 @@ export type UserCreateWithoutDeletedReservationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedReservationsInput = {
@@ -27411,6 +30137,10 @@ export type UserUncheckedCreateWithoutDeletedReservationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedReservationsInput = {
@@ -27520,6 +30250,10 @@ export type UserUpdateWithoutReservationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReservationsInput = {
@@ -27613,6 +30347,10 @@ export type UserUncheckedUpdateWithoutReservationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutCreatedReservationsInput = {
@@ -27717,6 +30455,10 @@ export type UserUpdateWithoutCreatedReservationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedReservationsInput = {
@@ -27810,6 +30552,10 @@ export type UserUncheckedUpdateWithoutCreatedReservationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedReservationsInput = {
@@ -27914,6 +30660,10 @@ export type UserUpdateWithoutUpdatedReservationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedReservationsInput = {
@@ -28007,6 +30757,10 @@ export type UserUncheckedUpdateWithoutUpdatedReservationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedReservationsInput = {
@@ -28111,6 +30865,10 @@ export type UserUpdateWithoutDeletedReservationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedReservationsInput = {
@@ -28204,6 +30962,10 @@ export type UserUncheckedUpdateWithoutDeletedReservationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutCreatedInventoriesInput = {
@@ -28297,6 +31059,10 @@ export type UserCreateWithoutCreatedInventoriesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedInventoriesInput = {
@@ -28390,6 +31156,10 @@ export type UserUncheckedCreateWithoutCreatedInventoriesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedInventoriesInput = {
@@ -28488,6 +31258,10 @@ export type UserCreateWithoutUpdatedInventoriesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedInventoriesInput = {
@@ -28581,6 +31355,10 @@ export type UserUncheckedCreateWithoutUpdatedInventoriesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedInventoriesInput = {
@@ -28679,6 +31457,10 @@ export type UserCreateWithoutDeletedInventoriesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedInventoriesInput = {
@@ -28772,6 +31554,10 @@ export type UserUncheckedCreateWithoutDeletedInventoriesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedInventoriesInput = {
@@ -28881,6 +31667,10 @@ export type UserUpdateWithoutCreatedInventoriesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedInventoriesInput = {
@@ -28974,6 +31764,10 @@ export type UserUncheckedUpdateWithoutCreatedInventoriesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedInventoriesInput = {
@@ -29078,6 +31872,10 @@ export type UserUpdateWithoutUpdatedInventoriesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedInventoriesInput = {
@@ -29171,6 +31969,10 @@ export type UserUncheckedUpdateWithoutUpdatedInventoriesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedInventoriesInput = {
@@ -29275,6 +32077,10 @@ export type UserUpdateWithoutDeletedInventoriesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedInventoriesInput = {
@@ -29368,6 +32174,10 @@ export type UserUncheckedUpdateWithoutDeletedInventoriesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutAssignedRestaurantsInput = {
@@ -29461,6 +32271,10 @@ export type UserCreateWithoutAssignedRestaurantsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedRestaurantsInput = {
@@ -29554,6 +32368,10 @@ export type UserUncheckedCreateWithoutAssignedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedRestaurantsInput = {
@@ -29663,6 +32481,10 @@ export type UserUpdateWithoutAssignedRestaurantsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedRestaurantsInput = {
@@ -29756,6 +32578,10 @@ export type UserUncheckedUpdateWithoutAssignedRestaurantsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutPreferencesInput = {
@@ -29849,6 +32675,10 @@ export type UserCreateWithoutPreferencesInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutPreferencesInput = {
@@ -29942,6 +32772,10 @@ export type UserUncheckedCreateWithoutPreferencesInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutPreferencesInput = {
@@ -30051,6 +32885,10 @@ export type UserUpdateWithoutPreferencesInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPreferencesInput = {
@@ -30144,6 +32982,10 @@ export type UserUncheckedUpdateWithoutPreferencesInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutRecommendationsInput = {
@@ -30237,6 +33079,10 @@ export type UserCreateWithoutRecommendationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutRecommendationsInput = {
@@ -30330,6 +33176,10 @@ export type UserUncheckedCreateWithoutRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutRecommendationsInput = {
@@ -30428,6 +33278,10 @@ export type UserCreateWithoutCreatedRecommendationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedRecommendationsInput = {
@@ -30521,6 +33375,10 @@ export type UserUncheckedCreateWithoutCreatedRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedRecommendationsInput = {
@@ -30619,6 +33477,10 @@ export type UserCreateWithoutUpdatedRecommendationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutUpdatedRecommendationsInput = {
@@ -30712,6 +33574,10 @@ export type UserUncheckedCreateWithoutUpdatedRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutUpdatedRecommendationsInput = {
@@ -30810,6 +33676,10 @@ export type UserCreateWithoutDeletedRecommendationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutDeletedRecommendationsInput = {
@@ -30903,6 +33773,10 @@ export type UserUncheckedCreateWithoutDeletedRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutDeletedRecommendationsInput = {
@@ -31012,6 +33886,10 @@ export type UserUpdateWithoutRecommendationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecommendationsInput = {
@@ -31105,6 +33983,10 @@ export type UserUncheckedUpdateWithoutRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutCreatedRecommendationsInput = {
@@ -31209,6 +34091,10 @@ export type UserUpdateWithoutCreatedRecommendationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedRecommendationsInput = {
@@ -31302,6 +34188,10 @@ export type UserUncheckedUpdateWithoutCreatedRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutUpdatedRecommendationsInput = {
@@ -31406,6 +34296,10 @@ export type UserUpdateWithoutUpdatedRecommendationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedRecommendationsInput = {
@@ -31499,6 +34393,10 @@ export type UserUncheckedUpdateWithoutUpdatedRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUpsertWithoutDeletedRecommendationsInput = {
@@ -31603,6 +34501,10 @@ export type UserUpdateWithoutDeletedRecommendationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedRecommendationsInput = {
@@ -31696,6 +34598,10 @@ export type UserUncheckedUpdateWithoutDeletedRecommendationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -31789,6 +34695,10 @@ export type UserCreateWithoutNotificationsInput = {
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
   deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -31882,6 +34792,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  addresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUserInput
+  createdAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedAddresses?: Prisma.UserAddressUncheckedCreateNestedManyWithoutDeletedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -31991,6 +34905,10 @@ export type UserUpdateWithoutNotificationsInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -32084,6 +35002,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserCreateManyCreatedByInput = {
@@ -32234,6 +35156,10 @@ export type UserUpdateWithoutCreatedByInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedByInput = {
@@ -32327,6 +35253,10 @@ export type UserUncheckedUpdateWithoutCreatedByInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCreatedByInput = {
@@ -32439,6 +35369,10 @@ export type UserUpdateWithoutUpdatedByInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdatedByInput = {
@@ -32532,6 +35466,10 @@ export type UserUncheckedUpdateWithoutUpdatedByInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutUpdatedByInput = {
@@ -32644,6 +35582,10 @@ export type UserUpdateWithoutDeletedByInput = {
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeletedByInput = {
@@ -32737,6 +35679,10 @@ export type UserUncheckedUpdateWithoutDeletedByInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDeletedByInput = {
@@ -32868,6 +35814,10 @@ export type UserUpdateWithoutRoleInput = {
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
   deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
@@ -32961,6 +35911,10 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  addresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUserNestedInput
+  createdAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedAddresses?: Prisma.UserAddressUncheckedUpdateManyWithoutDeletedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -33062,6 +36016,10 @@ export type UserCountOutputType = {
   createdUsers: number
   updatedUsers: number
   deletedUsers: number
+  addresses: number
+  createdAddresses: number
+  updatedAddresses: number
+  deletedAddresses: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -33139,6 +36097,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   createdUsers?: boolean | UserCountOutputTypeCountCreatedUsersArgs
   updatedUsers?: boolean | UserCountOutputTypeCountUpdatedUsersArgs
   deletedUsers?: boolean | UserCountOutputTypeCountDeletedUsersArgs
+  addresses?: boolean | UserCountOutputTypeCountAddressesArgs
+  createdAddresses?: boolean | UserCountOutputTypeCountCreatedAddressesArgs
+  updatedAddresses?: boolean | UserCountOutputTypeCountUpdatedAddressesArgs
+  deletedAddresses?: boolean | UserCountOutputTypeCountDeletedAddressesArgs
 }
 
 /**
@@ -33669,6 +36631,34 @@ export type UserCountOutputTypeCountDeletedUsersArgs<ExtArgs extends runtime.Typ
   where?: Prisma.UserWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserAddressWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserAddressWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUpdatedAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserAddressWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDeletedAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserAddressWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -33766,6 +36756,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedUsers?: boolean | Prisma.User$updatedUsersArgs<ExtArgs>
   deletedBy?: boolean | Prisma.User$deletedByArgs<ExtArgs>
   deletedUsers?: boolean | Prisma.User$deletedUsersArgs<ExtArgs>
+  addresses?: boolean | Prisma.User$addressesArgs<ExtArgs>
+  createdAddresses?: boolean | Prisma.User$createdAddressesArgs<ExtArgs>
+  updatedAddresses?: boolean | Prisma.User$updatedAddressesArgs<ExtArgs>
+  deletedAddresses?: boolean | Prisma.User$deletedAddressesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -33917,6 +36911,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedUsers?: boolean | Prisma.User$updatedUsersArgs<ExtArgs>
   deletedBy?: boolean | Prisma.User$deletedByArgs<ExtArgs>
   deletedUsers?: boolean | Prisma.User$deletedUsersArgs<ExtArgs>
+  addresses?: boolean | Prisma.User$addressesArgs<ExtArgs>
+  createdAddresses?: boolean | Prisma.User$createdAddressesArgs<ExtArgs>
+  updatedAddresses?: boolean | Prisma.User$updatedAddressesArgs<ExtArgs>
+  deletedAddresses?: boolean | Prisma.User$deletedAddressesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -34013,6 +37011,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     updatedUsers: Prisma.$UserPayload<ExtArgs>[]
     deletedBy: Prisma.$UserPayload<ExtArgs> | null
     deletedUsers: Prisma.$UserPayload<ExtArgs>[]
+    addresses: Prisma.$UserAddressPayload<ExtArgs>[]
+    createdAddresses: Prisma.$UserAddressPayload<ExtArgs>[]
+    updatedAddresses: Prisma.$UserAddressPayload<ExtArgs>[]
+    deletedAddresses: Prisma.$UserAddressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -34504,6 +37506,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   updatedUsers<T extends Prisma.User$updatedUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deletedBy<T extends Prisma.User$deletedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deletedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   deletedUsers<T extends Prisma.User$deletedUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deletedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  addresses<T extends Prisma.User$addressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdAddresses<T extends Prisma.User$createdAddressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdAddressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  updatedAddresses<T extends Prisma.User$updatedAddressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedAddressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  deletedAddresses<T extends Prisma.User$deletedAddressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deletedAddressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -36776,6 +39782,102 @@ export type User$deletedUsersArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * User.addresses
+ */
+export type User$addressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserAddress
+   */
+  select?: Prisma.UserAddressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserAddress
+   */
+  omit?: Prisma.UserAddressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserAddressInclude<ExtArgs> | null
+  where?: Prisma.UserAddressWhereInput
+  orderBy?: Prisma.UserAddressOrderByWithRelationInput | Prisma.UserAddressOrderByWithRelationInput[]
+  cursor?: Prisma.UserAddressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserAddressScalarFieldEnum | Prisma.UserAddressScalarFieldEnum[]
+}
+
+/**
+ * User.createdAddresses
+ */
+export type User$createdAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserAddress
+   */
+  select?: Prisma.UserAddressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserAddress
+   */
+  omit?: Prisma.UserAddressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserAddressInclude<ExtArgs> | null
+  where?: Prisma.UserAddressWhereInput
+  orderBy?: Prisma.UserAddressOrderByWithRelationInput | Prisma.UserAddressOrderByWithRelationInput[]
+  cursor?: Prisma.UserAddressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserAddressScalarFieldEnum | Prisma.UserAddressScalarFieldEnum[]
+}
+
+/**
+ * User.updatedAddresses
+ */
+export type User$updatedAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserAddress
+   */
+  select?: Prisma.UserAddressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserAddress
+   */
+  omit?: Prisma.UserAddressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserAddressInclude<ExtArgs> | null
+  where?: Prisma.UserAddressWhereInput
+  orderBy?: Prisma.UserAddressOrderByWithRelationInput | Prisma.UserAddressOrderByWithRelationInput[]
+  cursor?: Prisma.UserAddressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserAddressScalarFieldEnum | Prisma.UserAddressScalarFieldEnum[]
+}
+
+/**
+ * User.deletedAddresses
+ */
+export type User$deletedAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserAddress
+   */
+  select?: Prisma.UserAddressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserAddress
+   */
+  omit?: Prisma.UserAddressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserAddressInclude<ExtArgs> | null
+  where?: Prisma.UserAddressWhereInput
+  orderBy?: Prisma.UserAddressOrderByWithRelationInput | Prisma.UserAddressOrderByWithRelationInput[]
+  cursor?: Prisma.UserAddressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserAddressScalarFieldEnum | Prisma.UserAddressScalarFieldEnum[]
 }
 
 /**

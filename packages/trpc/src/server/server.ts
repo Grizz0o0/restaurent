@@ -98,6 +98,10 @@ import {
     UpdateRestaurantBodySchema,
     AssignStaffBodySchema,
     RemoveStaffBodySchema,
+    AddressSchema,
+    CreateAddressBodySchema,
+    UpdateAddressBodySchema,
+    GetAddressesQuerySchema,
 } from '@repo/schema';
 import superjson from 'superjson';
 const t = initTRPC.create({ transformer: superjson });
@@ -370,6 +374,10 @@ const appRouter = t.router({
             .input(UpdateOrderStatusSchema)
             .output(OrderSchema)
             .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        myOrders: publicProcedure
+            .input(GetOrdersQuerySchema)
+            .output(GetOrdersResSchema)
+            .query(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
     }),
     notification: t.router({
         sendPush: publicProcedure
@@ -523,6 +531,28 @@ const appRouter = t.router({
                 }),
             )
             .output(ReservationSchema)
+            .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+    }),
+    address: t.router({
+        create: publicProcedure
+            .input(CreateAddressBodySchema)
+            .output(AddressSchema)
+            .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        list: publicProcedure
+            .input(GetAddressesQuerySchema)
+            .output(z.array(AddressSchema))
+            .query(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        update: publicProcedure
+            .input(UpdateAddressBodySchema)
+            .output(AddressSchema)
+            .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        delete: publicProcedure
+            .input(z.object({ id: z.string() }))
+            .output(AddressSchema)
+            .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
+        setDefault: publicProcedure
+            .input(z.object({ id: z.string() }))
+            .output(AddressSchema)
             .mutation(async () => 'PLACEHOLDER_DO_NOT_REMOVE' as any),
     }),
 });

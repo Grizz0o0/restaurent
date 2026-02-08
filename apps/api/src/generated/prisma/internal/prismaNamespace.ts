@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Language: 'Language',
   User: 'User',
+  UserAddress: 'UserAddress',
   UserTranslation: 'UserTranslation',
   UserInteraction: 'UserInteraction',
   VerificationCode: 'VerificationCode',
@@ -434,7 +435,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "language" | "user" | "userTranslation" | "userInteraction" | "verificationCode" | "device" | "refreshToken" | "permission" | "role" | "dish" | "dishTranslation" | "dishCategory" | "dishCategoryTranslation" | "variant" | "variantOption" | "sKU" | "supplier" | "supplierTranslation" | "cartItem" | "dishSKUSnapshot" | "order" | "review" | "paymentTransaction" | "message" | "restaurant" | "restaurantTable" | "reservation" | "inventory" | "inventoryDish" | "restaurantStaff" | "userPreference" | "recommendation" | "promotion" | "inventoryTransaction" | "notification"
+    modelProps: "language" | "user" | "userAddress" | "userTranslation" | "userInteraction" | "verificationCode" | "device" | "refreshToken" | "permission" | "role" | "dish" | "dishTranslation" | "dishCategory" | "dishCategoryTranslation" | "variant" | "variantOption" | "sKU" | "supplier" | "supplierTranslation" | "cartItem" | "dishSKUSnapshot" | "order" | "review" | "paymentTransaction" | "message" | "restaurant" | "restaurantTable" | "reservation" | "inventory" | "inventoryDish" | "restaurantStaff" | "userPreference" | "recommendation" | "promotion" | "inventoryTransaction" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -583,6 +584,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserAddress: {
+      payload: Prisma.$UserAddressPayload<ExtArgs>
+      fields: Prisma.UserAddressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserAddressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserAddressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>
+        }
+        findFirst: {
+          args: Prisma.UserAddressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserAddressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>
+        }
+        findMany: {
+          args: Prisma.UserAddressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>[]
+        }
+        create: {
+          args: Prisma.UserAddressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>
+        }
+        createMany: {
+          args: Prisma.UserAddressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserAddressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>[]
+        }
+        delete: {
+          args: Prisma.UserAddressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>
+        }
+        update: {
+          args: Prisma.UserAddressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserAddressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserAddressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserAddressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserAddressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAddressPayload>
+        }
+        aggregate: {
+          args: Prisma.UserAddressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserAddress>
+        }
+        groupBy: {
+          args: Prisma.UserAddressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserAddressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserAddressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserAddressCountAggregateOutputType> | number
         }
       }
     }
@@ -3104,6 +3179,25 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const UserAddressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  label: 'label',
+  recipientName: 'recipientName',
+  phoneNumber: 'phoneNumber',
+  address: 'address',
+  isDefault: 'isDefault',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  deletedById: 'deletedById',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserAddressScalarFieldEnum = (typeof UserAddressScalarFieldEnum)[keyof typeof UserAddressScalarFieldEnum]
+
+
 export const UserTranslationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -3728,6 +3822,13 @@ export type ListEnumUserStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'InteractionType'
  */
 export type EnumInteractionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InteractionType'>
@@ -3752,13 +3853,6 @@ export type EnumVerificationCodeTypeFieldRefInput<$PrismaModel> = FieldRefInputT
  * Reference to a field of type 'VerificationCodeType[]'
  */
 export type ListEnumVerificationCodeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationCodeType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4040,6 +4134,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   language?: Prisma.LanguageOmit
   user?: Prisma.UserOmit
+  userAddress?: Prisma.UserAddressOmit
   userTranslation?: Prisma.UserTranslationOmit
   userInteraction?: Prisma.UserInteractionOmit
   verificationCode?: Prisma.VerificationCodeOmit

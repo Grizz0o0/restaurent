@@ -433,6 +433,7 @@ export class DishRepo {
           },
         },
       }),
+      ...(typeof query.isActive === 'boolean' && { isActive: query.isActive }),
     }
     const include = {
       dishTranslations: true,

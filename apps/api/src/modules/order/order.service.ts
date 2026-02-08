@@ -1,6 +1,8 @@
 import { Injectable, BadRequestException, Logger } from '@nestjs/common'
 import { OrderRepo } from './order.repo'
 import { PrismaService } from '@/shared/prisma/prisma.service'
+import { AddressRepo } from '@/modules/address/address.repo'
+
 import { TransactionReason } from 'src/generated/prisma/client'
 
 import { CreateOrderBodyType, GetOrdersQueryType } from '@repo/schema'
@@ -18,10 +20,12 @@ export class OrderService {
     private readonly prismaService: PrismaService,
     private readonly eventEmitter: EventEmitter2,
     private readonly notificationService: NotificationService,
+
+    private readonly addressRepo: AddressRepo,
   ) {}
 
   async updateStatus(orderId: string, status: string, userId?: string) {
-    const order = await this.orderRepo.updateStatus(orderId, status as any) // Type cast if needed
+    const order = await this.orderRepo.updateStatus(orderId, status as any)
 
     this.eventEmitter.emit('order.updated', {
       userId: order.userId, // Assuming order has userId
@@ -104,14 +108,31 @@ export class OrderService {
     roleName,
     promotionCode,
     guestInfo,
+    addressId,
   }: {
     userId: string
     tableId?: string
     roleName: string
     promotionCode?: string
     guestInfo?: any
+    addressId?: string
   }) {
     this.logger.log(`Creating order from cart for user: ${userId}, role: ${roleName}`)
+
+    // If addressId is provided, fetch address details
+    let orderGuestInfo = guestInfo || {}
+    if (addressId) {
+      const address = await this.addressRepo.findById(addressId)
+      if (address) {
+        orderGuestInfo = {
+          ...orderGuestInfo,
+          name: address.recipientName,
+          phoneNumber: address.phoneNumber,
+          address: address.address,
+          addressLabel: address.label,
+        }
+      }
+    }
 
     // If Guest, force tableId from token
     if (roleName === 'GUEST') {
@@ -285,7 +306,7 @@ export class OrderService {
           status: 'PENDING_CONFIRMATION', // Enum
           channel: 'WEB', // Default
           promotionId: promotionId,
-          guestInfo: guestInfo || undefined,
+          guestInfo: orderGuestInfo,
           items: {
             create: snapshots,
           },

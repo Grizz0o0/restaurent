@@ -59,6 +59,7 @@ export type CreateOrderBodyType = z.infer<typeof CreateOrderBodySchema>;
 export const CreateOrderFromCartSchema = z.object({
     promotionCode: z.string().optional(),
     guestInfo: z.any().optional(),
+    addressId: z.string().optional(),
 });
 
 export type CreateOrderFromCartType = z.infer<typeof CreateOrderFromCartSchema>;
@@ -77,6 +78,7 @@ export const GetOrdersQuerySchema = z.object({
     tableId: z.string().optional(),
     fromDate: z.date().optional(),
     toDate: z.date().optional(),
+    userId: z.string().optional(),
 });
 
 export type GetOrdersQueryType = z.infer<typeof GetOrdersQuerySchema>;

@@ -439,10 +439,6 @@ export type DeviceUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.DeviceScalarWhereInput | Prisma.DeviceScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type DeviceCreateNestedOneWithoutRefreshTokensInput = {
   create?: Prisma.XOR<Prisma.DeviceCreateWithoutRefreshTokensInput, Prisma.DeviceUncheckedCreateWithoutRefreshTokensInput>
   connectOrCreate?: Prisma.DeviceCreateOrConnectWithoutRefreshTokensInput
